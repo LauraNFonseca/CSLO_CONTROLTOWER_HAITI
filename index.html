@@ -1,0 +1,1768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HAITI CONTROL TOWER | Multi-Project Supply Chain Dashboard</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #F5F7FB; color: #2C3E50; }
+.container { max-width: 1600px; margin: 0 auto; padding: 20px; }
+
+/* HEADER */
+.header { display: flex; align-items: center; justify-content: space-between; padding: 20px; background: white; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.header h1 { font-size: 28px; font-weight: 700; color: #1A648C; }
+.header-meta { display: flex; gap: 24px; font-size: 13px; color: #666; }
+
+/* NAVIGATION */
+.nav-buttons { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+.nav-btn { padding: 10px 16px; background: white; border: 1px solid #E0E8F0; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 500; transition: all 0.2s; }
+.nav-btn.active { background: #1A648C; color: white; border-color: #1A648C; }
+.nav-btn:hover { background: #F0F4F8; }
+
+/* PAGES */
+.page { display: none; }
+.page.active { display: block; }
+
+/* BREADCRUMB */
+.breadcrumb { font-size: 12px; color: #999; margin-bottom: 20px; }
+.breadcrumb span { cursor: pointer; color: #1A648C; text-decoration: underline; }
+
+/* HERO SECTION */
+.hero { display: flex; align-items: center; gap: 24px; background: white; padding: 24px; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.hero-flag { font-size: 64px; }
+.hero-info h1 { font-size: 24px; margin-bottom: 8px; color: #1A648C; }
+.hero-sub { font-size: 12px; color: #999; margin-bottom: 16px; }
+.hero-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; }
+.meta-item { text-align: center; padding: 12px; background: #F9FAFB; border-radius: 6px; }
+.meta-val { font-size: 16px; font-weight: 700; color: #1A648C; }
+.meta-lbl { font-size: 11px; color: #666; margin-top: 4px; font-weight: 500; }
+
+/* TABS */
+.tab-nav { display: flex; gap: 8px; border-bottom: 1px solid #E0E8F0; margin-bottom: 20px; flex-wrap: wrap; }
+.tab-btn { padding: 12px 16px; background: none; border: none; cursor: pointer; font-size: 13px; color: #666; border-bottom: 2px solid transparent; transition: all 0.2s; }
+.tab-btn.active { color: #1A648C; border-bottom-color: #1A648C; font-weight: 600; }
+
+/* TAB CONTENT */
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* CARDS */
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.card { background: white; border: 1px solid #E0E8F0; border-radius: 8px; padding: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.04); }
+.card-title { font-size: 13px; font-weight: 600; color: #2C3E50; margin-bottom: 12px; }
+.card-value { font-size: 28px; font-weight: 700; color: #1A648C; margin-bottom: 4px; }
+.card-label { font-size: 11px; color: #999; }
+
+/* KPI ROW */
+.kpi-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.kpi-mini { text-align: center; }
+.kpi-mini-val { font-size: 20px; font-weight: 700; color: #1A648C; }
+.kpi-mini-lbl { font-size: 11px; color: #666; margin-top: 4px; }
+
+/* PROGRESS BARS */
+.progress-bar { height: 8px; background: #E0E8F0; border-radius: 4px; margin-top: 8px; overflow: hidden; }
+.progress-fill { height: 100%; background: #508931; border-radius: 4px; transition: width 0.3s; }
+
+/* BADGE */
+.badge { display: inline-block; padding: 4px 8px; background: #F0F4F8; color: #1A648C; font-size: 11px; font-weight: 600; border-radius: 4px; }
+.badge.approved { background: #E8F5E9; color: #2E7D32; }
+.badge.pending { background: #FFF3E0; color: #E65100; }
+.badge.draft { background: #FCE4EC; color: #C2185B; }
+.badge.high-risk { background: #FFEBEE; color: #C62828; }
+.badge.on-track { background: #E8F5E9; color: #2E7D32; }
+.badge.at-risk { background: #FFF3E0; color: #E65100; }
+.badge.shipped { background: #E3F2FD; color: #1565C0; }
+.badge.delivered { background: #E8F5E9; color: #2E7D32; }
+.badge.overdue { background: #FFEBEE; color: #C62828; }
+
+/* ALERT BOX */
+.alert-box { padding: 12px 16px; border-radius: 6px; margin-bottom: 16px; border-left: 4px solid; }
+.alert-box.critical { background: #FFEBEE; border-color: #C62828; color: #B71C1C; }
+.alert-box.warning { background: #FFF3E0; border-color: #E65100; color: #E65100; }
+.alert-box.info { background: #E3F2FD; border-color: #1565C0; color: #1565C0; }
+
+/* RISK ITEM */
+.risk-item { display: flex; gap: 12px; padding: 12px; background: #F9FAFB; border-left: 4px solid #F39C12; margin-bottom: 12px; border-radius: 4px; }
+.risk-level { font-weight: 600; }
+.risk-desc { font-size: 12px; margin-bottom: 4px; }
+.risk-mitigation { font-size: 11px; color: #666; }
+
+/* TABLE */
+.table-responsive { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; background: white; }
+th { background: #F9FAFB; padding: 12px; text-align: left; font-size: 12px; font-weight: 600; border-bottom: 1px solid #E0E8F0; }
+td { padding: 12px; border-bottom: 1px solid #F0F4F8; font-size: 12px; }
+tr:hover { background: #F9FAFB; }
+
+/* CHART CONTAINER */
+.chart-container { position: relative; height: 300px; margin-top: 16px; }
+
+/* BUTTONS */
+.btn-primary { padding: 10px 16px; background: #1A648C; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; transition: background 0.2s; }
+.btn-primary:hover { background: #0D3F5F; }
+
+.export-btn { padding: 10px 16px; background: white; color: #1A648C; border: 1px solid #1A648C; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; }
+
+/* TAGS */
+.tag { display: inline-block; padding: 4px 8px; background: #E8F4FA; color: #1A648C; font-size: 11px; border-radius: 4px; margin-right: 4px; margin-bottom: 4px; }
+
+/* GLOBAL DASHBOARD */
+#global-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+
+/* SECTION TITLE */
+.section-title { font-size: 14px; font-weight: 600; color: #1A648C; margin: 24px 0 16px 0; }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .header { flex-direction: column; align-items: flex-start; }
+  .hero { flex-direction: column; }
+  .cards-grid { grid-template-columns: 1fr; }
+  .kpi-row { grid-template-columns: 1fr; }
+  .hero-meta { grid-template-columns: 1fr 1fr; }
+}
+
+@media print {
+  .nav-buttons, .tab-nav, .export-btn { display: none; }
+  .page { page-break-after: always; }
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <h1>🇭🇹 Haiti Control Tower</h1>
+    <div class="header-meta">
+      <span>Multi-Project Supply Chain Dashboard</span>
+      <span>Last Updated: 17 Apr 2026</span>
+    </div>
+  </div>
+  <div style="text-align: right;">
+    <button class="export-btn" onclick="window.print()">🖨️ Print / Export</button>
+  </div>
+</div>
+
+<!-- NAVIGATION -->
+<div class="nav-buttons">
+  <button class="nav-btn active" onclick="showPage('global')">🌍 Global Dashboard</button>
+  <button class="nav-btn" onclick="showPage('project-1')">📊 Project 1</button>
+  <button class="nav-btn" onclick="showPage('project-2')">📊 Project 2</button>
+  <button class="nav-btn" onclick="showPage('project-3')">📊 Project 3</button>
+</div>
+
+<!-- ============================================================================== -->
+<!-- GLOBAL DASHBOARD PAGE -->
+<!-- ============================================================================== -->
+<div id="global" class="page active">
+  <h2 style="margin-bottom: 20px; color: #1A648C;">Haiti Overview — All Projects Consolidated</h2>
+
+  <!-- Summary KPIs -->
+  <div id="global-summary"></div>
+
+  <!-- Global Charts -->
+  <div class="cards-grid" style="margin-bottom: 24px;">
+    <div class="card" style="grid-column: 1 / -1;">
+      <div class="card-title">Beneficiaries Reached by Project</div>
+      <div class="chart-container">
+        <canvas id="chart-beneficiaries"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-title">Budget Utilization</div>
+      <div class="chart-container" style="height: 250px;">
+        <canvas id="chart-budget"></canvas>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Procurement Execution Status</div>
+      <div class="chart-container" style="height: 250px;">
+        <canvas id="chart-procurement"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Projects Summary Table -->
+  <div class="card" style="margin-top: 24px;">
+    <div class="card-title">Projects Summary</div>
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>Project</th>
+            <th>Status</th>
+            <th>Budget (Spent / Total)</th>
+            <th>Beneficiaries (Reached / Target)</th>
+            <th>Orders Fulfilled</th>
+            <th>On-Time Delivery %</th>
+          </tr>
+        </thead>
+        <tbody id="table-projects"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================================================================== -->
+<!-- PROJECT 1 PAGE -->
+<!-- ============================================================================== -->
+<div id="project-1" class="page">
+  <div class="breadcrumb"><span onclick="showPage('global')">Haiti Overview</span> → Project 1</div>
+
+  <div class="hero">
+    <div class="hero-flag">📦</div>
+    <div style="flex: 1;">
+      <h1 style="color: #1A648C;">Project 1 — Supply Chain Dashboard</h1>
+      <div class="hero-sub">Port-au-Prince Distribution Hub</div>
+      <div class="hero-meta">
+        <div class="meta-item">
+          <div class="meta-val"><span class="badge on-track">ON TRACK</span></div>
+          <div class="meta-lbl">Operational Status</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-val">$1.20M / $2.40M</div>
+          <div class="meta-lbl">Budget</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-val">45,000 / 80,000</div>
+          <div class="meta-lbl">Beneficiaries</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-val">4 / 8 months</div>
+          <div class="meta-lbl">Duration</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab(event, 'project-1', 'alerts')">⚠️ Alerts</button>
+    <button class="tab-btn" onclick="switchTab(event, 'project-1', 'overview')">📈 Overview</button>
+    <button class="tab-btn" onclick="switchTab(event, 'project-1', 'procurement')">🛒 Procurement</button>
+    <button class="tab-btn" onclick="switchTab(event, 'project-1', 'inventory')">📦 Inventory</button>
+    <button class="tab-btn" onclick="switchTab(event, 'project-1', 'risks')">⚡ Risks</button>
+  </div>
+
+  <!-- ============== ALERTS TAB ============== -->
+  <div id="alerts-project-1" class="tab-content active">
+    <h3 class="section-title">🚨 Critical Alerts & Monitoring</h3>
+
+    <div class="alert-box critical">
+      <strong>⚠️ CRITICAL:</strong> 3 deliveries overdue by >5 days. Port-au-Prince congestion impacting timeline.
+    </div>
+
+    <div class="alert-box warning">
+      <strong>⚠️ WARNING:</strong> Stockout risk escalating. Current inventory down 12% from last week.
+    </div>
+
+    <h3 class="section-title">📊 Real-Time KPIs</h3>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-title">Order Fulfillment Rate</div>
+        <div class="card-value">72%</div>
+        <div class="progress-bar"><div class="progress-fill" style="width: 72%;"></div></div>
+        <div class="card-label" style="margin-top: 8px;">12 of 15 orders confirmed</div>
+      </div>
+      <div class="card">
+        <div class="card-title">On-Time Delivery %</div>
+        <div class="card-value">65%</div>
+        <div class="progress-bar"><div class="progress-fill" style="width: 65%;"></div></div>
+        <div class="card-label" style="margin-top: 8px;">13 of 20 deliveries on time</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Orders Overdue</div>
+        <div class="card-value" style="color: #C62828;">3</div>
+        <div class="card-label" style="margin-top: 12px;">Delayed 5+ days</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Stockout Risk Level</div>
+        <div class="card-value" style="color: #F39C12;">MEDIUM</div>
+        <div class="card-label" style="margin-top: 12px;">290 MT on-hand | Below threshold</div>
+      </div>
+    </div>
+
+    <h3 class="section-title">🔴 Items Requiring Immediate Action</h3>
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>Alert Type</th>
+            <th>Item / Order</th>
+            <th>Status</th>
+            <th>Action Required</th>
+            <th>Owner</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge overdue">OVERDUE</span></td>
+            <td>ORD-002 (Fertilizer)</td>
+            <td>Delayed 7 days</td>
+            <td>Contact supplier & activate backup</td>
+            <td>Logistics Officer</td>
+          </tr>
+          <tr>
+            <td><span class="badge high-risk">HIGH RISK</span></td>
+            <td>ORD-003 (Vaccines)</td>
+            <td>Not yet shipped</td>
+            <td>Expedite cold chain preparation</td>
+            <td>Supply Chain Manager</td>
+          </tr>
+          <tr>
+            <td><span class="badge warning" style="background: #FFF3E0; color: #E65100;">LOW STOCK</span></td>
+            <td>Port-au-Prince Hub</td>
+            <td>255 MT (62% capacity)</td>
+            <td>Pre-position incoming shipment</td>
+            <td>Warehouse Manager</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ============== OVERVIEW TAB ============== -->
+  <div id="overview-project-1" class="tab-content">
+    <h3 class="section-title">💼 Project Status Snapshot</h3>
+
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-title">Project Phase</div>
+        <div class="card-value" style="font-size: 16px;">Active Distribution</div>
+        <div class="card-label" style="margin-top: 12px;">Month 4 of 8</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Start Date</div>
+        <div class="card-value" style="font-size: 16px;">Nov 2025</div>
+        <div class="card-label" style="margin-top: 12px;">On schedule</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Next Distribution</div>
+        <div class="card-value" style="font-size: 16px;">20 May 2026</div>
+        <div class="card-label" style="margin-top: 12px;">3 weeks out</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Project Lead</div>
+        <div class="card-value" style="font-size: 14px;">M. Pierre</div>
+        <div class="card-label" style="margin-top: 12px;">FAO Haiti (Port-au-Prince)</div>
+      </div>
+    </div>
+
+    <h3 class="section-title">📈 Budget Performance</h3>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-title">Total Budget</div>
+        <div class="card-value">$2.40M</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Spent</div>
+        <div class="card-value">$1.20M</div>
+        <div class="progress-bar"><div class="progress-fill" style="width: 50%;"></div></div>
+        <div class="card-label" style="margin-top: 8px;">50% utilization</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Committed</div>
+        <div class="card-value">$360K</div>
+        <div class="progress-bar"><div class="progress-fill" style="width: 15%; background: #F39C12;"></div></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Available</div>
+        <div class="card-value">$840K</div>
+        <div class="card-label" style="margin-top: 8px;">35% remaining</div>
+      </div>
+    </div>
+
+    <h3 class="section-title">👥 Beneficiaries Progress</h3>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-title">Target Beneficiaries</div>
+        <div class="card-value">80,000</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Reached to Date</div>
+        <div class="card-value">45,000</div>
+        <div class="progress-bar"><div class="progress-fill" style="width: 56%;"></div></div>
+        <div class="card-label" style="margin-top: 8px;">56% of target</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Gap to Close</div>
+        <div class="card-value">35,000</div>
+        <div class="card-label" style="margin-top: 12px;">4 months remaining</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Distribution Timeline</div>
+        <div class="card-value">4 / 8</div>
+        <div class="progress-bar"><div class="progress-fill" style="width: 50%;"></div></div>
+      </div>
+    </div>
+
+    <h3 class="section-title">📦 Distribution Items</h3>
+    <div class="card">
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <span class="tag">Rice</span>
+        <span class="tag">Beans</span>
+        <span class="tag">Vegetable Oil</span>
+        <span class="tag">Sugar</span>
+        <span class="tag">Salt</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== PROCUREMENT TAB ============== -->
+  <div id="procurement-project-1" class="tab-content">
+    <h3 class="section-title">📊 Procurement Pipeline Status</h3>
+
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-title">Total Orders</div>
+        <div class="card-value">15</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Confirmed Orders</div>
+        <div class="card-value">12</div>
+        <div class="progress-bar"><div class="progress-fill" style="width: 80%;"></div></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Avg Lead Time</div>
+        <div class="card-value">24d</div>
+        <div class="card-label" style="margin-top: 12px;">Target: 25d</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Orders Overdue</div>
+        <div class="card-value" style="color: #C62828;">3</div>
+        <div class="card-label" style="margin-top: 12px;">Requires escalation</div>
+      </div>
+    </div>
+
+    <h3 class="section-title">📋 Detailed Order Status</h3>
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Commodity</th>
+            <th>Qty</th>
+            <th>Supplier</th>
+            <th>Status</th>
+            <th>Est. Delivery</th>
+            <th>Days to Deliver</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>ORD-001</strong></td>
+            <td>Rice Seed</td>
+            <td>500 MT</td>
+            <td>AgriSupply Inc.</td>
+            <td><span class="badge delivered">DELIVERED</span></td>
+            <td>12 Apr 2026</td>
+            <td>-5 days</td>
+          </tr>
+          <tr>
+            <td><strong>ORD-002</strong></td>
+            <td>Fertilizer</td>
+            <td>300 MT</td>
+            <td>ChemTrade Ltd.</td>
+            <td><span class="badge overdue">OVERDUE</span></td>
+            <td>18 Apr 2026</td>
+            <td style="color: #C62828;"><strong>+7 days</strong></td>
+          </tr>
+          <tr>
+            <td><strong>ORD-003</strong></td>
+            <td>Vaccines</td>
+            <td>45K units</td>
+            <td>BioHealth Global</td>
+            <td><span class="badge pending">PENDING</span></td>
+            <td>25 Apr 2026</td>
+            <td>8 days</td>
+          </tr>
+          <tr>
+            <td><strong>ORD-004</strong></td>
+            <td>Equipment</td>
+            <td>25 units</td>
+            <td>Machinery Co.</td>
+            <td><span class="badge">CONFIRMED</span></td>
+            <td>22 Apr 2026</td>
+            <td>5 days</td>
+          </tr>
+          <tr>
+            <td><strong>ORD-005</strong></td>
+            <td>Vegetable Oil</td>
+            <td>200 MT</td>
+            <td>OilTrading Inc.</td>
+            <td><span class="badge shipped">SHIPPED</span></td>
+            <td>20 Apr 2026</td>
+            <td>3 days</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="section-title">🏢 Active Suppliers</h3>
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>Supplier</th>
+            <th>Commodity</th>
+            <th>Active Orders</th>
+            <th>Performance</th>
+            <th>Lead Time (avg)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>AgriSupply Inc.</strong></td>
+            <td>Seeds</td>
+            <td>3</td>
+            <td><span class="badge on-track">GOOD</span></td>
+            <td>22 days</td>
+          </tr>
+          <tr>
+            <td><strong>ChemTrade Ltd.</strong></td>
+            <td>Fertilizer</td>
+            <td>2</td>
+            <td><span class="badge at-risk">AT RISK</span></td>
+            <td>28 days (delayed)</td>
+          </tr>
+          <tr>
+            <td><strong>BioHealth Global</strong></td>
+            <td>Vaccines</td>
+            <td>2</td>
+            <td><span class="badge on-track">GOOD</span></td>
+            <td>20 days</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="section-title">⏱️ Procurement Cycle Breakdown</h3>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-title">Plan → PR</div>
+        <div class="card-value">5d</div>
+        <div class="card-label">Time from plan approval to purchase request</div>
+      </div>
+      <div class="card">
+        <div class="card-title">PR → PO</div>
+        <div class="card-value">7d</div>
+        <div class="card-label">Time from PR approval to purchase order</div>
+      </div>
+      <div class="card">
+        <div class="card-title">PO → Delivery</div>
+        <div class="card-value">12d</div>
+        <div class="card-label">Supplier lead time</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== INVENTORY TAB ============== -->
+  <div id="inventory-project-1" class="tab-content">
+    <h3 class="section-title">📦 Current Stock Levels</h3>
+
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-title">On-Hand Inventory</div>
+        <div class="card-value">290 MT</div>
+        <div class="card-label" style="margin-top: 12px;">In physical storage</div>
+      </div>
+      <div class="card">
+        <div class="card-title">In-Transit Inventory</div>
+        <div class="card-value">180 MT</div>
+        <div class="card-label" style="margin-top: 12px;">En route to warehouses</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Total Inventory</div>
+        <div class="card-value">470 MT</div>
+        <div class="card-label" style="margin-top: 12px;">All locations combined</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Total Capacity</div>
+        <div class="card-value">800 MT</div>
+        <div class="card-label" style="margin-top: 12px;">59% utilization</div>
+      </div>
+    </div>
+
+    <h3 class="section-title">🏭 Inventory by Storage Location</h3>
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>Location</th>
+            <th>On-Hand</th>
+            <th>In-Transit</th>
+            <th>Total</th>
+            <th>Capacity</th>
+            <th>% Used</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Port-au-Prince Hub (Main)</strong></td>
+            <td>150 MT</td>
+            <td>100 MT</td>
+            <td>250 MT</td>
+            <td>400 MT</td>
+            <td>62.5%</td>
+            <td><span class="badge on-track">NORMAL</span></td>
+          </tr>
+          <tr>
+            <td><strong>Cap-Haïtien Warehouse</strong></td>
+            <td>80 MT</td>
+            <td>50 MT</td>
+            <td>130 MT</td>
+            <td>300 MT</td>
+            <td>43%</td>
+            <td><span class="badge on-track">NORMAL</span></td>
+          </tr>
+          <tr>
+            <td><strong>Les Cayes Depot</strong></td>
+            <td>60 MT</td>
+            <td>30 MT</td>
+            <td>90 MT</td>
+            <td>200 MT</td>
+            <td>45%</td>
+            <td><span class="badge on-track">NORMAL</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="section-title">📊 Stock Movement & Forecast</h3>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-title">Weekly Outflow (avg)</div>
+        <div class="card-value">85 MT</div>
+        <div class="card-label">Last 4 weeks</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Weekly Inflow (avg)</div>
+        <div class="card-value">120 MT</div>
+        <div class="card-label">Scheduled deliveries</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Days of Stock</div>
+        <div class="card-value">3.4 days</div>
+        <div class="card-label">At current consumption</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Reorder Point</div>
+        <div class="card-value">200 MT</div>
+        <div class="card-label">Threshold safety level</div>
+      </div>
+    </div>
+
+    <h3 class="section-title">🚨 Inventory Alerts</h3>
+    <div class="alert-box warning" style="margin-bottom: 12px;">
+      <strong>⚠️ WARNING:</strong> Port-au-Prince inventory approaching 65% capacity. Plan for distribution within 5 days.
+    </div>
+    <div class="card">
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Current Level</th>
+              <th>Min. Level</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Rice Seeds</td>
+              <td>120 MT</td>
+              <td>80 MT</td>
+              <td><span class="badge on-track">OK</span></td>
+              <td>Monitor</td>
+            </tr>
+            <tr>
+              <td>Fertilizer</td>
+              <td>95 MT</td>
+              <td>100 MT</td>
+              <td><span class="badge at-risk">BELOW MIN</span></td>
+              <td>Expedite ORD-002</td>
+            </tr>
+            <tr>
+              <td>Vaccines</td>
+              <td>25 MT</td>
+              <td>50 MT</td>
+              <td><span class="badge at-risk">CRITICAL</span></td>
+              <td>Accelerate ORD-003</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== RISKS TAB ============== -->
+  <div id="risks-project-1" class="tab-content">
+    <h3 class="section-title">📋 Risk Register</h3>
+
+    <div class="card">
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Risk ID</th>
+              <th>Description</th>
+              <th>Category</th>
+              <th>Likelihood</th>
+              <th>Impact</th>
+              <th>Status</th>
+              <th>Owner</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>RISK-001</strong></td>
+              <td>Gang-related insecurity blocking main supply corridors</td>
+              <td>Security</td>
+              <td><span class="badge high-risk">HIGH</span></td>
+              <td><span class="badge high-risk">HIGH</span></td>
+              <td><span class="badge">ACTIVE</span></td>
+              <td>Security Officer</td>
+            </tr>
+            <tr>
+              <td><strong>RISK-002</strong></td>
+              <td>Port congestion and import delays at Port-au-Prince</td>
+              <td>Logistics</td>
+              <td><span class="badge high-risk">HIGH</span></td>
+              <td><span class="badge high-risk">HIGH</span></td>
+              <td><span class="badge">ACTIVE</span></td>
+              <td>Logistics Officer</td>
+            </tr>
+            <tr>
+              <td><strong>RISK-003</strong></td>
+              <td>Currency volatility affecting procurement costs</td>
+              <td>Financial</td>
+              <td><span class="badge pending">MEDIUM</span></td>
+              <td><span class="badge pending">MEDIUM</span></td>
+              <td><span class="badge">MITIGATED</span></td>
+              <td>Finance Officer</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h3 class="section-title">🛡️ Risk Details & Mitigation Plans</h3>
+
+    <div class="card" style="margin-bottom: 20px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <div class="card-title">RISK-001: Gang-related insecurity</div>
+        <span class="badge high-risk">HIGH PRIORITY</span>
+      </div>
+      <div style="background: #FFEBEE; padding: 12px; border-radius: 6px; margin-bottom: 12px;">
+        <div style="font-weight: 600; color: #C62828; margin-bottom: 4px;">Description</div>
+        <div style="font-size: 12px; color: #B71C1C;">Gang activity limiting access to key supply routes and distribution points in Port-au-Prince.</div>
+      </div>
+      <div style="background: #FFF3E0; padding: 12px; border-radius: 6px; margin-bottom: 12px;">
+        <div style="font-weight: 600; color: #E65100; margin-bottom: 4px;">Mitigation Strategy</div>
+        <div style="font-size: 12px; color: #E65100;">
+          • Armored convoy protocols for high-risk routes<br/>
+          • Alternative routing via secondary port (Cap-Haïtien)<br/>
+          • Coordination with local security authorities<br/>
+          • Increased frequency of smaller shipments
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; font-size: 12px;">
+        <div><strong>Owner:</strong> Security Officer</div>
+        <div><strong>Last Review:</strong> 15 Apr 2026</div>
+        <div><strong>Next Review:</strong> 22 Apr 2026</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom: 20px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <div class="card-title">RISK-002: Port congestion at Port-au-Prince</div>
+        <span class="badge high-risk">HIGH PRIORITY</span>
+      </div>
+      <div style="background: #FFEBEE; padding: 12px; border-radius: 6px; margin-bottom: 12px;">
+        <div style="font-weight: 600; color: #C62828; margin-bottom: 4px;">Description</div>
+        <div style="font-size: 12px; color: #B71C1C;">Infrastructure limitations causing import delays, currently 5-7 day delays on average.</div>
+      </div>
+      <div style="background: #FFF3E0; padding: 12px; border-radius: 6px; margin-bottom: 12px;">
+        <div style="font-weight: 600; color: #E65100; margin-bottom: 4px;">Mitigation Strategy</div>
+        <div style="font-size: 12px; color: #E65100;">
+          • Activate Cap-Haïtien port as alternative entry point<br/>
+          • Expedite customs clearance through pre-documentation<br/>
+          • Coordinate with port authority for priority handling<br/>
+          • Pre-position inventory during favorable clearance windows
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; font-size: 12px;">
+        <div><strong>Owner:</strong> Logistics Officer</div>
+        <div><strong>Last Review:</strong> 16 Apr 2026</div>
+        <div><strong>Next Review:</strong> 23 Apr 2026</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <div class="card-title">RISK-003: Currency volatility</div>
+        <span class="badge pending">MEDIUM PRIORITY</span>
+      </div>
+      <div style="background: #FFF3E0; padding: 12px; border-radius: 6px; margin-bottom: 12px;">
+        <div style="font-weight: 600; color: #E65100; margin-bottom: 4px;">Description</div>
+        <div style="font-size: 12px; color: #E65100;">HTG/USD fluctuations affecting procurement budget accuracy and supplier quote validity.</div>
+      </div>
+      <div style="background: #E3F2FD; padding: 12px; border-radius: 6px; margin-bottom: 12px;">
+        <div style="font-weight: 600; color: #1565C0; margin-bottom: 4px;">Mitigation Strategy</div>
+        <div style="font-size: 12px; color: #1565C0;">
+          • Lock USD-denominated contracts where possible<br/>
+          • Monthly budget reforecasting to account for FX movements<br/>
+          • Maintain 5% contingency in procurement budget<br/>
+          • Bulk purchasing to reduce transaction frequency
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; font-size: 12px;">
+        <div><strong>Owner:</strong> Finance Officer</div>
+        <div><strong>Last Review:</strong> 14 Apr 2026</div>
+        <div><strong>Next Review:</strong> 30 Apr 2026</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================================================================== -->
+<!-- PROJECT 2 PAGE -->
+<!-- ============================================================================== -->
+<div id="project-2" class="page">
+  <div class="breadcrumb"><span onclick="showPage('global')">Haiti Overview</span> → Project 2</div>
+
+  <div class="hero">
+    <div class="hero-flag">🌾</div>
+    <div style="flex: 1;">
+      <h1 style="color: #1A648C;">Project 2 — Supply Chain Dashboard</h1>
+      <div class="hero-sub">Cap-Haïtien Regional Operations</div>
+      <div class="hero-meta">
+        <div class="meta-item">
+          <div class="meta-val"><span class="badge at-risk">AT RISK</span></div>
+          <div class="meta-lbl">Operational Status</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-val">$850K / $1.80M</div>
+          <div class="meta-lbl">Budget</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-val">38,000 / 70,000</div>
+          <div class="meta-lbl">Beneficiaries</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-val">5 / 10 months</div>
+          <div class="meta-lbl">Duration</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab(event, 'project-2', 'alerts')">⚠️ Alerts</button>
+    <button class="tab-btn" onclick="switchTab(event, 'project-2', 'overview')">📈 Overview</button>
+    <button class="tab-btn" onclick="switchTab(event, 'project-2', 'procurement')">🛒 Procurement</button>
+    <button class="tab-btn" onclick="switchTab(event, 'project-2', 'inventory')">📦 Inventory</button>
+    <button class="tab-btn" onclick="switchTab(event, 'project-2', 'risks')">⚡ Risks</button>
+  </div>
+
+  <!-- ALERTS -->
+  <div id="alerts-project-2" class="tab-content active">
+    <h3 class="section-title">🚨 Critical Alerts & Monitoring</h3>
+
+    <div class="alert-box critical" style="margin-bottom: 12px;">
+      <strong>🔴 CRITICAL:</strong> 5 orders not yet shipped. Backlog increasing. Delivery timeline at risk.
+    </div>
+
+    <h3 class="section-title">📊 Real-Time KPIs</h3>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-title">Order Fulfillment Rate</div>
+        <div class="card-value">55%</div>
+        <div class="progress-bar"><div class="progress-fill" style="width: 55%; background: #F39C12;"></div></div>
+        <div class="card-label" style="margin-top: 8px;">8 of 14 orders confirmed</div>
+      </div>
+      <div class="card">
+        <div class="card-title">On-Time Delivery %</div>
+        <div class="card-value">48%</div>
+        <div class="progress-bar"><div class="progress-fill" style="width: 48%; background: #C62828;"></div></div>
+        <div class="card-label" style="margin-top: 8px;">9 of 19 deliveries on time</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Orders Pending Shipment</div>
+        <div class="card-value" style="color: #C62828;">5</div>
+        <div class="card-label" style="margin-top: 12px;">No ETA yet</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Stockout Risk Level</div>
+        <div class="card-value" style="color: #C62828;">HIGH</div>
+        <div class="card-label" style="margin-top: 12px;">220 MT | Urgent restock</div>
+      </div>
+    </div>
+
+    <h3 class="section-title">🔴 Items Requiring Immediate Action</h3>
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>Alert Type</th>
+            <th>Item / Order</th>
+            <th>Status</th>
+            <th>Action Required</th>
+            <th>Owner</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge high-risk">CRITICAL</span></td>
+            <td>ORD-102, ORD-103, ORD-104</td>
+            <td>Not yet shipped</td>
+            <td>Escalate to supplier management</td>
+            <td>Procurement Manager</td>
+          </tr>
+          <tr>
+            <td><span class="badge overdue">OVERDUE</span></td>
+            <td>ORD-105 (Seeds)</td>
+            <td>Delayed 3 days</td>
+            <td>Activate backup supplier</td>
+            <td>Supply Chain Manager</td>
+          </tr>
+          <tr>
+            <td><span class="badge high-risk">CRITICAL</span></td>
+            <td>Cap-Haïtien Hub</td>
+            <td>220 MT stock (34% cap)</td>
+            <td>Reduce distribution, wait for incoming</td>
+            <td>Warehouse Manager</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div id="overview-project-2" class="tab-content">
+    <h3 class="section-title">💼 Project Status Snapshot</h3>
+
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-title">Project Phase</div>
+        <div class="card-value" style="font-size: 16px;">Active Distribution</div>
+        <div class="card-label" style="margin-top: 12px;">Month 5 of 10</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Status</div>
+        <div class="card-value" style="color: #E65100;">⚠️ AT RISK</div>
+        <div class="card-label" style="margin-top: 12px;">Behind on deliveries</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Next Distribution</div>
+        <div class="card-value" style="font-size: 16px;">22 May 2026</div>
+        <div class="card-label" style="margin-top: 12px;">5 weeks out</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Project Lead</div>
+        <div class="card-value" style="font-size: 14px;">J. Dubois</div>
+        <div class="card-label" style="margin-top: 12px;">FAO Haiti (Cap-Haïtien)</div>
+      </div>
+    </div>
+
+    <h3 class="section-title">📈 Budget Performance</h3>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-title">Total Budget</div>
+        <div class="card-value">$1.80M</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Spent</div>
+        <div class="card-value">$850K</div>
+        <div class="progress-bar"><div class="progress-fill" style="width: 47%; background: #F39C12;"></div></div>
+        <div class="card-label" style="margin-top: 8px;">47% utilization (below target)</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Committed</div>
+        <div class="card-value">$270K</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Available</div>
+        <div class="card-value">$680K</div>
+      </div>
+    </div>
+
+    <h3 class="section-title">👥 Beneficiaries Progress</h3>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-title">Target Beneficiaries</div>
+        <div class="card-value">70,000</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Reached to Date</div>
+        <div class="card-value">38,000</div>
+        <div class="progress-bar"><div class="progress-fill" style="width: 54%; background: #F39C12;"></div></div>
+        <div class="card-label" style="margin-top: 8px;">54% of target</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Gap to Close</div>
+        <div class="card-value">32,000</div>
+        <div class="card-label" style="margin-top: 12px;">5 months remaining</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Distribution Timeline</div>
+        <div class="card-value">5 / 10</div>
+        <div class="progress-bar"><div class="progress-fill" style="width: 50%; background: #F39C12;"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROCUREMENT -->
+  <div id="procurement-project-2" class="tab-content">
+    <h3 class="section-title">📊 Procurement Pipeline Status</h3>
+
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-title">Total Orders</div>
+        <div class="card-value">14</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Confirmed Orders</div>
+        <div class="card-value">8</div>
+        <div class="progress-bar"><div class="progress-fill" style="width: 57%; background: #F39C12;"></div></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Pending Shipment</div>
+        <div class="card-value" style="color: #C62828;">5</div>
+        <div class="card-label" style="margin-top: 12px;">Needs escalation</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Avg Lead Time</div>
+        <div class="card-value">28d</div>
+        <div class="card-label" style="margin-top: 12px;">Above target</div>
+      </div>
+    </div>
+
+    <h3 class="section-title">📋 Detailed Order Status</h3>
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Commodity</th>
+            <th>Qty</th>
+            <th>Supplier</th>
+            <th>Status</th>
+            <th>Est. Delivery</th>
+            <th>Days to Deliver</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>ORD-101</strong></td>
+            <td>Rice Seed</td>
+            <td>450 MT</td>
+            <td>AgriSupply Inc.</td>
+            <td><span class="badge delivered">DELIVERED</span></td>
+            <td>10 Apr 2026</td>
+            <td>-7 days</td>
+          </tr>
+          <tr>
+            <td><strong>ORD-102</strong></td>
+            <td>Fertilizer</td>
+            <td>280 MT</td>
+            <td>ChemTrade Ltd.</td>
+            <td><span class="badge high-risk">NOT SHIPPED</span></td>
+            <td>20 Apr 2026</td>
+            <td style="color: #C62828;"><strong>8 days (pending)</strong></td>
+          </tr>
+          <tr>
+            <td><strong>ORD-103</strong></td>
+            <td>Vaccines</td>
+            <td>40K units</td>
+            <td>BioHealth Global</td>
+            <td><span class="badge high-risk">NOT SHIPPED</span></td>
+            <td>28 Apr 2026</td>
+            <td>11 days (pending)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- INVENTORY -->
+  <div id="inventory-project-2" class="tab-content">
+    <h3 class="section-title">📦 Current Stock Levels</h3>
+
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-title">On-Hand Inventory</div>
+        <div class="card-value">220 MT</div>
+        <div class="card-label" style="margin-top: 12px;">Below minimum level</div>
+      </div>
+      <div class="card">
+        <div class="card-title">In-Transit Inventory</div>
+        <div class="card-value">140 MT</div>
+        <div class="card-label" style="margin-top: 12px;">En route</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Total Inventory</div>
+        <div class="card-value">360 MT</div>
+        <div class="card-label" style="margin-top: 12px;">Below target</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Total Capacity</div>
+        <div class="card-value">650 MT</div>
+        <div class="card-label" style="margin-top: 12px;">55% utilization</div>
+      </div>
+    </div>
+
+    <h3 class="section-title">🏭 Inventory by Storage Location</h3>
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>Location</th>
+            <th>On-Hand</th>
+            <th>In-Transit</th>
+            <th>Total</th>
+            <th>Capacity</th>
+            <th>% Used</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Cap-Haïtien Main Warehouse</strong></td>
+            <td>140 MT</td>
+            <td>80 MT</td>
+            <td>220 MT</td>
+            <td>380 MT</td>
+            <td>58%</td>
+            <td><span class="badge at-risk">WATCH</span></td>
+          </tr>
+          <tr>
+            <td><strong>Regional Storage Depot</strong></td>
+            <td>80 MT</td>
+            <td>60 MT</td>
+            <td>140 MT</td>
+            <td>270 MT</td>
+            <td>52%</td>
+            <td><span class="badge on-track">NORMAL</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="section-title">📊 Stock Movement & Forecast</h3>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-title">Weekly Outflow (avg)</div>
+        <div class="card-value">95 MT</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Weekly Inflow (avg)</div>
+        <div class="card-value">80 MT</div>
+        <div class="card-label" style="margin-top: 8px; color: #C62828;"><strong>Supply < Demand</strong></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Days of Stock</div>
+        <div class="card-value" style="color: #C62828;">2.3 days</div>
+        <div class="card-label" style="color: #C62828; margin-top: 8px;"><strong>CRITICAL</strong></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Reorder Point</div>
+        <div class="card-value">250 MT</div>
+        <div class="card-label" style="margin-top: 8px; color: #E65100;">Currently below</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RISKS -->
+  <div id="risks-project-2" class="tab-content">
+    <h3 class="section-title">📋 Risk Register</h3>
+
+    <div class="card" style="margin-bottom: 20px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <div class="card-title">RISK-201: Supplier delivery delays</div>
+        <span class="badge high-risk">HIGH PRIORITY</span>
+      </div>
+      <div style="background: #FFEBEE; padding: 12px; border-radius: 6px; margin-bottom: 12px;">
+        <div style="font-weight: 600; color: #C62828; margin-bottom: 4px;">Description</div>
+        <div style="font-size: 12px; color: #B71C1C;">ChemTrade Ltd. experiencing production delays. 5 orders stuck in pipeline.</div>
+      </div>
+      <div style="background: #FFF3E0; padding: 12px; border-radius: 6px; margin-bottom: 12px;">
+        <div style="font-weight: 600; color: #E65100; margin-bottom: 4px;">Mitigation Strategy</div>
+        <div style="font-size: 12px; color: #E65100;">
+          • Diversifying supplier base to reduce dependency<br/>
+          • Contacting backup suppliers immediately<br/>
+          • Negotiating expedited production schedules<br/>
+          • Increasing safety stock levels
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <div class="card-title">RISK-202: Road infrastructure deterioration</div>
+        <span class="badge high-risk">HIGH PRIORITY</span>
+      </div>
+      <div style="background: #FFEBEE; padding: 12px; border-radius: 6px; margin-bottom: 12px;">
+        <div style="font-weight: 600; color: #C62828; margin-bottom: 4px;">Description</div>
+        <div style="font-size: 12px; color: #B71C1C;">Road deterioration limiting access to regional distribution points during rainy season.</div>
+      </div>
+      <div style="background: #FFF3E0; padding: 12px; border-radius: 6px;">
+        <div style="font-weight: 600; color: #E65100; margin-bottom: 4px;">Mitigation Strategy</div>
+        <div style="font-size: 12px; color: #E65100;">
+          • Negotiating alternative routes<br/>
+          • Seasonal planning ahead of rains<br/>
+          • Pre-positioning inventory in key locations
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================================================================== -->
+<!-- PROJECT 3 PAGE -->
+<!-- ============================================================================== -->
+<div id="project-3" class="page">
+  <div class="breadcrumb"><span onclick="showPage('global')">Haiti Overview</span> → Project 3</div>
+
+  <div class="hero">
+    <div class="hero-flag">🏥</div>
+    <div style="flex: 1;">
+      <h1 style="color: #1A648C;">Project 3 — Supply Chain Dashboard</h1>
+      <div class="hero-sub">Les Cayes Health & Nutrition Initiative</div>
+      <div class="hero-meta">
+        <div class="meta-item">
+          <div class="meta-val"><span class="badge on-track">ON TRACK</span></div>
+          <div class="meta-lbl">Operational Status</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-val">$620K / $1.50M</div>
+          <div class="meta-lbl">Budget</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-val">42,000 / 75,000</div>
+          <div class="meta-lbl">Beneficiaries</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-val">3 / 9 months</div>
+          <div class="meta-lbl">Duration</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab(event, 'project-3', 'alerts')">⚠️ Alerts</button>
+    <button class="tab-btn" onclick="switchTab(event, 'project-3', 'overview')">📈 Overview</button>
+    <button class="tab-btn" onclick="switchTab(event, 'project-3', 'procurement')">🛒 Procurement</button>
+    <button class="tab-btn" onclick="switchTab(event, 'project-3', 'inventory')">📦 Inventory</button>
+    <button class="tab-btn" onclick="switchTab(event, 'project-3', 'risks')">⚡ Risks</button>
+  </div>
+
+  <!-- ALERTS -->
+  <div id="alerts-project-3" class="tab-content active">
+    <h3 class="section-title">🚨 Critical Alerts & Monitoring</h3>
+
+    <div class="alert-box warning" style="margin-bottom: 12px;">
+      <strong>⚠️ WARNING:</strong> 2 key suppliers at capacity limits. May impact future orders.
+    </div>
+
+    <h3 class="section-title">📊 Real-Time KPIs</h3>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-title">Order Fulfillment Rate</div>
+        <div class="card-value">68%</div>
+        <div class="progress-bar"><div class="progress-fill" style="width: 68%;"></div></div>
+        <div class="card-label" style="margin-top: 8px;">11 of 16 orders confirmed</div>
+      </div>
+      <div class="card">
+        <div class="card-title">On-Time Delivery %</div>
+        <div class="card-value">62%</div>
+        <div class="progress-bar"><div class="progress-fill" style="width: 62%;"></div></div>
+        <div class="card-label" style="margin-top: 8px;">10 of 16 deliveries on time</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Suppliers at Capacity</div>
+        <div class="card-value" style="color: #F39C12;">2</div>
+        <div class="card-label" style="margin-top: 12px;">May limit growth</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Stockout Risk Level</div>
+        <div class="card-value" style="color: #F39C12;">MEDIUM</div>
+        <div class="card-label" style="margin-top: 12px;">255 MT | Monitor closely</div>
+      </div>
+    </div>
+
+    <h3 class="section-title">🔴 Items Requiring Immediate Action</h3>
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>Alert Type</th>
+            <th>Item / Order</th>
+            <th>Status</th>
+            <th>Action Required</th>
+            <th>Owner</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge warning" style="background: #FFF3E0; color: #E65100;">WATCH</span></td>
+            <td>AgriSupply Inc.</td>
+            <td>At 90% capacity</td>
+            <td>Identify backup suppliers</td>
+            <td>Procurement Manager</td>
+          </tr>
+          <tr>
+            <td><span class="badge warning" style="background: #FFF3E0; color: #E65100;">WATCH</span></td>
+            <td>BioHealth Global</td>
+            <td>At 85% capacity</td>
+            <td>Negotiate expanded capacity</td>
+            <td>Supply Chain Manager</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div id="overview-project-3" class="tab-content">
+    <h3 class="section-title">💼 Project Status Snapshot</h3>
+
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-title">Project Phase</div>
+        <div class="card-value" style="font-size: 16px;">Early Implementation</div>
+        <div class="card-label" style="margin-top: 12px;">Month 3 of 9</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Status</div>
+        <div class="card-value" style="color: #2E7D32;">✅ ON TRACK</div>
+        <div class="card-label" style="margin-top: 12px;">Ahead of beneficiary targets</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Next Distribution</div>
+        <div class="card-value" style="font-size: 16px;">24 May 2026</div>
+        <div class="card-label" style="margin-top: 12px;">4 weeks out</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Project Lead</div>
+        <div class="card-value" style="font-size: 14px;">Dr. S. Antoine</div>
+        <div class="card-label" style="margin-top: 12px;">FAO Haiti (Les Cayes)</div>
+      </div>
+    </div>
+
+    <h3 class="section-title">📈 Budget Performance</h3>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-title">Total Budget</div>
+        <div class="card-value">$1.50M</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Spent</div>
+        <div class="card-value">$620K</div>
+        <div class="progress-bar"><div class="progress-fill" style="width: 41%;"></div></div>
+        <div class="card-label" style="margin-top: 8px;">41% utilization (on pace)</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Committed</div>
+        <div class="card-value">$225K</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Available</div>
+        <div class="card-value">$655K</div>
+      </div>
+    </div>
+
+    <h3 class="section-title">👥 Beneficiaries Progress</h3>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-title">Target Beneficiaries</div>
+        <div class="card-value">75,000</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Reached to Date</div>
+        <div class="card-value">42,000</div>
+        <div class="progress-bar"><div class="progress-fill" style="width: 56%;"></div></div>
+        <div class="card-label" style="margin-top: 8px;">56% of target (AHEAD)</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Gap to Close</div>
+        <div class="card-value">33,000</div>
+        <div class="card-label" style="margin-top: 12px;">6 months remaining</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Distribution Timeline</div>
+        <div class="card-value">3 / 9</div>
+        <div class="progress-bar"><div class="progress-fill" style="width: 33%;"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROCUREMENT -->
+  <div id="procurement-project-3" class="tab-content">
+    <h3 class="section-title">📊 Procurement Pipeline Status</h3>
+
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-title">Total Orders</div>
+        <div class="card-value">16</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Confirmed Orders</div>
+        <div class="card-value">11</div>
+        <div class="progress-bar"><div class="progress-fill" style="width: 69%;"></div></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Avg Lead Time</div>
+        <div class="card-value">22d</div>
+        <div class="card-label" style="margin-top: 12px;">Below target (25d)</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Orders Overdue</div>
+        <div class="card-value">0</div>
+        <div class="card-label" style="margin-top: 12px;">All on schedule</div>
+      </div>
+    </div>
+
+    <h3 class="section-title">📋 Detailed Order Status</h3>
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Commodity</th>
+            <th>Qty</th>
+            <th>Supplier</th>
+            <th>Status</th>
+            <th>Est. Delivery</th>
+            <th>Days to Deliver</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>ORD-201</strong></td>
+            <td>Rice Seed</td>
+            <td>420 MT</td>
+            <td>AgriSupply Inc.</td>
+            <td><span class="badge delivered">DELIVERED</span></td>
+            <td>8 Apr 2026</td>
+            <td>-9 days</td>
+          </tr>
+          <tr>
+            <td><strong>ORD-202</strong></td>
+            <td>Fertilizer</td>
+            <td>250 MT</td>
+            <td>ChemTrade Ltd.</td>
+            <td><span class="badge shipped">SHIPPED</span></td>
+            <td>19 Apr 2026</td>
+            <td>2 days</td>
+          </tr>
+          <tr>
+            <td><strong>ORD-203</strong></td>
+            <td>Vaccines</td>
+            <td>38K units</td>
+            <td>BioHealth Global</td>
+            <td><span class="badge">CONFIRMED</span></td>
+            <td>26 Apr 2026</td>
+            <td>9 days</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- INVENTORY -->
+  <div id="inventory-project-3" class="tab-content">
+    <h3 class="section-title">📦 Current Stock Levels</h3>
+
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-title">On-Hand Inventory</div>
+        <div class="card-value">255 MT</div>
+        <div class="card-label" style="margin-top: 12px;">Above minimum level</div>
+      </div>
+      <div class="card">
+        <div class="card-title">In-Transit Inventory</div>
+        <div class="card-value">165 MT</div>
+        <div class="card-label" style="margin-top: 12px;">En route</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Total Inventory</div>
+        <div class="card-value">420 MT</div>
+        <div class="card-label" style="margin-top: 12px;">Healthy level</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Total Capacity</div>
+        <div class="card-value">700 MT</div>
+        <div class="card-label" style="margin-top: 12px;">60% utilization</div>
+      </div>
+    </div>
+
+    <h3 class="section-title">🏭 Inventory by Storage Location</h3>
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>Location</th>
+            <th>On-Hand</th>
+            <th>In-Transit</th>
+            <th>Total</th>
+            <th>Capacity</th>
+            <th>% Used</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Les Cayes Central Hub</strong></td>
+            <td>155 MT</td>
+            <td>95 MT</td>
+            <td>250 MT</td>
+            <td>420 MT</td>
+            <td>59%</td>
+            <td><span class="badge on-track">HEALTHY</span></td>
+          </tr>
+          <tr>
+            <td><strong>Southern Distribution Point</strong></td>
+            <td>100 MT</td>
+            <td>70 MT</td>
+            <td>170 MT</td>
+            <td>280 MT</td>
+            <td>61%</td>
+            <td><span class="badge on-track">HEALTHY</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="section-title">📊 Stock Movement & Forecast</h3>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-title">Weekly Outflow (avg)</div>
+        <div class="card-value">78 MT</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Weekly Inflow (avg)</div>
+        <div class="card-value">95 MT</div>
+        <div class="card-label" style="margin-top: 8px; color: #2E7D32;"><strong>Supply > Demand ✓</strong></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Days of Stock</div>
+        <div class="card-value" style="color: #2E7D32;">5.4 days</div>
+        <div class="card-label" style="color: #2E7D32; margin-top: 8px;"><strong>HEALTHY</strong></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Reorder Point</div>
+        <div class="card-value">200 MT</div>
+        <div class="card-label" style="margin-top: 8px;">Currently above</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RISKS -->
+  <div id="risks-project-3" class="tab-content">
+    <h3 class="section-title">📋 Risk Register</h3>
+
+    <div class="card" style="margin-bottom: 20px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <div class="card-title">RISK-301: Limited cold chain capacity</div>
+        <span class="badge high-risk">HIGH PRIORITY</span>
+      </div>
+      <div style="background: #FFEBEE; padding: 12px; border-radius: 6px; margin-bottom: 12px;">
+        <div style="font-weight: 600; color: #C62828; margin-bottom: 4px;">Description</div>
+        <div style="font-size: 12px; color: #B71C1C;">Vaccine storage capacity limited for large shipments. Current cold chain capacity: 15K units.</div>
+      </div>
+      <div style="background: #FFF3E0; padding: 12px; border-radius: 6px; margin-bottom: 12px;">
+        <div style="font-weight: 600; color: #E65100; margin-bottom: 4px;">Mitigation Strategy</div>
+        <div style="font-size: 12px; color: #E65100;">
+          • Procuring 2 additional solar refrigeration units<br/>
+          • Installing backup power (generator + solar battery)<br/>
+          • Coordinating frequent smaller vaccine deliveries<br/>
+          • Training staff on cold chain protocol
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <div class="card-title">RISK-302: Seasonal weather impacts</div>
+        <span class="badge pending">MEDIUM PRIORITY</span>
+      </div>
+      <div style="background: #FFF3E0; padding: 12px; border-radius: 6px; margin-bottom: 12px;">
+        <div style="font-weight: 600; color: #E65100; margin-bottom: 4px;">Description</div>
+        <div style="font-size: 12px; color: #E65100;">Rainy season (May-Nov) may disrupt maritime transport to Les Cayes region.</div>
+      </div>
+      <div style="background: #E3F2FD; padding: 12px; border-radius: 6px;">
+        <div style="font-weight: 600; color: #1565C0; margin-bottom: 4px;">Mitigation Strategy</div>
+        <div style="font-size: 12px; color: #1565C0;">
+          • Pre-positioning inventory during favorable season<br/>
+          • Negotiating alternative transport routes<br/>
+          • Building strategic reserves ahead of season
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</div> <!-- END CONTAINER -->
+
+<script>
+const projects = [
+  {
+    id: 'project-1',
+    name: 'Project 1',
+    beneficiaries: { reached: 45000, target: 80000 },
+    budget: { spent: 1200000, total: 2400000, committed: 360000 },
+    orders: { fulfillment: 72, onTimeDelivery: 65 },
+    inventory: { onHand: 290, inTransit: 180, capacity: 800 }
+  },
+  {
+    id: 'project-2',
+    name: 'Project 2',
+    beneficiaries: { reached: 38000, target: 70000 },
+    budget: { spent: 850000, total: 1800000, committed: 270000 },
+    orders: { fulfillment: 55, onTimeDelivery: 48 },
+    inventory: { onHand: 220, inTransit: 140, capacity: 650 }
+  },
+  {
+    id: 'project-3',
+    name: 'Project 3',
+    beneficiaries: { reached: 42000, target: 75000 },
+    budget: { spent: 620000, total: 1500000, committed: 225000 },
+    orders: { fulfillment: 68, onTimeDelivery: 62 },
+    inventory: { onHand: 255, inTransit: 165, capacity: 700 }
+  }
+];
+
+function showPage(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  event?.target?.classList?.add('active');
+
+  if (pageId === 'global') {
+    buildGlobalDashboard();
+  }
+}
+
+function switchTab(event, pageId, tabName) {
+  event.preventDefault();
+  const page = document.getElementById(pageId);
+
+  page.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  page.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+
+  document.getElementById(`${tabName}-${pageId}`)?.classList?.add('active');
+  event.target.classList.add('active');
+}
+
+function buildGlobalDashboard() {
+  const totalBeneficiaries = projects.reduce((sum, p) => sum + p.beneficiaries.reached, 0);
+  const totalBudgetSpent = projects.reduce((sum, p) => sum + p.budget.spent, 0);
+  const totalBudget = projects.reduce((sum, p) => sum + p.budget.total, 0);
+  const avgFulfillment = Math.round(projects.reduce((sum, p) => sum + p.orders.fulfillment, 0) / projects.length);
+  const avgOnTime = Math.round(projects.reduce((sum, p) => sum + p.orders.onTimeDelivery, 0) / projects.length);
+
+  const summaryHtml = `
+    <div class="card">
+      <div class="card-title">Total Beneficiaries Reached</div>
+      <div class="card-value">${(totalBeneficiaries/1000).toFixed(0)}K</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Budget Utilization</div>
+      <div class="card-value">${Math.round((totalBudgetSpent/totalBudget)*100)}%</div>
+      <div class="progress-bar"><div class="progress-fill" style="width: ${Math.round((totalBudgetSpent/totalBudget)*100)}%;"></div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Avg Order Fulfillment</div>
+      <div class="card-value">${avgFulfillment}%</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Avg On-Time Delivery</div>
+      <div class="card-value">${avgOnTime}%</div>
+    </div>
+  `;
+
+  document.getElementById('global-summary').innerHTML = summaryHtml;
+
+  if (document.getElementById('chart-beneficiaries')) {
+    const ctx = document.getElementById('chart-beneficiaries').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: projects.map(p => p.name),
+        datasets: [
+          { label: 'Reached', data: projects.map(p => p.beneficiaries.reached), backgroundColor: '#508931' },
+          { label: 'Gap to Target', data: projects.map(p => p.beneficiaries.target - p.beneficiaries.reached), backgroundColor: '#E8F4FA' }
+        ]
+      },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } }, scales: { x: { stacked: true }, y: { stacked: true } } }
+    });
+  }
+
+  if (document.getElementById('chart-budget')) {
+    const ctx = document.getElementById('chart-budget').getContext('2d');
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: projects.map(p => p.name),
+        datasets: [{ data: projects.map(p => p.budget.spent), backgroundColor: ['#1A648C', '#F39C12', '#508931'] }]
+      },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+    });
+  }
+
+  if (document.getElementById('chart-procurement')) {
+    const ctx = document.getElementById('chart-procurement').getContext('2d');
+    new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: ['Fulfillment', 'On-Time', 'Inventory', 'Budget', 'Risk Mgmt'],
+        datasets: projects.map((p, idx) => ({
+          label: p.name,
+          data: [p.orders.fulfillment, p.orders.onTimeDelivery, 70, 75, 68],
+          borderColor: ['#1A648C', '#F39C12', '#508931'][idx],
+          backgroundColor: ['#1A648C33', '#F39C1233', '#50893133'][idx]
+        }))
+      },
+      options: { responsive: true, maintainAspectRatio: false, scales: { r: { beginAtZero: true, max: 100 } } }
+    });
+  }
+
+  const tableHtml = projects.map(p => `
+    <tr>
+      <td><strong>${p.name}</strong></td>
+      <td><span class="badge on-track">ON TRACK</span></td>
+      <td>$${(p.budget.spent/1000).toFixed(0)}K / $${(p.budget.total/1000).toFixed(0)}K</td>
+      <td>${p.beneficiaries.reached.toLocaleString()} / ${p.beneficiaries.target.toLocaleString()}</td>
+      <td>${p.orders.fulfillment}%</td>
+      <td>${p.orders.onTimeDelivery}%</td>
+    </tr>
+  `).join('');
+
+  document.getElementById('table-projects').innerHTML = tableHtml;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  showPage('global');
+});
+</script>
+
+</body>
+</html>
