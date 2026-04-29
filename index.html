@@ -347,10 +347,76 @@ tr:hover { background: #F9FAFB; }
   .main-wrapper { margin-left: 0; }
   .page { page-break-after: always; }
 }
+
+/* PASSWORD GATE */
+#password-gate {
+  position: fixed; inset: 0; z-index: 9999;
+  background: #0D2137;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column;
+}
+#password-gate.hidden { display: none; }
+.gate-box {
+  background: white; border-radius: 12px;
+  padding: 48px 40px; width: 100%; max-width: 420px;
+  text-align: center; box-shadow: 0 24px 64px rgba(0,0,0,0.3);
+}
+.gate-logo {
+  width: 72px; height: 72px; background: #1A648C;
+  border-radius: 12px; display: flex; align-items: center;
+  justify-content: center; margin: 0 auto 24px;
+}
+.gate-title { font-size: 20px; font-weight: 700; color: #1A648C; margin-bottom: 6px; }
+.gate-subtitle { font-size: 13px; color: #8A96A3; margin-bottom: 32px; }
+.gate-input {
+  width: 100%; padding: 12px 16px; border: 1.5px solid #E0E8F0;
+  border-radius: 8px; font-size: 15px; text-align: center;
+  letter-spacing: 3px; outline: none; box-sizing: border-box;
+  margin-bottom: 16px; transition: border-color 0.2s;
+}
+.gate-input:focus { border-color: #1A648C; }
+.gate-input.error { border-color: #A81E3B; animation: shake 0.3s; }
+.gate-btn {
+  width: 100%; padding: 13px; background: #1A648C; color: white;
+  border: none; border-radius: 8px; font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: background 0.2s; letter-spacing: 0.5px;
+}
+.gate-btn:hover { background: #14506e; }
+.gate-error { font-size: 12px; color: #A81E3B; margin-top: 12px; min-height: 18px; }
+.gate-footer { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 24px; }
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
 </style>
 
 </head>
 <body>
+
+<!-- PASSWORD GATE -->
+<div id="password-gate">
+  <div class="gate-box">
+    <div class="gate-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="44" height="44">
+        <circle cx="50" cy="50" r="46" fill="none" stroke="white" stroke-width="3"/>
+        <circle cx="50" cy="50" r="39" fill="none" stroke="white" stroke-width="1.5"/>
+        <ellipse cx="50" cy="50" rx="17" ry="27" fill="none" stroke="white" stroke-width="1.2"/>
+        <line x1="23" y1="50" x2="77" y2="50" stroke="white" stroke-width="1.2"/>
+        <text x="50" y="55" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="16" fill="white" letter-spacing="2">FAO</text>
+      </svg>
+    </div>
+    <div class="gate-title">Supply Chain Control Tower</div>
+    <div class="gate-subtitle">Enter your access password to continue</div>
+    <input type="password" class="gate-input" id="gate-input" placeholder="••••••••••••••••"
+      onkeydown="if(event.key==='Enter') checkPassword()" autocomplete="off"/>
+    <button class="gate-btn" onclick="checkPassword()">
+      <i class="fa-solid fa-lock-open" style="margin-right:8px;"></i>Access Dashboard
+    </button>
+    <div class="gate-error" id="gate-error"></div>
+  </div>
+  <div class="gate-footer">Restricted access · Authorised users only</div>
+</div>
 
 <!-- SIDEBAR NAVIGATION -->
 <div class="sidebar">
@@ -4515,7 +4581,29 @@ function exportTableToExcel(btn, filename) {
   XLSX.writeFile(wb, filename + '.xlsx');
 }
 
+function checkPassword() {
+  const input = document.getElementById('gate-input');
+  const error = document.getElementById('gate-error');
+  const correct = 'SCAPCONTROLTOWER';
+
+  if (input.value.toUpperCase() === correct) {
+    sessionStorage.setItem('scap_auth', '1');
+    document.getElementById('password-gate').classList.add('hidden');
+    input.value = '';
+    error.textContent = '';
+  } else {
+    error.textContent = 'Incorrect password. Please try again.';
+    input.classList.add('error');
+    input.value = '';
+    setTimeout(() => input.classList.remove('error'), 400);
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  // Check if already authenticated in this session
+  if (sessionStorage.getItem('scap_auth') === '1') {
+    document.getElementById('password-gate').classList.add('hidden');
+  }
   showPage('global');
   setTimeout(createDemandCharts, 500);
   setTimeout(createPipelineCharts, 500);
