@@ -347,76 +347,10 @@ tr:hover { background: #F9FAFB; }
   .main-wrapper { margin-left: 0; }
   .page { page-break-after: always; }
 }
-
-/* PASSWORD GATE */
-#password-gate {
-  position: fixed; inset: 0; z-index: 9999;
-  background: #0D2137;
-  display: flex; align-items: center; justify-content: center;
-  flex-direction: column;
-}
-#password-gate.hidden { display: none; }
-.gate-box {
-  background: white; border-radius: 12px;
-  padding: 48px 40px; width: 100%; max-width: 420px;
-  text-align: center; box-shadow: 0 24px 64px rgba(0,0,0,0.3);
-}
-.gate-logo {
-  width: 72px; height: 72px; background: #1A648C;
-  border-radius: 12px; display: flex; align-items: center;
-  justify-content: center; margin: 0 auto 24px;
-}
-.gate-title { font-size: 20px; font-weight: 700; color: #1A648C; margin-bottom: 6px; }
-.gate-subtitle { font-size: 13px; color: #8A96A3; margin-bottom: 32px; }
-.gate-input {
-  width: 100%; padding: 12px 16px; border: 1.5px solid #E0E8F0;
-  border-radius: 8px; font-size: 15px; text-align: center;
-  letter-spacing: 3px; outline: none; box-sizing: border-box;
-  margin-bottom: 16px; transition: border-color 0.2s;
-}
-.gate-input:focus { border-color: #1A648C; }
-.gate-input.error { border-color: #A81E3B; animation: shake 0.3s; }
-.gate-btn {
-  width: 100%; padding: 13px; background: #1A648C; color: white;
-  border: none; border-radius: 8px; font-size: 14px; font-weight: 600;
-  cursor: pointer; transition: background 0.2s; letter-spacing: 0.5px;
-}
-.gate-btn:hover { background: #14506e; }
-.gate-error { font-size: 12px; color: #A81E3B; margin-top: 12px; min-height: 18px; }
-.gate-footer { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 24px; }
-@keyframes shake {
-  0%,100% { transform: translateX(0); }
-  25% { transform: translateX(-6px); }
-  75% { transform: translateX(6px); }
-}
 </style>
 
 </head>
 <body>
-
-<!-- PASSWORD GATE -->
-<div id="password-gate">
-  <div class="gate-box">
-    <div class="gate-logo">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="44" height="44">
-        <circle cx="50" cy="50" r="46" fill="none" stroke="white" stroke-width="3"/>
-        <circle cx="50" cy="50" r="39" fill="none" stroke="white" stroke-width="1.5"/>
-        <ellipse cx="50" cy="50" rx="17" ry="27" fill="none" stroke="white" stroke-width="1.2"/>
-        <line x1="23" y1="50" x2="77" y2="50" stroke="white" stroke-width="1.2"/>
-        <text x="50" y="55" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="16" fill="white" letter-spacing="2">FAO</text>
-      </svg>
-    </div>
-    <div class="gate-title">Supply Chain Control Tower</div>
-    <div class="gate-subtitle">Enter your access password to continue</div>
-    <input type="password" class="gate-input" id="gate-input" placeholder="••••••••••••••••"
-      onkeydown="if(event.key==='Enter') checkPassword()" autocomplete="off"/>
-    <button class="gate-btn" onclick="checkPassword()">
-      <i class="fa-solid fa-lock-open" style="margin-right:8px;"></i>Access Dashboard
-    </button>
-    <div class="gate-error" id="gate-error"></div>
-  </div>
-  <div class="gate-footer">Restricted access · Authorised users only</div>
-</div>
 
 <!-- SIDEBAR NAVIGATION -->
 <div class="sidebar">
@@ -544,118 +478,6 @@ tr:hover { background: #F9FAFB; }
 
 <div class="container">
 
-<!-- ============================================================================== -->
-<!-- HOME PAGE -->
-<!-- ============================================================================== -->
-<div id="home" class="page">
-
-  <div class="hero">
-    <h1>Global Portfolio Overview</h1>
-    <div class="hero-sub">Consolidated view across all countries and projects</div>
-  </div>
-
-  <!-- Badge 1: Global KPIs -->
-  <div class="card" style="margin-bottom: 24px;">
-    <div class="card-title" style="margin-bottom: 16px;">Global KPIs</div>
-    <div class="cards-grid">
-      <div class="card" style="background:#F5F7FB; border:1px solid #E0E8F0;">
-        <div class="card-title" style="font-size:12px; color:#8A96A3; margin-bottom:8px;">KPI 1</div>
-        <div style="font-size:24px; font-weight:700; color:#CBD5E0;">—</div>
-        <div style="font-size:11px; color:#CBD5E0; margin-top:4px;">Placeholder</div>
-      </div>
-      <div class="card" style="background:#F5F7FB; border:1px solid #E0E8F0;">
-        <div class="card-title" style="font-size:12px; color:#8A96A3; margin-bottom:8px;">KPI 2</div>
-        <div style="font-size:24px; font-weight:700; color:#CBD5E0;">—</div>
-        <div style="font-size:11px; color:#CBD5E0; margin-top:4px;">Placeholder</div>
-      </div>
-      <div class="card" style="background:#F5F7FB; border:1px solid #E0E8F0;">
-        <div class="card-title" style="font-size:12px; color:#8A96A3; margin-bottom:8px;">KPI 3</div>
-        <div style="font-size:24px; font-weight:700; color:#CBD5E0;">—</div>
-        <div style="font-size:11px; color:#CBD5E0; margin-top:4px;">Placeholder</div>
-      </div>
-      <div class="card" style="background:#F5F7FB; border:1px solid #E0E8F0;">
-        <div class="card-title" style="font-size:12px; color:#8A96A3; margin-bottom:8px;">KPI 4</div>
-        <div style="font-size:24px; font-weight:700; color:#CBD5E0;">—</div>
-        <div style="font-size:11px; color:#CBD5E0; margin-top:4px;">Placeholder</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Badge 2: Filters + Alerts -->
-  <div class="card" style="margin-bottom: 24px;">
-    <div class="card-title" style="margin-bottom: 16px;">Portfolio Alerts</div>
-
-    <!-- Filters row -->
-    <div style="display:flex; gap:16px; margin-bottom:24px; flex-wrap:wrap;">
-      <div style="display:flex; flex-direction:column; gap:6px; min-width:200px;">
-        <label style="font-size:11px; font-weight:600; color:#5A6A7A; text-transform:uppercase; letter-spacing:0.04em;">Country</label>
-        <select id="home-filter-country" onchange="applyHomeFilters()" style="padding:9px 12px; border:1px solid #E0E8F0; border-radius:6px; font-size:13px; color:#2C3E50; background:white; cursor:pointer; outline:none;">
-          <option value="all">All Countries</option>
-          <option value="haiti" selected>Haiti</option>
-        </select>
-      </div>
-      <div style="display:flex; flex-direction:column; gap:6px; min-width:200px;">
-        <label style="font-size:11px; font-weight:600; color:#5A6A7A; text-transform:uppercase; letter-spacing:0.04em;">Project</label>
-        <select id="home-filter-project" onchange="applyHomeFilters()" style="padding:9px 12px; border:1px solid #E0E8F0; border-radius:6px; font-size:13px; color:#2C3E50; background:white; cursor:pointer; outline:none;">
-          <option value="all">All Projects</option>
-          <option value="project-1">Project 1</option>
-          <option value="project-2">Project 2</option>
-          <option value="project-3">Project 3</option>
-        </select>
-      </div>
-      <div style="display:flex; align-items:flex-end;">
-        <div id="home-filter-tag" style="display:none; padding:6px 14px; background:#E8EEF4; border-radius:20px; font-size:12px; color:#1A648C; font-weight:600;"></div>
-      </div>
-    </div>
-
-    <!-- Alerts -->
-    <div id="home-alerts-grid" class="cards-grid"></div>
-  </div>
-
-  <!-- Project Portfolio Table -->
-  <div class="card" style="margin-bottom: 24px;">
-    <div class="card-title" style="margin-bottom: 16px;">Project Portfolio</div>
-
-    <!-- Independent filters for portfolio table -->
-    <div style="display:flex; gap:16px; margin-bottom:20px; flex-wrap:wrap;">
-      <div style="display:flex; flex-direction:column; gap:6px; min-width:200px;">
-        <label style="font-size:11px; font-weight:600; color:#5A6A7A; text-transform:uppercase; letter-spacing:0.04em;">Country</label>
-        <select id="home-portfolio-filter-country" onchange="applyHomePortfolioFilters()" style="padding:9px 12px; border:1px solid #E0E8F0; border-radius:6px; font-size:13px; color:#2C3E50; background:white; cursor:pointer; outline:none;">
-          <option value="all">All Countries</option>
-          <option value="haiti">Haiti</option>
-        </select>
-      </div>
-      <div style="display:flex; flex-direction:column; gap:6px; min-width:200px;">
-        <label style="font-size:11px; font-weight:600; color:#5A6A7A; text-transform:uppercase; letter-spacing:0.04em;">Project</label>
-        <select id="home-portfolio-filter-project" onchange="applyHomePortfolioFilters()" style="padding:9px 12px; border:1px solid #E0E8F0; border-radius:6px; font-size:13px; color:#2C3E50; background:white; cursor:pointer; outline:none;">
-          <option value="all">All Projects</option>
-          <option value="project-1">Project 1</option>
-          <option value="project-2">Project 2</option>
-          <option value="project-3">Project 3</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="table-responsive">
-      <table class="stock-table">
-        <thead>
-          <tr>
-            <th style="min-width:100px;">Country</th>
-            <th style="min-width:110px;">Project Name</th>
-            <th style="min-width:160px;">Project Summary</th>
-            <th style="min-width:160px;">Project Status</th>
-            <th style="min-width:200px;">Planning Docs</th>
-            <th style="min-width:180px;">Budget</th>
-            <th style="min-width:180px;">Beneficiaries</th>
-            <th style="min-width:90px;">Duration (Mo.)</th>
-          </tr>
-        </thead>
-        <tbody id="home-portfolio-table"></tbody>
-      </table>
-    </div>
-  </div>
-
-</div>
 
 <!-- ============================================================================== -->
 <!-- GLOBAL DASHBOARD PAGE -->
@@ -668,19 +490,18 @@ tr:hover { background: #F9FAFB; }
   </div>
 
   <!-- Global KPIs Summary -->
+  <div id="global-summary"></div>
 
   <!-- Project Portfolio Table -->
-  <div class="card" style="margin-top: 24px;">
-    <div class="card-title" style="margin-bottom: 16px;">Project Portfolio</div>
+  <h3 style="margin-top: 40px; margin-bottom: 20px; color: #1A648C; font-size: 18px;">Project Portfolio</h3>
+  <div class="card">
     <div class="table-responsive">
       <table>
         <thead>
           <tr>
-            <th>Country</th>
             <th>Project Name</th>
             <th>Project Summary</th>
             <th>Project Status</th>
-            <th>Planning Docs</th>
             <th>Budget</th>
             <th>Beneficiaries</th>
             <th>Duration (Mo.)</th>
@@ -691,172 +512,22 @@ tr:hover { background: #F9FAFB; }
     </div>
   </div>
 
-  <!-- Demand Overview by Project -->
-  <div class="card" style="margin-top: 24px;">
-    <div class="card-title" style="margin-bottom: 4px;">Demand Overview by Project</div>
-    <div style="font-size: 11px; color: #999; margin-bottom: 20px;">Planned procurement by category and product across all projects (USD)</div>
-
-    <!-- Filters -->
-    <div style="display:flex; gap:16px; margin-bottom:20px; flex-wrap:wrap;">
-      <div style="display:flex;flex-direction:column;gap:6px;min-width:160px;">
-        <label style="font-size:11px;font-weight:600;color:#5A6A7A;text-transform:uppercase;letter-spacing:0.04em;">Project</label>
-        <select id="demand-filter-project" onchange="buildDemandOverviewChart()" style="padding:8px 12px;border:1px solid #E0E8F0;border-radius:6px;font-size:13px;color:#2C3E50;background:white;cursor:pointer;outline:none;">
-          <option value="all">All Projects</option>
-          <option value="project-1">Project 1</option>
-          <option value="project-2">Project 2</option>
-          <option value="project-3">Project 3</option>
-        </select>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:6px;min-width:160px;">
-        <label style="font-size:11px;font-weight:600;color:#5A6A7A;text-transform:uppercase;letter-spacing:0.04em;">Category</label>
-        <select id="demand-filter-category" onchange="updateDemandProductFilter(); buildDemandOverviewChart();" style="padding:8px 12px;border:1px solid #E0E8F0;border-radius:6px;font-size:13px;color:#2C3E50;background:white;cursor:pointer;outline:none;">
-          <option value="all">All Categories</option>
-          <option value="Seeds">Seeds</option>
-          <option value="Fertilizer">Fertilizer</option>
-          <option value="Machinery">Machinery</option>
-          <option value="Vaccines">Vaccines</option>
-        </select>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:6px;min-width:180px;">
-        <label style="font-size:11px;font-weight:600;color:#5A6A7A;text-transform:uppercase;letter-spacing:0.04em;">Product</label>
-        <select id="demand-filter-product" onchange="buildDemandOverviewChart()" style="padding:8px 12px;border:1px solid #E0E8F0;border-radius:6px;font-size:13px;color:#2C3E50;background:white;cursor:pointer;outline:none;">
-          <option value="all">All Products</option>
-        </select>
-      </div>
-    </div>
-
-    <!-- Horizontal Bar Chart -->
-    <div style="height: 300px; margin-bottom: 28px;"><canvas id="chart-demand-overview-global"></canvas></div>
-
-    <!-- Simplified Table -->
+  <!-- Demand Overview by Project Table -->
+  <h3 style="margin-top: 40px; margin-bottom: 20px; color: #1A648C; font-size: 18px;">Demand Overview by Project</h3>
+  <div class="card">
+    <div style="font-size: 12px; color: #666; margin-bottom: 16px;">Click ▼ on any commodity column to expand sub-categories · Planned quantities</div>
     <div class="table-responsive">
-      <table class="stock-table">
-        <thead>
-          <tr>
-            <th style="min-width:110px;">Category</th>
-            <th style="min-width:140px;">Product</th>
-            <th style="min-width:80px;">Unit</th>
-            <th style="min-width:120px; text-align:center; background:#E8EEF4; color:#1A648C;">Project 1</th>
-            <th style="min-width:120px; text-align:center; background:#E8EEF4; color:#F39C12;">Project 2</th>
-            <th style="min-width:120px; text-align:center; background:#E8EEF4; color:#508931;">Project 3</th>
-            <th style="min-width:120px; text-align:center; background:#F0F4F8; color:#2C3E50;">Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- SEEDS subtotal row -->
-          <tr class="demand-subtotal" onclick="toggleDemandDetail('seeds')" style="background:#DFF0D8;cursor:pointer;user-select:none;">
-            <td style="font-weight:700;color:#2D5016;border-left:3px solid #508931;">
-              <span id="arrow-seeds" style="display:inline-block;margin-right:6px;transition:transform 0.2s;">▶</span>Seeds
-            </td>
-            <td style="font-weight:700;color:#2D5016;">Subtotal</td><td style="color:#666;">MT</td>
-            <td style="text-align:center;font-weight:700;color:#2D5016;">1,200</td>
-            <td style="text-align:center;font-weight:700;color:#2D5016;">800</td>
-            <td style="text-align:center;font-weight:700;color:#2D5016;">651</td>
-            <td style="text-align:center;font-weight:700;color:#2D5016;">2,651</td>
-          </tr>
-          <tr class="demand-detail detail-seeds" style="display:none;background:#F5F7FB;">
-            <td style="padding-left:24px;color:#508931;font-size:12px;">↳</td><td>Rice Seed</td><td style="color:#666;">MT</td>
-            <td style="text-align:center;">540</td><td style="text-align:center;">360</td><td style="text-align:center;">293</td><td style="text-align:center;font-weight:600;">1,193</td>
-          </tr>
-          <tr class="demand-detail detail-seeds" style="display:none;background:#F5F7FB;">
-            <td style="padding-left:24px;color:#508931;font-size:12px;">↳</td><td>Wheat Seed</td><td style="color:#666;">MT</td>
-            <td style="text-align:center;">420</td><td style="text-align:center;">280</td><td style="text-align:center;">228</td><td style="text-align:center;font-weight:600;">928</td>
-          </tr>
-          <tr class="demand-detail detail-seeds" style="display:none;background:#F5F7FB;">
-            <td style="padding-left:24px;color:#508931;font-size:12px;">↳</td><td>Legume Seed</td><td style="color:#666;">MT</td>
-            <td style="text-align:center;">240</td><td style="text-align:center;">160</td><td style="text-align:center;">130</td><td style="text-align:center;font-weight:600;">530</td>
-          </tr>
-
-          <!-- FERTILIZER subtotal row -->
-          <tr class="demand-subtotal" onclick="toggleDemandDetail('fertilizer')" style="background:#FEF0D4;cursor:pointer;user-select:none;">
-            <td style="font-weight:700;color:#D97706;border-left:3px solid #F39C12;">
-              <span id="arrow-fertilizer" style="display:inline-block;margin-right:6px;transition:transform 0.2s;">▶</span>Fertilizer
-            </td>
-            <td style="font-weight:700;color:#D97706;">Subtotal</td><td style="color:#666;">MT</td>
-            <td style="text-align:center;font-weight:700;color:#D97706;">850</td>
-            <td style="text-align:center;font-weight:700;color:#D97706;">600</td>
-            <td style="text-align:center;font-weight:700;color:#D97706;">480</td>
-            <td style="text-align:center;font-weight:700;color:#D97706;">1,930</td>
-          </tr>
-          <tr class="demand-detail detail-fertilizer" style="display:none;background:#FFF9F0;">
-            <td style="padding-left:24px;color:#D97706;font-size:12px;">↳</td><td>Urea</td><td style="color:#666;">MT</td>
-            <td style="text-align:center;">340</td><td style="text-align:center;">240</td><td style="text-align:center;">192</td><td style="text-align:center;font-weight:600;">772</td>
-          </tr>
-          <tr class="demand-detail detail-fertilizer" style="display:none;background:#FFF9F0;">
-            <td style="padding-left:24px;color:#D97706;font-size:12px;">↳</td><td>DAP</td><td style="color:#666;">MT</td>
-            <td style="text-align:center;">298</td><td style="text-align:center;">210</td><td style="text-align:center;">168</td><td style="text-align:center;font-weight:600;">676</td>
-          </tr>
-          <tr class="demand-detail detail-fertilizer" style="display:none;background:#FFF9F0;">
-            <td style="padding-left:24px;color:#D97706;font-size:12px;">↳</td><td>Compound NPK</td><td style="color:#666;">MT</td>
-            <td style="text-align:center;">212</td><td style="text-align:center;">150</td><td style="text-align:center;">120</td><td style="text-align:center;font-weight:600;">482</td>
-          </tr>
-
-          <!-- MACHINERY subtotal row -->
-          <tr class="demand-subtotal" onclick="toggleDemandDetail('machinery')" style="background:#D6E8FB;cursor:pointer;user-select:none;">
-            <td style="font-weight:700;color:#1E40AF;border-left:3px solid #3498DB;">
-              <span id="arrow-machinery" style="display:inline-block;margin-right:6px;transition:transform 0.2s;">▶</span>Machinery
-            </td>
-            <td style="font-weight:700;color:#1E40AF;">Subtotal</td><td style="color:#666;">Units</td>
-            <td style="text-align:center;font-weight:700;color:#1E40AF;">12</td>
-            <td style="text-align:center;font-weight:700;color:#1E40AF;">8</td>
-            <td style="text-align:center;font-weight:700;color:#1E40AF;">6</td>
-            <td style="text-align:center;font-weight:700;color:#1E40AF;">26</td>
-          </tr>
-          <tr class="demand-detail detail-machinery" style="display:none;background:#F0F5FF;">
-            <td style="padding-left:24px;color:#1E40AF;font-size:12px;">↳</td><td>Tractors</td><td style="color:#666;">Units</td>
-            <td style="text-align:center;">5</td><td style="text-align:center;">3</td><td style="text-align:center;">2</td><td style="text-align:center;font-weight:600;">10</td>
-          </tr>
-          <tr class="demand-detail detail-machinery" style="display:none;background:#F0F5FF;">
-            <td style="padding-left:24px;color:#1E40AF;font-size:12px;">↳</td><td>Water Pumps</td><td style="color:#666;">Units</td>
-            <td style="text-align:center;">4</td><td style="text-align:center;">3</td><td style="text-align:center;">2</td><td style="text-align:center;font-weight:600;">9</td>
-          </tr>
-          <tr class="demand-detail detail-machinery" style="display:none;background:#F0F5FF;">
-            <td style="padding-left:24px;color:#1E40AF;font-size:12px;">↳</td><td>Threshers</td><td style="color:#666;">Units</td>
-            <td style="text-align:center;">3</td><td style="text-align:center;">2</td><td style="text-align:center;">2</td><td style="text-align:center;font-weight:600;">7</td>
-          </tr>
-
-          <!-- VACCINES subtotal row -->
-          <tr class="demand-subtotal" onclick="toggleDemandDetail('vaccines')" style="background:#FADADF;cursor:pointer;user-select:none;">
-            <td style="font-weight:700;color:#7F1D1D;border-left:3px solid #E91E8C;">
-              <span id="arrow-vaccines" style="display:inline-block;margin-right:6px;transition:transform 0.2s;">▶</span>Vaccines
-            </td>
-            <td style="font-weight:700;color:#7F1D1D;">Subtotal</td><td style="color:#666;">Doses</td>
-            <td style="text-align:center;font-weight:700;color:#7F1D1D;">45,000</td>
-            <td style="text-align:center;font-weight:700;color:#7F1D1D;">32,000</td>
-            <td style="text-align:center;font-weight:700;color:#7F1D1D;">28,000</td>
-            <td style="text-align:center;font-weight:700;color:#7F1D1D;">105,000</td>
-          </tr>
-          <tr class="demand-detail detail-vaccines" style="display:none;background:#FFF0F8;">
-            <td style="padding-left:24px;color:#7F1D1D;font-size:12px;">↳</td><td>FMD Vaccine</td><td style="color:#666;">Doses</td>
-            <td style="text-align:center;">18,000</td><td style="text-align:center;">12,800</td><td style="text-align:center;">11,200</td><td style="text-align:center;font-weight:600;">42,000</td>
-          </tr>
-          <tr class="demand-detail detail-vaccines" style="display:none;background:#FFF0F8;">
-            <td style="padding-left:24px;color:#7F1D1D;font-size:12px;">↳</td><td>CBPP Vaccine</td><td style="color:#666;">Doses</td>
-            <td style="text-align:center;">15,750</td><td style="text-align:center;">11,200</td><td style="text-align:center;">9,800</td><td style="text-align:center;font-weight:600;">36,750</td>
-          </tr>
-          <tr class="demand-detail detail-vaccines" style="display:none;background:#FFF0F8;">
-            <td style="padding-left:24px;color:#7F1D1D;font-size:12px;">↳</td><td>Newcastle</td><td style="color:#666;">Doses</td>
-            <td style="text-align:center;">11,250</td><td style="text-align:center;">8,000</td><td style="text-align:center;">7,000</td><td style="text-align:center;font-weight:600;">26,250</td>
-          </tr>
-
-          <!-- Grand Total -->
-          <tr style="background:#1A648C;font-weight:700;font-size:13px;">
-            <td colspan="2" style="color:white;letter-spacing:0.03em;">GRAND TOTAL (USD)</td>
-            <td style="color:white;">—</td>
-            <td style="text-align:center;color:white;">$1.15M</td>
-            <td style="text-align:center;color:white;">$790K</td>
-            <td style="text-align:center;color:white;">$641K</td>
-            <td style="text-align:center;color:white;">$2.58M</td>
-          </tr>
-        </tbody>
+      <table id="demand-overview-table" style="width: 100%;">
+        <thead id="demand-table-header"></thead>
+        <tbody id="demand-table-body"></tbody>
       </table>
     </div>
   </div>
 
   <!-- Pipeline by Project -->
-  <div class="card" style="margin-top: 24px;">
-    <div class="card-title" style="margin-bottom: 4px;">Pipeline by Project</div>
-    <div style="font-size: 11px; color: #999; margin-bottom: 16px;">Total value by procurement stage (Millions USD) — click a project bar to see commodity detail</div>
+  <h3 style="margin-top: 40px; margin-bottom: 20px; color: #1A648C; font-size: 18px;">Pipeline by Project</h3>
+  <div class="card">
+    <div style="font-size: 12px; color: #666; margin-bottom: 16px;">Total value by procurement stage (Millions USD) — click a project bar to see commodity detail</div>
 
     <!-- Legend -->
     <div style="display: flex; gap: 24px; margin-bottom: 24px; font-size: 12px;">
@@ -899,68 +570,6 @@ tr:hover { background: #F9FAFB; }
       <div id="pipeline-product-bars" style="margin-bottom: 16px;"></div>
       <div id="pipeline-budget-total" style="font-size: 13px; color: #2C3E50; margin-top: 8px;"></div>
     </div>
-  </div>
-
-  <!-- Expected Arrivals Pipeline — Global -->
-  <div class="card" style="margin-top: 24px; margin-bottom: 24px;">
-    <div class="card-title" style="margin-bottom: 4px;">Expected Arrivals Pipeline (USD outstanding, by category)</div>
-    <div style="font-size: 11px; color: #999; margin-bottom: 16px;">Outstanding value of open purchase orders by expected delivery month</div>
-
-    <!-- Filters -->
-    <div style="display:flex; gap:16px; margin-bottom:20px; flex-wrap:wrap;">
-      <div style="display:flex;flex-direction:column;gap:6px;min-width:160px;">
-        <label style="font-size:11px;font-weight:600;color:#5A6A7A;text-transform:uppercase;letter-spacing:0.04em;">Project</label>
-        <select id="arrivals-filter-project" onchange="buildGlobalArrivalsChart()" style="padding:8px 12px;border:1px solid #E0E8F0;border-radius:6px;font-size:13px;color:#2C3E50;background:white;cursor:pointer;outline:none;">
-          <option value="all">All Projects</option>
-          <option value="project-1">Project 1</option>
-          <option value="project-2">Project 2</option>
-          <option value="project-3">Project 3</option>
-        </select>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:6px;min-width:180px;">
-        <label style="font-size:11px;font-weight:600;color:#5A6A7A;text-transform:uppercase;letter-spacing:0.04em;">Warehouse</label>
-        <select id="arrivals-filter-warehouse" onchange="buildGlobalArrivalsChart()" style="padding:8px 12px;border:1px solid #E0E8F0;border-radius:6px;font-size:13px;color:#2C3E50;background:white;cursor:pointer;outline:none;">
-          <option value="all">All Warehouses</option>
-          <option value="port-au-prince">Port-au-Prince Hub</option>
-          <option value="cap-haitien">Cap-Haïtien Warehouse</option>
-          <option value="les-cayes">Les Cayes Depot</option>
-        </select>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:6px;min-width:160px;">
-        <label style="font-size:11px;font-weight:600;color:#5A6A7A;text-transform:uppercase;letter-spacing:0.04em;">Category</label>
-        <select id="arrivals-filter-category" onchange="buildGlobalArrivalsChart()" style="padding:8px 12px;border:1px solid #E0E8F0;border-radius:6px;font-size:13px;color:#2C3E50;background:white;cursor:pointer;outline:none;">
-          <option value="all">All Categories</option>
-          <option value="Seeds">Seeds</option>
-          <option value="Fertilizer">Fertilizer</option>
-          <option value="Machinery">Machinery</option>
-          <option value="Vaccines">Vaccines</option>
-        </select>
-      </div>
-    </div>
-
-    <div style="height: 280px;"><canvas id="chart-arrivals-global"></canvas></div>
-  </div>
-
-  <!-- Warehouse Capacity — Consolidated -->
-  <div class="card" style="margin-top: 24px;">
-    <div class="card-title" style="margin-bottom: 4px;"><i class="fa-solid fa-warehouse" style="margin-right:6px; color:#1A648C;"></i>Warehouse Capacity</div>
-    <div style="font-size: 11px; color: #999; margin-bottom: 16px;">Stock on-hand vs maximum capacity across all warehouses · Pipeline projections for next 2 and 4 weeks</div>
-    <table class="wh-table">
-      <thead>
-        <tr>
-          <th>Warehouse Name</th>
-          <th>On-Hand (MT)</th>
-          <th>Max. Capacity (MT)</th>
-          <th>Utilization</th>
-          <th>%</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td class="wh-name">Port-au-Prince Hub</td><td class="wh-num">150</td><td>400</td><td><div class="wh-capacity-bar-wrap"><div class="wh-cap-now" style="width:37.5%"></div><div class="wh-cap-2w" style="left:37.5%;width:25%"></div><div class="wh-cap-4w" style="left:62.5%;width:20%"></div></div><div class="wh-cap-labels"><span><span class="wh-cap-dot" style="background:#508931"></span>Now: 38%</span><span><span class="wh-cap-dot" style="background:#1A3A6C"></span>+2w: 63%</span><span><span class="wh-cap-dot" style="background:#85C1E2"></span>+4w: 83%</span></div></td><td class="wh-pct">83%</td></tr>
-        <tr><td class="wh-name">Cap-Haïtien Warehouse</td><td class="wh-num">80</td><td>300</td><td><div class="wh-capacity-bar-wrap"><div class="wh-cap-now" style="width:26.7%"></div><div class="wh-cap-2w" style="left:26.7%;width:20%"></div><div class="wh-cap-4w" style="left:46.7%;width:16.6%"></div></div><div class="wh-cap-labels"><span><span class="wh-cap-dot" style="background:#508931"></span>Now: 27%</span><span><span class="wh-cap-dot" style="background:#1A3A6C"></span>+2w: 47%</span><span><span class="wh-cap-dot" style="background:#85C1E2"></span>+4w: 63%</span></div></td><td class="wh-pct">63%</td></tr>
-        <tr><td class="wh-name">Les Cayes Depot</td><td class="wh-num">60</td><td>200</td><td><div class="wh-capacity-bar-wrap"><div class="wh-cap-now" style="width:30%"></div><div class="wh-cap-2w" style="left:30%;width:20%"></div><div class="wh-cap-4w" style="left:50%;width:15%"></div></div><div class="wh-cap-labels"><span><span class="wh-cap-dot" style="background:#508931"></span>Now: 30%</span><span><span class="wh-cap-dot" style="background:#1A3A6C"></span>+2w: 50%</span><span><span class="wh-cap-dot" style="background:#85C1E2"></span>+4w: 65%</span></div></td><td class="wh-pct">65%</td></tr>
-      </tbody>
-    </table>
   </div>
 
 </div>
@@ -1641,6 +1250,77 @@ tr:hover { background: #F9FAFB; }
       <div style="height: 260px;"><canvas id="chart-arrivals-p1"></canvas></div>
     </div>
 
+    <!-- Warehouse Capacity Table -->
+    <div class="card" style="margin-bottom: 24px;">
+      <div class="card-title" style="margin-bottom: 16px;"><i class="fa-solid fa-warehouse" style="margin-right:6px; color:#1A648C;"></i>Warehouse Capacity</div>
+      <table class="wh-table">
+        <thead>
+          <tr>
+            <th>Warehouse Name</th>
+            <th>On-Hand (MT)</th>
+            <th>Max. Capacity (MT)</th>
+            <th>Utilization</th>
+            <th>%</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="wh-name">Port-au-Prince Hub</td>
+            <td class="wh-num">150</td>
+            <td>400</td>
+            <td>
+              <div class="wh-capacity-bar-wrap">
+                <div class="wh-cap-now"  style="width:37.5%"></div>
+                <div class="wh-cap-2w"   style="left:37.5%; width:25%"></div>
+                <div class="wh-cap-4w"   style="left:62.5%; width:20%"></div>
+              </div>
+              <div class="wh-cap-labels">
+                <span><span class="wh-cap-dot" style="background:#508931"></span>Now: 38%</span>
+                <span><span class="wh-cap-dot" style="background:#1A3A6C"></span>+2w: 63%</span>
+                <span><span class="wh-cap-dot" style="background:#85C1E2"></span>+4w: 83%</span>
+              </div>
+            </td>
+            <td class="wh-pct">83%</td>
+          </tr>
+          <tr>
+            <td class="wh-name">Cap-Haïtien Warehouse</td>
+            <td class="wh-num">80</td>
+            <td>300</td>
+            <td>
+              <div class="wh-capacity-bar-wrap">
+                <div class="wh-cap-now"  style="width:26.7%"></div>
+                <div class="wh-cap-2w"   style="left:26.7%; width:20%"></div>
+                <div class="wh-cap-4w"   style="left:46.7%; width:16.6%"></div>
+              </div>
+              <div class="wh-cap-labels">
+                <span><span class="wh-cap-dot" style="background:#508931"></span>Now: 27%</span>
+                <span><span class="wh-cap-dot" style="background:#1A3A6C"></span>+2w: 47%</span>
+                <span><span class="wh-cap-dot" style="background:#85C1E2"></span>+4w: 63%</span>
+              </div>
+            </td>
+            <td class="wh-pct">63%</td>
+          </tr>
+          <tr>
+            <td class="wh-name">Les Cayes Depot</td>
+            <td class="wh-num">60</td>
+            <td>200</td>
+            <td>
+              <div class="wh-capacity-bar-wrap">
+                <div class="wh-cap-now"  style="width:30%"></div>
+                <div class="wh-cap-2w"   style="left:30%; width:20%"></div>
+                <div class="wh-cap-4w"   style="left:50%; width:15%"></div>
+              </div>
+              <div class="wh-cap-labels">
+                <span><span class="wh-cap-dot" style="background:#508931"></span>Now: 30%</span>
+                <span><span class="wh-cap-dot" style="background:#1A3A6C"></span>+2w: 50%</span>
+                <span><span class="wh-cap-dot" style="background:#85C1E2"></span>+4w: 65%</span>
+              </div>
+            </td>
+            <td class="wh-pct">65%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <!-- Charts row -->
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;">
@@ -1834,9 +1514,9 @@ tr:hover { background: #F9FAFB; }
   </div>
 
 
+</div>
 
 <!-- ============================================================================== -->
-
 <!-- PROJECT 2 PAGE -->
 <!-- ============================================================================== -->
 <div id="project-2" class="page">
@@ -1858,13 +1538,12 @@ tr:hover { background: #F9FAFB; }
         <div class="meta-lbl">Beneficiaries</div>
       </div>
       <div class="meta-item">
-        <div class="meta-val">5 / 12 months</div>
+        <div class="meta-val">5 / 10 months</div>
         <div class="meta-lbl">Duration</div>
       </div>
     </div>
   </div>
 
-  <!-- TABS (hidden, navigation via sidebar) -->
   <div class="tab-nav">
     <button class="tab-btn active" onclick="switchTab(event, 'project-2', 'alerts')">Alerts</button>
     <button class="tab-btn" onclick="switchTab(event, 'project-2', 'overview')">Overview</button>
@@ -1875,7 +1554,7 @@ tr:hover { background: #F9FAFB; }
   </div>
   <div class="tab-section-title" id="tab-title-project-2">Operations: Alerts</div>
 
-  <!-- ============== ALERTS TAB ============== -->
+  <!-- ALERTS -->
   <div id="alerts-project-2" class="tab-content active">
     <div class="cards-grid" style="margin-bottom: 24px;">
 
@@ -1903,14 +1582,14 @@ tr:hover { background: #F9FAFB; }
         <div style="display:flex;flex-direction:column;gap:10px;">
           <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#FFEBEE;border-radius:6px;">
             <span style="font-size:12px;color:#A81E3B;font-weight:600;"><i class="fa-solid fa-circle-xmark"></i> Expired</span>
-            <span style="font-size:15px;font-weight:700;color:#A81E3B;">$28,125</span>
+            <span style="font-size:15px;font-weight:700;color:#A81E3B;">$41,500</span>
           </div>
-          <div style="font-size:11px;color:#666;padding-left:4px;">1 batch — Newcastle Vaccine (2025-12-31)</div>
+          <div style="font-size:11px;color:#666;padding-left:4px;">2 batches — FMD Vaccine + Legume Seed</div>
           <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#FFF3E0;border-radius:6px;">
             <span style="font-size:12px;color:#F39C12;font-weight:600;"><i class="fa-solid fa-clock-rotate-left"></i> Expiring &lt;6 months</span>
-            <span style="font-size:15px;font-weight:700;color:#F39C12;">$255,000</span>
+            <span style="font-size:15px;font-weight:700;color:#F39C12;">$80,000</span>
           </div>
-          <div style="font-size:11px;color:#666;padding-left:4px;">2 batches — FMD Vaccine + Wheat Seed</div>
+          <div style="font-size:11px;color:#666;padding-left:4px;">1 batch — FMD Vaccine (2026-05-31)</div>
         </div>
       </div>
 
@@ -1919,13 +1598,13 @@ tr:hover { background: #F9FAFB; }
         <div style="display:flex;flex-direction:column;gap:10px;">
           <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#FFF3E0;border-radius:6px;">
             <span style="font-size:12px;color:#F39C12;font-weight:600;">Orders Overdue</span>
-            <span style="font-size:22px;font-weight:800;color:#F39C12;">3</span>
+            <span style="font-size:22px;font-weight:800;color:#F39C12;">5</span>
           </div>
           <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#F0F4F8;border-radius:6px;">
             <span style="font-size:12px;color:#5A6A7A;font-weight:600;">Total Value at Risk</span>
-            <span style="font-size:15px;font-weight:700;color:#A81E3B;">$187,500</span>
+            <span style="font-size:15px;font-weight:700;color:#A81E3B;">$243,000</span>
           </div>
-          <div style="font-size:11px;color:#666;margin-top:2px;">Avg delay: 6 days · Oldest: ORD-002 (+9 days)</div>
+          <div style="font-size:11px;color:#666;margin-top:2px;">Avg delay: 8 days · Oldest: ORD-P2-001 (+12 days)</div>
         </div>
       </div>
 
@@ -2018,7 +1697,75 @@ tr:hover { background: #F9FAFB; }
       </div>
     </div>
 
+    <!-- PROGRAMMATIC OBJECTIVES & BENEFICIARY PACKAGES -->
     <div class="card mb-16" style="margin-bottom:20px;">
+      <div class="card-header"><div><div class="card-title">Programmatic Objectives & Beneficiary Packages</div><div class="card-subtitle">Beneficiary distribution across three programmatic packages</div></div></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;padding:24px;">
+
+        <!-- Agricultural Input Package Card -->
+        <div style="border:1px solid #E0E8F0;border-radius:12px;padding:24px;background:#FAFCFF;border-top:5px solid #508931;transition:all 0.3s ease;cursor:pointer;" onmouseover="this.style.boxShadow='0 8px 24px rgba(0,0,0,0.1)';" onmouseout="this.style.boxShadow='none';">
+          <div style="text-align:center;margin-bottom:20px;">
+            <div style="font-size:56px;margin-bottom:8px;"><i class="fa-solid fa-wheat-awn" style="color:#508931;"></i></div>
+            <div style="font-size:42px;font-weight:800;color:#508931;margin-bottom:4px;">54,000</div>
+            <div style="font-size:12px;color:#8A96A3;font-weight:600;">Beneficiaries</div>
+          </div>
+          <div style="margin-bottom:16px;text-align:center;">
+            <div style="font-size:14px;font-weight:700;color:var(--fao-dark);margin-bottom:8px;">Agricultural Input Package</div>
+            <div style="font-size:12px;color:#5A6A7A;line-height:1.6;">
+              Seeds, fertilizers, and agricultural tools distribution
+            </div>
+          </div>
+          <div style="margin-top:16px;">
+            <div style="display:flex;align-items:center;height:8px;background:#E0E8F0;border-radius:4px;overflow:hidden;">
+              <div style="width:45%;background:#508931;height:100%;"></div>
+            </div>
+            <div style="font-size:11px;color:#8A96A3;margin-top:6px;text-align:right;">45% of total</div>
+          </div>
+        </div>
+
+        <!-- Equipment & Infrastructure Package Card -->
+        <div style="border:1px solid #E0E8F0;border-radius:12px;padding:24px;background:#FAFCFF;border-top:5px solid #5791C8;transition:all 0.3s ease;cursor:pointer;" onmouseover="this.style.boxShadow='0 8px 24px rgba(0,0,0,0.1)';" onmouseout="this.style.boxShadow='none';">
+          <div style="text-align:center;margin-bottom:20px;">
+            <div style="font-size:56px;margin-bottom:8px;"><i class="fa-solid fa-tractor" style="color:#F39C12;"></i></div>
+            <div style="font-size:42px;font-weight:800;color:#5791C8;margin-bottom:4px;">42,000</div>
+            <div style="font-size:12px;color:#8A96A3;font-weight:600;">Beneficiaries</div>
+          </div>
+          <div style="margin-bottom:16px;text-align:center;">
+            <div style="font-size:14px;font-weight:700;color:var(--fao-dark);margin-bottom:8px;">Equipment & Infrastructure Package</div>
+            <div style="font-size:12px;color:#5A6A7A;line-height:1.6;">
+              Equipment, machinery, and infrastructure support
+            </div>
+          </div>
+          <div style="margin-top:16px;">
+            <div style="display:flex;align-items:center;height:8px;background:#E0E8F0;border-radius:4px;overflow:hidden;">
+              <div style="width:35%;background:#5791C8;height:100%;"></div>
+            </div>
+            <div style="font-size:11px;color:#8A96A3;margin-top:6px;text-align:right;">35% of total</div>
+          </div>
+        </div>
+
+        <!-- Livestock Health Package Card -->
+        <div style="border:1px solid #E0E8F0;border-radius:12px;padding:24px;background:#FAFCFF;border-top:5px solid #A81E3B;transition:all 0.3s ease;cursor:pointer;" onmouseover="this.style.boxShadow='0 8px 24px rgba(0,0,0,0.1)';" onmouseout="this.style.boxShadow='none';">
+          <div style="text-align:center;margin-bottom:20px;">
+            <div style="font-size:56px;margin-bottom:8px;"><i class="fa-solid fa-syringe" style="color:#A81E3B;"></i></div>
+            <div style="font-size:42px;font-weight:800;color:#A81E3B;margin-bottom:4px;">24,000</div>
+            <div style="font-size:12px;color:#8A96A3;font-weight:600;">Beneficiaries</div>
+          </div>
+          <div style="margin-bottom:16px;text-align:center;">
+            <div style="font-size:14px;font-weight:700;color:var(--fao-dark);margin-bottom:8px;">Livestock Health Package</div>
+            <div style="font-size:12px;color:#5A6A7A;line-height:1.6;">
+              Vaccines, veterinary supplies, and livestock support
+            </div>
+          </div>
+          <div style="margin-top:16px;">
+            <div style="display:flex;align-items:center;height:8px;background:#E0E8F0;border-radius:4px;overflow:hidden;">
+              <div style="width:20%;background:#A81E3B;height:100%;"></div>
+            </div>
+            <div style="font-size:11px;color:#8A96A3;margin-top:6px;text-align:right;">20% of total</div>
+          </div>
+        </div>
+
+      </div>
 
       <!-- Key Planning Docs Section -->
       <div style="border-top:2px solid #E0E8F0;padding:24px;background:#FAFCFF;">
@@ -2029,15 +1776,13 @@ tr:hover { background: #F9FAFB; }
     </div>
   </div>
 
-  <!-- ============== DEMAND TAB ============== -->
+  <!-- DEMAND -->
   <div id="demand-project-2" class="tab-content">
 
     <div class="card" style="margin-bottom: 24px;">
       <div class="card-title" style="margin-bottom: 4px;">Demand plan (Category, USD)</div>
       <div style="font-size: 11px; color: #999; margin-bottom: 12px;">Identified needs and requirements for each product type</div>
       <div style="height: 260px; margin-bottom: 20px;"><canvas id="chart-demand-usd-project-2"></canvas></div>
-
-      <!-- Donut charts row inside the same card -->
       <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
         <div style="background: #F5F7FB; border-radius: 8px; padding: 12px;">
           <div class="card-title" style="margin-bottom: 8px;">Demand plan Seeds<br><span style="font-size:11px; font-weight:400; color:#999;">Product, MT</span></div>
@@ -2065,7 +1810,7 @@ tr:hover { background: #F9FAFB; }
           <div class="card-title">Product Details and Technical Specifications</div>
           <div class="card-subtitle" style="font-size:12px;color:#666;">Required product specifications and quantities by category</div>
         </div>
-        <button onclick="exportTableToExcel(this, 'Product_Details_P1')" style="display:flex;align-items:center;gap:6px;padding:7px 14px;background:white;border:1px solid #1A648C;color:#1A648C;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;margin-left:auto;" onmouseover="this.style.background='#EEF5FB'" onmouseout="this.style.background='white'">
+        <button onclick="exportTableToExcel(this, 'Product_Details_P2')" style="display:flex;align-items:center;gap:6px;padding:7px 14px;background:white;border:1px solid #1A648C;color:#1A648C;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;margin-left:auto;" onmouseover="this.style.background='#EEF5FB'" onmouseout="this.style.background='white'">
           <i class="fa-solid fa-file-excel"></i> Export to Excel
         </button>
       </div>
@@ -2082,18 +1827,18 @@ tr:hover { background: #F9FAFB; }
             </tr>
           </thead>
           <tbody>
-            <tr><td>Seeds</td><td class="item-name">Rice Seed</td><td>MT</td><td>Certified variety, germination rate ≥95%, moisture ≤13%</td><td>540</td><td>$500</td></tr>
-            <tr><td>Seeds</td><td class="item-name">Wheat Seed</td><td>MT</td><td>High-yield variety, treated against fungal diseases</td><td>420</td><td>$500</td></tr>
-            <tr><td>Seeds</td><td class="item-name">Legume Seed</td><td>MT</td><td>Disease-free, certified for tropical climate</td><td>240</td><td>$500</td></tr>
-            <tr><td>Fertilizer</td><td class="item-name">Urea</td><td>MT</td><td>46-0-0, granular, min 99% purity, 50kg bags</td><td>340</td><td>$450</td></tr>
-            <tr><td>Fertilizer</td><td class="item-name">DAP</td><td>MT</td><td>18-46-0, granular, moisture ≤1%, 50kg bags</td><td>298</td><td>$450</td></tr>
-            <tr><td>Fertilizer</td><td class="item-name">Compound NPK</td><td>MT</td><td>15-15-15 formulation, soluble, 50kg bags</td><td>212</td><td>$450</td></tr>
-            <tr><td>Machinery</td><td class="item-name">Tractors</td><td>Units</td><td>≥75HP, 4WD, with loader and PTO, certified for field use</td><td>5</td><td>$5,000</td></tr>
-            <tr><td>Machinery</td><td class="item-name">Water Pumps</td><td>Units</td><td>5HP diesel, flow rate ≥500L/min, max head 30m</td><td>4</td><td>$5,000</td></tr>
-            <tr><td>Machinery</td><td class="item-name">Threshers</td><td>Units</td><td>Motorised, capacity ≥500kg/h, multi-crop compatible</td><td>3</td><td>$5,000</td></tr>
-            <tr><td>Vaccines</td><td class="item-name">FMD Vaccine</td><td>Doses</td><td>Polyvalent O/A/SAT, cold chain 2–8°C, 20ml vials</td><td>18,000</td><td>$2.50</td></tr>
-            <tr><td>Vaccines</td><td class="item-name">CBPP Vaccine</td><td>Doses</td><td>Live attenuated T1/44 strain, lyophilised, 50-dose vials</td><td>15,750</td><td>$2.50</td></tr>
-            <tr><td>Vaccines</td><td class="item-name">Newcastle</td><td>Doses</td><td>La Sota strain, thermostable, eye-drop application</td><td>11,250</td><td>$2.50</td></tr>
+            <tr><td>Seeds</td><td class="item-name">Rice Seed</td><td>MT</td><td>Certified variety, germination rate ≥95%, moisture ≤13%</td><td>360</td><td>$500</td></tr>
+            <tr><td>Seeds</td><td class="item-name">Wheat Seed</td><td>MT</td><td>High-yield variety, treated against fungal diseases</td><td>280</td><td>$500</td></tr>
+            <tr><td>Seeds</td><td class="item-name">Legume Seed</td><td>MT</td><td>Disease-free, certified for tropical climate</td><td>160</td><td>$500</td></tr>
+            <tr><td>Fertilizer</td><td class="item-name">Urea</td><td>MT</td><td>46-0-0, granular, min 99% purity, 50kg bags</td><td>240</td><td>$450</td></tr>
+            <tr><td>Fertilizer</td><td class="item-name">DAP</td><td>MT</td><td>18-46-0, granular, moisture ≤1%, 50kg bags</td><td>210</td><td>$450</td></tr>
+            <tr><td>Fertilizer</td><td class="item-name">Compound NPK</td><td>MT</td><td>15-15-15 formulation, soluble, 50kg bags</td><td>150</td><td>$450</td></tr>
+            <tr><td>Machinery</td><td class="item-name">Tractors</td><td>Units</td><td>≥75HP, 4WD, with loader and PTO, certified for field use</td><td>3</td><td>$5,000</td></tr>
+            <tr><td>Machinery</td><td class="item-name">Water Pumps</td><td>Units</td><td>5HP diesel, flow rate ≥500L/min, max head 30m</td><td>3</td><td>$5,000</td></tr>
+            <tr><td>Machinery</td><td class="item-name">Threshers</td><td>Units</td><td>Motorised, capacity ≥500kg/h, multi-crop compatible</td><td>2</td><td>$5,000</td></tr>
+            <tr><td>Vaccines</td><td class="item-name">FMD Vaccine</td><td>Doses</td><td>Polyvalent O/A/SAT, cold chain 2–8°C, 20ml vials</td><td>12,800</td><td>$2.50</td></tr>
+            <tr><td>Vaccines</td><td class="item-name">CBPP Vaccine</td><td>Doses</td><td>Live attenuated T1/44 strain, lyophilised, 50-dose vials</td><td>11,200</td><td>$2.50</td></tr>
+            <tr><td>Vaccines</td><td class="item-name">Newcastle</td><td>Doses</td><td>La Sota strain, thermostable, eye-drop application</td><td>8,000</td><td>$2.50</td></tr>
           </tbody>
         </table>
       </div>
@@ -2101,7 +1846,7 @@ tr:hover { background: #F9FAFB; }
 
   </div>
 
-  <!-- ============== PROCUREMENT TAB ============== -->
+  <!-- PROCUREMENT -->
   <div id="procurement-project-2" class="tab-content">
 
     <!-- Pipeline by Category Chart -->
@@ -2122,91 +1867,41 @@ tr:hover { background: #F9FAFB; }
     </div>
 
     <div class="cards-grid">
-
-      <!-- KPI 1: Lead Times -->
       <div class="card">
         <div class="card-title" style="margin-bottom:14px;"><i class="fa-solid fa-clock" style="color:#1A648C;margin-right:6px;"></i>Lead Times</div>
         <div style="display:flex;flex-direction:column;gap:10px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#F0F4F8;border-radius:6px;">
-            <span style="font-size:12px;color:#5A6A7A;font-weight:600;">Plan → PR</span>
-            <span style="font-size:16px;font-weight:700;color:#1A648C;">5d</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#F0F4F8;border-radius:6px;">
-            <span style="font-size:12px;color:#5A6A7A;font-weight:600;">PR → PO</span>
-            <span style="font-size:16px;font-weight:700;color:#1A648C;">7d</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#E8EEF4;border-radius:6px;border-left:3px solid #1A648C;">
-            <span style="font-size:12px;color:#1A648C;font-weight:700;">PO → Delivery</span>
-            <span style="font-size:18px;font-weight:800;color:#1A648C;">12d</span>
-          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#F0F4F8;border-radius:6px;"><span style="font-size:12px;color:#5A6A7A;font-weight:600;">Plan → PR</span><span style="font-size:16px;font-weight:700;color:#1A648C;">6d</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#F0F4F8;border-radius:6px;"><span style="font-size:12px;color:#5A6A7A;font-weight:600;">PR → PO</span><span style="font-size:16px;font-weight:700;color:#1A648C;">9d</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#E8EEF4;border-radius:6px;border-left:3px solid #1A648C;"><span style="font-size:12px;color:#1A648C;font-weight:700;">PO → Delivery</span><span style="font-size:18px;font-weight:800;color:#1A648C;">15d</span></div>
         </div>
       </div>
-
-      <!-- KPI 2: Plan vs Execution -->
       <div class="card">
         <div class="card-title" style="margin-bottom:14px;"><i class="fa-solid fa-chart-line" style="color:#1A648C;margin-right:6px;"></i>Plan vs Execution</div>
         <div style="display:flex;flex-direction:column;gap:10px;">
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
-              <span style="font-size:12px;color:#5A6A7A;font-weight:600;">Planned</span>
-              <span style="font-size:15px;font-weight:700;color:#1A648C;">$2.40M</span>
-            </div>
-          </div>
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
-              <span style="font-size:12px;color:#508931;font-weight:600;"><i class="fa-solid fa-circle-check"></i> POs Issued</span>
-              <span style="font-size:15px;font-weight:700;color:#508931;">$1.20M</span>
-            </div>
-            <div class="progress-bar"><div class="progress-fill" style="width:50%;background:#508931;"></div></div>
-          </div>
-          <div style="font-size:11px;color:#666;margin-top:2px;">50% of plan executed</div>
+          <div><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;"><span style="font-size:12px;color:#5A6A7A;font-weight:600;">Planned</span><span style="font-size:15px;font-weight:700;color:#1A648C;">$1.80M</span></div></div>
+          <div><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;"><span style="font-size:12px;color:#508931;font-weight:600;"><i class="fa-solid fa-circle-check"></i> POs Issued</span><span style="font-size:15px;font-weight:700;color:#508931;">$0.85M</span></div><div class="progress-bar"><div class="progress-fill" style="width:47%;background:#508931;"></div></div></div>
+          <div style="font-size:11px;color:#666;margin-top:2px;">47% of plan executed</div>
         </div>
       </div>
-
-      <!-- KPI 3: Procurement Origin -->
       <div class="card">
         <div class="card-title" style="margin-bottom:14px;"><i class="fa-solid fa-globe" style="color:#1A648C;margin-right:6px;"></i>Procurement Origin</div>
         <div style="display:flex;flex-direction:column;gap:10px;">
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
-              <span style="font-size:12px;color:#508931;font-weight:600;"><i class="fa-solid fa-location-dot"></i> Local</span>
-              <span style="font-size:15px;font-weight:700;color:#508931;">35%</span>
-            </div>
-            <div class="progress-bar"><div class="progress-fill" style="width:35%;background:#508931;"></div></div>
-          </div>
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
-              <span style="font-size:12px;color:#3498DB;font-weight:600;"><i class="fa-solid fa-plane"></i> International</span>
-              <span style="font-size:15px;font-weight:700;color:#3498DB;">65%</span>
-            </div>
-            <div class="progress-bar"><div class="progress-fill" style="width:65%;background:#3498DB;"></div></div>
-          </div>
+          <div><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;"><span style="font-size:12px;color:#508931;font-weight:600;"><i class="fa-solid fa-location-dot"></i> Local</span><span style="font-size:15px;font-weight:700;color:#508931;">28%</span></div><div class="progress-bar"><div class="progress-fill" style="width:28%;background:#508931;"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;"><span style="font-size:12px;color:#3498DB;font-weight:600;"><i class="fa-solid fa-plane"></i> International</span><span style="font-size:15px;font-weight:700;color:#3498DB;">72%</span></div><div class="progress-bar"><div class="progress-fill" style="width:72%;background:#3498DB;"></div></div></div>
           <div style="font-size:11px;color:#666;margin-top:2px;">Based on PO value</div>
         </div>
       </div>
-
-      <!-- KPI 4: Deliveries at Risk (unchanged) -->
       <div class="card">
         <div class="card-header"><div><div class="card-title">Deliveries at Risk</div><span style="font-size:11px;color:#5A6A7A;font-weight:400;margin-left:auto;">Click an indicator to filter the table below</span></div></div>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px;">
-          <div style="text-align:center;padding:12px;border:1px solid #E0E8F0;border-radius:6px;cursor:pointer;background:#FFF8F6;transition:all 0.2s;" onclick="filterProcurementTable('project-2', 'late')" onmouseover="this.style.background='#FFE8E8';this.style.boxShadow='0 4px 12px rgba(168,30,59,0.15)'" onmouseout="this.style.background='#FFF8F6';this.style.boxShadow='none'">
-            <div style="font-size:24px;font-weight:700;color:#A81E3B;">3</div>
-            <div style="font-size:10px;color:#5A6A7A;margin-top:4px;font-weight:600;">Late Deliveries<br/>(&gt;1 days)</div>
-          </div>
-          <div style="text-align:center;padding:12px;border:1px solid #E0E8F0;border-radius:6px;cursor:pointer;background:#FFF8F6;transition:all 0.2s;" onclick="filterProcurementTable('project-2', 'upcoming')" onmouseover="this.style.background='#FFF3CD';this.style.boxShadow='0 4px 12px rgba(243,156,18,0.15)'" onmouseout="this.style.background='#FFF8F6';this.style.boxShadow='none'">
-            <div style="font-size:24px;font-weight:700;color:#F39C12;">5</div>
-            <div style="font-size:10px;color:#5A6A7A;margin-top:4px;font-weight:600;">Upcoming Deliveries<br/>(within 7 days)</div>
-          </div>
-          <div style="text-align:center;padding:12px;border:1px solid #E0E8F0;border-radius:6px;cursor:pointer;background:#FFF8F6;transition:all 0.2s;" onclick="filterProcurementTable('project-2', 'short-lead')" onmouseover="this.style.background='#E7F3FF';this.style.boxShadow='0 4px 12px rgba(52,152,219,0.15)'" onmouseout="this.style.background='#FFF8F6';this.style.boxShadow='none'">
-            <div style="font-size:24px;font-weight:700;color:#3498DB;">8</div>
-            <div style="font-size:10px;color:#5A6A7A;margin-top:4px;font-weight:600;">Short Lead Time<br/>(within 30 days)</div>
-          </div>
+          <div style="text-align:center;padding:12px;border:1px solid #E0E8F0;border-radius:6px;cursor:pointer;background:#FFF8F6;transition:all 0.2s;" onclick="filterProcurementTable('project-2', 'late')" onmouseover="this.style.background='#FFE8E8';this.style.boxShadow='0 4px 12px rgba(168,30,59,0.15)'" onmouseout="this.style.background='#FFF8F6';this.style.boxShadow='none'"><div style="font-size:24px;font-weight:700;color:#A81E3B;">3</div><div style="font-size:10px;color:#5A6A7A;margin-top:4px;font-weight:600;">Late Deliveries<br/>(&gt;1 days)</div></div>
+          <div style="text-align:center;padding:12px;border:1px solid #E0E8F0;border-radius:6px;cursor:pointer;background:#FFF8F6;transition:all 0.2s;" onclick="filterProcurementTable('project-2', 'upcoming')" onmouseover="this.style.background='#FFF3CD';this.style.boxShadow='0 4px 12px rgba(243,156,18,0.15)'" onmouseout="this.style.background='#FFF8F6';this.style.boxShadow='none'"><div style="font-size:24px;font-weight:700;color:#F39C12;">5</div><div style="font-size:10px;color:#5A6A7A;margin-top:4px;font-weight:600;">Upcoming Deliveries<br/>(within 7 days)</div></div>
+          <div style="text-align:center;padding:12px;border:1px solid #E0E8F0;border-radius:6px;cursor:pointer;background:#FFF8F6;transition:all 0.2s;" onclick="filterProcurementTable('project-2', 'short-lead')" onmouseover="this.style.background='#E7F3FF';this.style.boxShadow='0 4px 12px rgba(52,152,219,0.15)'" onmouseout="this.style.background='#FFF8F6';this.style.boxShadow='none'"><div style="font-size:24px;font-weight:700;color:#3498DB;">8</div><div style="font-size:10px;color:#5A6A7A;margin-top:4px;font-weight:600;">Short Lead Time<br/>(within 30 days)</div></div>
         </div>
         <div style="padding:12px;background:#F0F4F8;border-radius:6px;border:1px solid #E0E8F0;text-align:center;">
           <button onclick="filterProcurementTable('project-2', 'all')" style="background:#5791C8;color:#fff;border:none;padding:8px 16px;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;transition:background 0.2s;" onmouseover="this.style.background='#1A648C'" onmouseout="this.style.background='#5791C8'">Show All Procurement Orders</button>
         </div>
       </div>
-
     </div>
 
     <div class="card" style="margin-bottom:24px;">
@@ -2250,129 +1945,79 @@ tr:hover { background: #F9FAFB; }
         </thead>
         <tbody>
           <tr>
-            <td><strong>PO-2026-001</strong></td>
+            <td><strong>PO-2026-101</strong></td>
             <td>2026</td>
-            <td>05 Apr 2026</td>
+            <td>03 Apr 2026</td>
             <td>AgriSupply Inc.</td>
-            <td>Rice Seed (Premium Grade)</td>
+            <td>Rice Seed (Standard Grade)</td>
             <td>1</td>
             <td>Agricultural Inputs</td>
             <td>Seeds and Planting Materials</td>
-            <td>500</td>
-            <td>500</td>
+            <td>450</td>
+            <td>450</td>
             <td>0</td>
             <td>MT</td>
-            <td>$850</td>
-            <td>$425,000</td>
+            <td>$800</td>
+            <td>$360,000</td>
             <td>FOB Miami</td>
-            <td>15 Apr 2026</td>
-            <td>12 Apr 2026</td>
+            <td>10 Apr 2026</td>
+            <td>10 Apr 2026</td>
             <td><span class="badge delivered">ON TIME</span></td>
-            <td>Port-au-Prince Hub</td>
+            <td>Cap-Haïtien Hub</td>
             <td>FAO Haiti</td>
-            <td>Procurement Dept</td>
-            <td>Jean Pierre</td>
+            <td>Regional Procurement</td>
+            <td>Claude Dufour</td>
             <td><span class="badge delivered">DELIVERED</span></td>
           </tr>
           <tr>
-            <td><strong>PO-2026-002</strong></td>
+            <td><strong>PO-2026-102</strong></td>
             <td>2026</td>
-            <td>08 Apr 2026</td>
+            <td>07 Apr 2026</td>
             <td>ChemTrade Ltd.</td>
-            <td>NPK Fertilizer (15-15-15)</td>
+            <td>Organic Fertilizer (20kg bags)</td>
             <td>1</td>
             <td>Agricultural Inputs</td>
             <td>Fertilizers and Soil Amendments</td>
-            <td>300</td>
+            <td>280</td>
             <td>0</td>
-            <td>300</td>
+            <td>280</td>
             <td>MT</td>
-            <td>$450</td>
-            <td>$135,000</td>
-            <td>CIF Port-au-Prince</td>
-            <td>18 Apr 2026</td>
-            <td>Not Yet</td>
-            <td><span class="badge overdue">LATE +9 days</span></td>
-            <td>Port-au-Prince Hub</td>
+            <td>$420</td>
+            <td>$117,600</td>
+            <td>CIF Cap-Haïtien</td>
+            <td>20 Apr 2026</td>
+            <td>Not Delivered</td>
+            <td><span class="badge overdue">LATE +7 days</span></td>
+            <td>Cap-Haïtien Hub</td>
             <td>FAO Haiti</td>
-            <td>Procurement Dept</td>
-            <td>Marie Duval</td>
-            <td><span class="badge overdue">OVERDUE</span></td>
+            <td>Regional Procurement</td>
+            <td>Paul Lalonde</td>
+            <td><span class="badge high-risk">NOT SHIPPED</span></td>
           </tr>
           <tr>
-            <td><strong>PO-2026-003</strong></td>
+            <td><strong>PO-2026-103</strong></td>
             <td>2026</td>
-            <td>10 Apr 2026</td>
+            <td>09 Apr 2026</td>
             <td>BioHealth Global</td>
-            <td>Veterinary Vaccines (Multi-dose)</td>
+            <td>Human Health Vaccines</td>
             <td>1</td>
             <td>Health Products</td>
             <td>Vaccines and Immunization</td>
-            <td>45000</td>
+            <td>40000</td>
             <td>0</td>
-            <td>45000</td>
+            <td>40000</td>
             <td>units</td>
-            <td>$2.85</td>
-            <td>$128,250</td>
+            <td>$3.20</td>
+            <td>$128,000</td>
             <td>FOB Singapore</td>
-            <td>25 Apr 2026</td>
-            <td>Pending</td>
-            <td><span class="badge pending">UPCOMING</span></td>
-            <td>Les Cayes Facility</td>
-            <td>FAO Haiti</td>
-            <td>Medical Unit</td>
-            <td>Dr. Antoine</td>
-            <td><span class="badge pending">PENDING</span></td>
-          </tr>
-          <tr>
-            <td><strong>PO-2026-004</strong></td>
-            <td>2026</td>
-            <td>12 Apr 2026</td>
-            <td>Machinery Co.</td>
-            <td>Agricultural Tractor (60HP)</td>
-            <td>1</td>
-            <td>Equipment</td>
-            <td>Heavy Machinery and Equipment</td>
-            <td>25</td>
-            <td>0</td>
-            <td>25</td>
-            <td>units</td>
-            <td>$12,500</td>
-            <td>$312,500</td>
-            <td>CIF Port-au-Prince</td>
             <td>02 May 2026</td>
-            <td>Expected 02 May</td>
+            <td>Pending</td>
             <td><span class="badge">SHORT LEAD</span></td>
-            <td>Cap-Haïtien Hub</td>
-            <td>FAO Haiti</td>
-            <td>Equipment Unit</td>
-            <td>Robert Sainvil</td>
-            <td><span class="badge">CONFIRMED</span></td>
-          </tr>
-          <tr>
-            <td><strong>PO-2026-005</strong></td>
-            <td>2026</td>
-            <td>06 Apr 2026</td>
-            <td>OilTrading Inc.</td>
-            <td>Vegetable Oil (Refined)</td>
-            <td>1</td>
-            <td>Food Products</td>
-            <td>Oils and Fats</td>
-            <td>200</td>
-            <td>200</td>
-            <td>0</td>
-            <td>MT</td>
-            <td>$950</td>
-            <td>$190,000</td>
-            <td>FOB Rotterdam</td>
-            <td>20 Apr 2026</td>
-            <td>20 Apr 2026</td>
-            <td><span class="badge delivered">ON TIME</span></td>
-            <td>Port-au-Prince Hub</td>
-            <td>WFP Haiti</td>
-            <td>Food Security Unit</td>
-            <td>Sophie Blanc</td>
-            <td><span class="badge shipped">SHIPPED</span></td>
+            <td>Cap-Haïtien Clinic</td>
+            <td>Ministry Health</td>
+            <td>Medical Procurement</td>
+            <td>Dr. Marseille</td>
+            <td><span class="badge high-risk">NOT SHIPPED</span></td>
           </tr>
         </tbody>
         </table>
@@ -2435,26 +2080,26 @@ tr:hover { background: #F9FAFB; }
 
   </div>
 
-  <!-- ============== INVENTORY TAB ============== -->
+  <!-- INVENTORY -->
   <div id="inventory-project-2" class="tab-content">
 
     <div class="cards-grid">
 
-      <!-- KPI 1: Stock Overview (On-Hand + In-Transit + Total) -->
+      <!-- KPI 1: Stock Overview -->
       <div class="card">
         <div class="card-title" style="margin-bottom:14px;"><i class="fa-solid fa-boxes-stacked" style="color:#1A648C;margin-right:6px;"></i>Stock Overview</div>
         <div style="display:flex; flex-direction:column; gap:10px;">
           <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 10px; background:#F0F4F8; border-radius:6px;">
             <span style="font-size:12px; color:#5A6A7A; font-weight:600;">On-Hand</span>
-            <span style="font-size:16px; font-weight:700; color:#1A648C;">290 MT</span>
+            <span style="font-size:16px; font-weight:700; color:#1A648C;">220 MT</span>
           </div>
           <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 10px; background:#F0F4F8; border-radius:6px;">
             <span style="font-size:12px; color:#5A6A7A; font-weight:600;">In-Transit</span>
-            <span style="font-size:16px; font-weight:700; color:#F39C12;">180 MT</span>
+            <span style="font-size:16px; font-weight:700; color:#F39C12;">140 MT</span>
           </div>
           <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 10px; background:#E8EEF4; border-radius:6px; border-left:3px solid #1A648C;">
             <span style="font-size:12px; color:#1A648C; font-weight:700;">Total</span>
-            <span style="font-size:18px; font-weight:800; color:#1A648C;">470 MT</span>
+            <span style="font-size:18px; font-weight:800; color:#1A648C;">360 MT</span>
           </div>
         </div>
       </div>
@@ -2466,64 +2111,133 @@ tr:hover { background: #F9FAFB; }
           <div>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
               <span style="font-size: 12px; color: #508931; font-weight: 600;"><i class="fa-solid fa-arrow-down"></i> Inbound</span>
-              <span style="font-size: 18px; font-weight: 700; color: #508931;">120 MT</span>
+              <span style="font-size: 18px; font-weight: 700; color: #508931;">95 MT</span>
             </div>
-            <div class="progress-bar"><div class="progress-fill" style="width: 60%; background: #508931;"></div></div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 48%; background: #508931;"></div></div>
           </div>
           <div>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
               <span style="font-size: 12px; color: #A81E3B; font-weight: 600;"><i class="fa-solid fa-arrow-up"></i> Outbound</span>
-              <span style="font-size: 18px; font-weight: 700; color: #A81E3B;">85 MT</span>
+              <span style="font-size: 18px; font-weight: 700; color: #A81E3B;">72 MT</span>
             </div>
-            <div class="progress-bar"><div class="progress-fill" style="width: 43%; background: #A81E3B;"></div></div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 36%; background: #A81E3B;"></div></div>
           </div>
         </div>
-        <div class="card-label" style="margin-top: 10px;">Net: +35 MT this period</div>
+        <div class="card-label" style="margin-top: 10px;">Net: +23 MT this period</div>
       </div>
 
       <!-- KPI 3: Stock Expired -->
       <div class="card" style="border-left: 4px solid #A81E3B;">
         <div class="card-title" style="margin-bottom:14px;"><i class="fa-solid fa-triangle-exclamation" style="color:#A81E3B;margin-right:6px;"></i>Stock Expired</div>
-        <div class="card-value" style="color:#A81E3B;">1 batch</div>
-        <div style="margin-top:10px; font-size:12px; color:#666;">Newcastle Vaccine</div>
-        <div style="margin-top:4px; font-size:13px; font-weight:700; color:#A81E3B;">$28,125 total value</div>
-        <div class="card-label" style="margin-top:8px;">Expired: 2025-12-31</div>
+        <div class="card-value" style="color:#A81E3B;">2 batches</div>
+        <div style="margin-top:10px; font-size:12px; color:#666;">FMD Vaccine · Legume Seed</div>
+        <div style="margin-top:4px; font-size:13px; font-weight:700; color:#A81E3B;">$41,500 total value</div>
+        <div class="card-label" style="margin-top:8px;">Oldest: expired 38 days ago</div>
       </div>
 
       <!-- KPI 4: Under Inspection >3 weeks -->
       <div class="card" style="border-left: 4px solid #F39C12;">
         <div class="card-title" style="margin-bottom:14px;"><i class="fa-solid fa-magnifying-glass" style="color:#F39C12;margin-right:6px;"></i>Under Inspection <span style="font-size:11px; font-weight:400;">&gt;3 weeks</span></div>
         <div class="card-value" style="color:#F39C12;">1 batch</div>
-        <div style="margin-top:10px; font-size:12px; color:#666;">Wheat Seed</div>
-        <div style="margin-top:4px; font-size:13px; font-weight:700; color:#F39C12;">$210,000 total value</div>
-        <div class="card-label" style="margin-top:8px;">In inspection since 32 days</div>
+        <div style="margin-top:10px; font-size:12px; color:#666;">FMD Vaccine</div>
+        <div style="margin-top:4px; font-size:13px; font-weight:700; color:#F39C12;">$32,000 total value</div>
+        <div class="card-label" style="margin-top:8px;">In inspection since 26 days</div>
       </div>
 
     </div>
 
     <!-- Expected Arrivals Pipeline chart - full width -->
     <div class="card" style="margin-bottom: 24px;">
-      <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-        <div>
-          <div class="card-title" style="margin-bottom: 4px;">Expected Arrivals Pipeline (USD outstanding, by category)</div>
-          <div style="font-size: 11px; color: #999; margin-bottom: 12px;">Outstanding value of open purchase orders by expected delivery month</div>
-        </div>
+      <div>
+        <div class="card-title" style="margin-bottom: 4px;">Expected Arrivals Pipeline (USD outstanding, by category)</div>
+        <div style="font-size: 11px; color: #999; margin-bottom: 12px;">Outstanding value of open purchase orders by expected delivery month</div>
       </div>
-      <div style="height: 260px;"><canvas id="chart-arrivals-p1"></canvas></div>
+      <div style="height: 260px;"><canvas id="chart-arrivals-p2"></canvas></div>
     </div>
 
+    <!-- Warehouse Capacity Table -->
+    <div class="card" style="margin-bottom: 24px;">
+      <div class="card-title" style="margin-bottom: 16px;"><i class="fa-solid fa-warehouse" style="margin-right:6px; color:#1A648C;"></i>Warehouse Capacity</div>
+      <table class="wh-table">
+        <thead>
+          <tr>
+            <th>Warehouse Name</th>
+            <th>On-Hand (MT)</th>
+            <th>Max. Capacity (MT)</th>
+            <th>Utilization</th>
+            <th>%</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="wh-name">Port-au-Prince Hub</td>
+            <td class="wh-num">120</td>
+            <td>350</td>
+            <td>
+              <div class="wh-capacity-bar-wrap">
+                <div class="wh-cap-now"  style="width:34.3%"></div>
+                <div class="wh-cap-2w"   style="left:34.3%; width:22.9%"></div>
+                <div class="wh-cap-4w"   style="left:57.2%; width:20%"></div>
+              </div>
+              <div class="wh-cap-labels">
+                <span><span class="wh-cap-dot" style="background:#508931"></span>Now: 34%</span>
+                <span><span class="wh-cap-dot" style="background:#1A3A6C"></span>+2w: 57%</span>
+                <span><span class="wh-cap-dot" style="background:#85C1E2"></span>+4w: 77%</span>
+              </div>
+            </td>
+            <td class="wh-pct">77%</td>
+          </tr>
+          <tr>
+            <td class="wh-name">Cap-Haïtien Warehouse</td>
+            <td class="wh-num">65</td>
+            <td>280</td>
+            <td>
+              <div class="wh-capacity-bar-wrap">
+                <div class="wh-cap-now"  style="width:23.2%"></div>
+                <div class="wh-cap-2w"   style="left:23.2%; width:17.9%"></div>
+                <div class="wh-cap-4w"   style="left:41.1%; width:16%"></div>
+              </div>
+              <div class="wh-cap-labels">
+                <span><span class="wh-cap-dot" style="background:#508931"></span>Now: 23%</span>
+                <span><span class="wh-cap-dot" style="background:#1A3A6C"></span>+2w: 41%</span>
+                <span><span class="wh-cap-dot" style="background:#85C1E2"></span>+4w: 57%</span>
+              </div>
+            </td>
+            <td class="wh-pct">57%</td>
+          </tr>
+          <tr>
+            <td class="wh-name">Les Cayes Depot</td>
+            <td class="wh-num">45</td>
+            <td>180</td>
+            <td>
+              <div class="wh-capacity-bar-wrap">
+                <div class="wh-cap-now"  style="width:25%"></div>
+                <div class="wh-cap-2w"   style="left:25%; width:19.4%"></div>
+                <div class="wh-cap-4w"   style="left:44.4%; width:16.7%"></div>
+              </div>
+              <div class="wh-cap-labels">
+                <span><span class="wh-cap-dot" style="background:#508931"></span>Now: 25%</span>
+                <span><span class="wh-cap-dot" style="background:#1A3A6C"></span>+2w: 44%</span>
+                <span><span class="wh-cap-dot" style="background:#85C1E2"></span>+4w: 61%</span>
+              </div>
+            </td>
+            <td class="wh-pct">61%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <!-- Charts row -->
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;">
       <div class="card">
         <div class="card-title" style="margin-bottom: 4px;">Value by Location (USD, by project)</div>
         <div style="font-size: 11px; color: #999; margin-bottom: 12px;">Stacked value per warehouse</div>
-        <div style="height: 280px;"><canvas id="chart-value-location-p1"></canvas></div>
+        <div style="height: 280px;"><canvas id="chart-value-location-p2"></canvas></div>
       </div>
       <div class="card">
         <div class="card-title" style="margin-bottom: 4px;">Value by Expiry Date (USD, by item)</div>
         <div style="font-size: 11px; color: #999; margin-bottom: 12px;">Buckets: expired · expires in next 6 months · no expiry</div>
-        <div style="height: 280px;"><canvas id="chart-expiry-p1"></canvas></div>
+        <div style="height: 280px;"><canvas id="chart-expiry-p2"></canvas></div>
       </div>
     </div>
 
@@ -2531,99 +2245,25 @@ tr:hover { background: #F9FAFB; }
     <div class="card" style="margin-top: 8px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
         <div class="card-title"><i class="fa-solid fa-layer-group" style="color:#1A648C; margin-right:6px;"></i>Stock Batch Detail</div>
-        <span style="font-size:12px; color:#999;">8 batches</span>
+        <span style="font-size:12px; color:#999;">7 batches</span>
       </div>
       <div class="table-responsive">
         <table class="stock-table">
           <thead>
             <tr>
-              <th>Warehouse</th>
-              <th>Project</th>
-              <th>Category</th>
-              <th>Item</th>
-              <th>Code</th>
-              <th>Batch</th>
-              <th>QTY</th>
-              <th>UOM</th>
-              <th>Unit Value</th>
-              <th>Total Value</th>
-              <th>Expiry Date</th>
-              <th>Status</th>
+              <th>Warehouse</th><th>Project</th><th>Category</th><th>Item</th>
+              <th>Code</th><th>Batch</th><th>QTY</th><th>UOM</th>
+              <th>Unit Value</th><th>Total Value</th><th>Expiry Date</th><th>Status</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Port-au-Prince Hub</td><td>Project 1</td><td>Seeds</td>
-              <td class="item-name">Rice Seed</td>
-              <td style="color:#666;">SED-RIC-001</td><td style="color:#666;">HTI-SED-2025-01</td>
-              <td>540</td><td>MT</td><td>$500</td>
-              <td class="total-val">$270,000</td>
-              <td>2026-09-30</td>
-              <td><span class="badge-ready">Ready to Use</span></td>
-            </tr>
-            <tr>
-              <td>Port-au-Prince Hub</td><td>Project 1</td><td>Seeds</td>
-              <td class="item-name">Wheat Seed</td>
-              <td style="color:#666;">SED-WHT-002</td><td style="color:#666;">HTI-SED-2025-02</td>
-              <td>420</td><td>MT</td><td>$500</td>
-              <td class="total-val">$210,000</td>
-              <td class="expiry-warn">2026-04-30 (exp.)</td>
-              <td><span class="badge-inspect">Under Inspection</span></td>
-            </tr>
-            <tr>
-              <td>Port-au-Prince Hub</td><td>Project 1</td><td>Fertilizer</td>
-              <td class="item-name">Urea</td>
-              <td style="color:#666;">FRT-URE-003</td><td style="color:#666;">HTI-FRT-2025-01</td>
-              <td>340</td><td>MT</td><td>$450</td>
-              <td class="total-val">$153,000</td>
-              <td>2027-01-01</td>
-              <td><span class="badge-ready">Ready to Use</span></td>
-            </tr>
-            <tr>
-              <td>Cap-Haïtien Warehouse</td><td>Project 1</td><td>Fertilizer</td>
-              <td class="item-name">DAP</td>
-              <td style="color:#666;">FRT-DAP-004</td><td style="color:#666;">HTI-FRT-2025-02</td>
-              <td>298</td><td>MT</td><td>$450</td>
-              <td class="total-val">$134,100</td>
-              <td>2027-03-15</td>
-              <td><span class="badge-reserved">Reserved</span></td>
-            </tr>
-            <tr>
-              <td>Cap-Haïtien Warehouse</td><td>Project 1</td><td>Machinery</td>
-              <td class="item-name">Tractors</td>
-              <td style="color:#666;">MCH-TRC-005</td><td style="color:#666;">HTI-MCH-2025-01</td>
-              <td>5</td><td>UNITS</td><td>$5,000</td>
-              <td class="total-val">$25,000</td>
-              <td>—</td>
-              <td><span class="badge-transport">Transport Requested</span></td>
-            </tr>
-            <tr>
-              <td>Cap-Haïtien Warehouse</td><td>Project 1</td><td>Machinery</td>
-              <td class="item-name">Water Pumps</td>
-              <td style="color:#666;">MCH-WTP-006</td><td style="color:#666;">HTI-MCH-2025-02</td>
-              <td>4</td><td>UNITS</td><td>$5,000</td>
-              <td class="total-val">$20,000</td>
-              <td>—</td>
-              <td><span class="badge-ready">Ready to Use</span></td>
-            </tr>
-            <tr>
-              <td>Les Cayes Depot</td><td>Project 1</td><td>Vaccines</td>
-              <td class="item-name">FMD Vaccine</td>
-              <td style="color:#666;">VAC-FMD-007</td><td style="color:#666;">HTI-VAC-2025-01</td>
-              <td>18,000</td><td>DOSES</td><td>$2.50</td>
-              <td class="total-val">$45,000</td>
-              <td class="expiry-warn">2026-06-30</td>
-              <td><span class="badge-ready">Ready to Use</span></td>
-            </tr>
-            <tr>
-              <td>Les Cayes Depot</td><td>Project 1</td><td>Vaccines</td>
-              <td class="item-name">Newcastle Vaccine</td>
-              <td style="color:#666;">VAC-NEW-008</td><td style="color:#666;">HTI-VAC-2025-02</td>
-              <td>11,250</td><td>DOSES</td><td>$2.50</td>
-              <td class="total-val">$28,125</td>
-              <td class="expiry-warn">2025-12-31 (exp.)</td>
-              <td><span class="badge-damaged">Damaged</span></td>
-            </tr>
+            <tr><td>Port-au-Prince Hub</td><td>Project 2</td><td>Seeds</td><td class="item-name">Rice Seed</td><td style="color:#666;">SED-RIC-001</td><td style="color:#666;">HTI-P2-SED-01</td><td>360</td><td>MT</td><td>$500</td><td class="total-val">$180,000</td><td>2026-10-15</td><td><span class="badge-ready">Ready to Use</span></td></tr>
+            <tr><td>Port-au-Prince Hub</td><td>Project 2</td><td>Seeds</td><td class="item-name">Legume Seed</td><td style="color:#666;">SED-LEG-002</td><td style="color:#666;">HTI-P2-SED-02</td><td>160</td><td>MT</td><td>$500</td><td class="total-val">$80,000</td><td>2026-08-30</td><td><span class="badge-reserved">Reserved</span></td></tr>
+            <tr><td>Port-au-Prince Hub</td><td>Project 2</td><td>Fertilizer</td><td class="item-name">Urea</td><td style="color:#666;">FRT-URE-003</td><td style="color:#666;">HTI-P2-FRT-01</td><td>240</td><td>MT</td><td>$450</td><td class="total-val">$108,000</td><td>2027-02-28</td><td><span class="badge-ready">Ready to Use</span></td></tr>
+            <tr><td>Port-au-Prince Hub</td><td>Project 2</td><td>Fertilizer</td><td class="item-name">Compound NPK</td><td style="color:#666;">FRT-NPK-004</td><td style="color:#666;">HTI-P2-FRT-02</td><td>150</td><td>MT</td><td>$450</td><td class="total-val">$67,500</td><td>2027-06-01</td><td><span class="badge-transport">Transport Requested</span></td></tr>
+            <tr><td>Cap-Haïtien Warehouse</td><td>Project 2</td><td>Machinery</td><td class="item-name">Tractors</td><td style="color:#666;">MCH-TRC-005</td><td style="color:#666;">HTI-P2-MCH-01</td><td>3</td><td>UNITS</td><td>$5,000</td><td class="total-val">$15,000</td><td>—</td><td><span class="badge-ready">Ready to Use</span></td></tr>
+            <tr><td>Cap-Haïtien Warehouse</td><td>Project 2</td><td>Vaccines</td><td class="item-name">FMD Vaccine</td><td style="color:#666;">VAC-FMD-006</td><td style="color:#666;">HTI-P2-VAC-01</td><td>12,800</td><td>DOSES</td><td>$2.50</td><td class="total-val">$32,000</td><td class="expiry-warn">2026-05-31</td><td><span class="badge-inspect">Under Inspection</span></td></tr>
+            <tr><td>Cap-Haïtien Warehouse</td><td>Project 2</td><td>Vaccines</td><td class="item-name">CBPP Vaccine</td><td style="color:#666;">VAC-CBP-007</td><td style="color:#666;">HTI-P2-VAC-02</td><td>11,200</td><td>DOSES</td><td>$2.50</td><td class="total-val">$28,000</td><td>2026-11-30</td><td><span class="badge-ready">Ready to Use</span></td></tr>
           </tbody>
         </table>
       </div>
@@ -2631,7 +2271,7 @@ tr:hover { background: #F9FAFB; }
 
   </div>
 
-  <!-- ============== DISTRIBUTION TAB ============== -->
+  <!-- DISTRIBUTION -->
   <div id="distribution-project-2" class="tab-content">
     <div class="distribution-section" style="margin-top:24px;margin-bottom:24px;">
       <!-- 1) Beneficiaries Target vs. Reached Chart -->
@@ -2704,10 +2344,9 @@ tr:hover { background: #F9FAFB; }
   </div>
   </div>
 
-
+</div>
 
 <!-- ============================================================================== -->
-
 <!-- PROJECT 3 PAGE -->
 <!-- ============================================================================== -->
 <div id="project-3" class="page">
@@ -2729,13 +2368,12 @@ tr:hover { background: #F9FAFB; }
         <div class="meta-lbl">Beneficiaries</div>
       </div>
       <div class="meta-item">
-        <div class="meta-val">3 / 18 months</div>
+        <div class="meta-val">3 / 9 months</div>
         <div class="meta-lbl">Duration</div>
       </div>
     </div>
   </div>
 
-  <!-- TABS (hidden, navigation via sidebar) -->
   <div class="tab-nav">
     <button class="tab-btn active" onclick="switchTab(event, 'project-3', 'alerts')">Alerts</button>
     <button class="tab-btn" onclick="switchTab(event, 'project-3', 'overview')">Overview</button>
@@ -2746,7 +2384,7 @@ tr:hover { background: #F9FAFB; }
   </div>
   <div class="tab-section-title" id="tab-title-project-3">Operations: Alerts</div>
 
-  <!-- ============== ALERTS TAB ============== -->
+  <!-- ALERTS -->
   <div id="alerts-project-3" class="tab-content active">
     <div class="cards-grid" style="margin-bottom: 24px;">
 
@@ -2774,14 +2412,14 @@ tr:hover { background: #F9FAFB; }
         <div style="display:flex;flex-direction:column;gap:10px;">
           <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#FFEBEE;border-radius:6px;">
             <span style="font-size:12px;color:#A81E3B;font-weight:600;"><i class="fa-solid fa-circle-xmark"></i> Expired</span>
-            <span style="font-size:15px;font-weight:700;color:#A81E3B;">$28,125</span>
+            <span style="font-size:15px;font-weight:700;color:#A81E3B;">$75,600</span>
           </div>
-          <div style="font-size:11px;color:#666;padding-left:4px;">1 batch — Newcastle Vaccine (2025-12-31)</div>
+          <div style="font-size:11px;color:#666;padding-left:4px;">1 batch — DAP Fertilizer (2026-03-31)</div>
           <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#FFF3E0;border-radius:6px;">
             <span style="font-size:12px;color:#F39C12;font-weight:600;"><i class="fa-solid fa-clock-rotate-left"></i> Expiring &lt;6 months</span>
-            <span style="font-size:15px;font-weight:700;color:#F39C12;">$255,000</span>
+            <span style="font-size:15px;font-weight:700;color:#F39C12;">$28,000</span>
           </div>
-          <div style="font-size:11px;color:#666;padding-left:4px;">2 batches — FMD Vaccine + Wheat Seed</div>
+          <div style="font-size:11px;color:#666;padding-left:4px;">1 batch — FMD Vaccine (2026-06-15)</div>
         </div>
       </div>
 
@@ -2790,13 +2428,13 @@ tr:hover { background: #F9FAFB; }
         <div style="display:flex;flex-direction:column;gap:10px;">
           <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#FFF3E0;border-radius:6px;">
             <span style="font-size:12px;color:#F39C12;font-weight:600;">Orders Overdue</span>
-            <span style="font-size:22px;font-weight:800;color:#F39C12;">3</span>
+            <span style="font-size:22px;font-weight:800;color:#F39C12;">2</span>
           </div>
           <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#F0F4F8;border-radius:6px;">
             <span style="font-size:12px;color:#5A6A7A;font-weight:600;">Total Value at Risk</span>
-            <span style="font-size:15px;font-weight:700;color:#A81E3B;">$187,500</span>
+            <span style="font-size:15px;font-weight:700;color:#A81E3B;">$98,000</span>
           </div>
-          <div style="font-size:11px;color:#666;margin-top:2px;">Avg delay: 6 days · Oldest: ORD-002 (+9 days)</div>
+          <div style="font-size:11px;color:#666;margin-top:2px;">Avg delay: 4 days · Oldest: ORD-P3-003 (+7 days)</div>
         </div>
       </div>
 
@@ -2889,7 +2527,75 @@ tr:hover { background: #F9FAFB; }
       </div>
     </div>
 
+    <!-- PROGRAMMATIC OBJECTIVES & BENEFICIARY PACKAGES -->
     <div class="card mb-16" style="margin-bottom:20px;">
+      <div class="card-header"><div><div class="card-title">Programmatic Objectives & Beneficiary Packages</div><div class="card-subtitle">Beneficiary distribution across three programmatic packages</div></div></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;padding:24px;">
+
+        <!-- Agricultural Input Package Card -->
+        <div style="border:1px solid #E0E8F0;border-radius:12px;padding:24px;background:#FAFCFF;border-top:5px solid #508931;transition:all 0.3s ease;cursor:pointer;" onmouseover="this.style.boxShadow='0 8px 24px rgba(0,0,0,0.1)';" onmouseout="this.style.boxShadow='none';">
+          <div style="text-align:center;margin-bottom:20px;">
+            <div style="font-size:56px;margin-bottom:8px;"><i class="fa-solid fa-wheat-awn" style="color:#508931;"></i></div>
+            <div style="font-size:42px;font-weight:800;color:#508931;margin-bottom:4px;">45,000</div>
+            <div style="font-size:12px;color:#8A96A3;font-weight:600;">Beneficiaries</div>
+          </div>
+          <div style="margin-bottom:16px;text-align:center;">
+            <div style="font-size:14px;font-weight:700;color:var(--fao-dark);margin-bottom:8px;">Agricultural Input Package</div>
+            <div style="font-size:12px;color:#5A6A7A;line-height:1.6;">
+              Seeds, fertilizers, and agricultural tools distribution
+            </div>
+          </div>
+          <div style="margin-top:16px;">
+            <div style="display:flex;align-items:center;height:8px;background:#E0E8F0;border-radius:4px;overflow:hidden;">
+              <div style="width:45%;background:#508931;height:100%;"></div>
+            </div>
+            <div style="font-size:11px;color:#8A96A3;margin-top:6px;text-align:right;">45% of total</div>
+          </div>
+        </div>
+
+        <!-- Equipment & Infrastructure Package Card -->
+        <div style="border:1px solid #E0E8F0;border-radius:12px;padding:24px;background:#FAFCFF;border-top:5px solid #5791C8;transition:all 0.3s ease;cursor:pointer;" onmouseover="this.style.boxShadow='0 8px 24px rgba(0,0,0,0.1)';" onmouseout="this.style.boxShadow='none';">
+          <div style="text-align:center;margin-bottom:20px;">
+            <div style="font-size:56px;margin-bottom:8px;"><i class="fa-solid fa-tractor" style="color:#F39C12;"></i></div>
+            <div style="font-size:42px;font-weight:800;color:#5791C8;margin-bottom:4px;">35,000</div>
+            <div style="font-size:12px;color:#8A96A3;font-weight:600;">Beneficiaries</div>
+          </div>
+          <div style="margin-bottom:16px;text-align:center;">
+            <div style="font-size:14px;font-weight:700;color:var(--fao-dark);margin-bottom:8px;">Equipment & Infrastructure Package</div>
+            <div style="font-size:12px;color:#5A6A7A;line-height:1.6;">
+              Equipment, machinery, and infrastructure support
+            </div>
+          </div>
+          <div style="margin-top:16px;">
+            <div style="display:flex;align-items:center;height:8px;background:#E0E8F0;border-radius:4px;overflow:hidden;">
+              <div style="width:35%;background:#5791C8;height:100%;"></div>
+            </div>
+            <div style="font-size:11px;color:#8A96A3;margin-top:6px;text-align:right;">35% of total</div>
+          </div>
+        </div>
+
+        <!-- Livestock Health Package Card -->
+        <div style="border:1px solid #E0E8F0;border-radius:12px;padding:24px;background:#FAFCFF;border-top:5px solid #A81E3B;transition:all 0.3s ease;cursor:pointer;" onmouseover="this.style.boxShadow='0 8px 24px rgba(0,0,0,0.1)';" onmouseout="this.style.boxShadow='none';">
+          <div style="text-align:center;margin-bottom:20px;">
+            <div style="font-size:56px;margin-bottom:8px;"><i class="fa-solid fa-syringe" style="color:#A81E3B;"></i></div>
+            <div style="font-size:42px;font-weight:800;color:#A81E3B;margin-bottom:4px;">20,000</div>
+            <div style="font-size:12px;color:#8A96A3;font-weight:600;">Beneficiaries</div>
+          </div>
+          <div style="margin-bottom:16px;text-align:center;">
+            <div style="font-size:14px;font-weight:700;color:var(--fao-dark);margin-bottom:8px;">Livestock Health Package</div>
+            <div style="font-size:12px;color:#5A6A7A;line-height:1.6;">
+              Vaccines, veterinary supplies, and livestock support
+            </div>
+          </div>
+          <div style="margin-top:16px;">
+            <div style="display:flex;align-items:center;height:8px;background:#E0E8F0;border-radius:4px;overflow:hidden;">
+              <div style="width:20%;background:#A81E3B;height:100%;"></div>
+            </div>
+            <div style="font-size:11px;color:#8A96A3;margin-top:6px;text-align:right;">20% of total</div>
+          </div>
+        </div>
+
+      </div>
 
       <!-- Key Planning Docs Section -->
       <div style="border-top:2px solid #E0E8F0;padding:24px;background:#FAFCFF;">
@@ -2900,15 +2606,13 @@ tr:hover { background: #F9FAFB; }
     </div>
   </div>
 
-  <!-- ============== DEMAND TAB ============== -->
+  <!-- DEMAND -->
   <div id="demand-project-3" class="tab-content">
 
     <div class="card" style="margin-bottom: 24px;">
       <div class="card-title" style="margin-bottom: 4px;">Demand plan (Category, USD)</div>
       <div style="font-size: 11px; color: #999; margin-bottom: 12px;">Identified needs and requirements for each product type</div>
       <div style="height: 260px; margin-bottom: 20px;"><canvas id="chart-demand-usd-project-3"></canvas></div>
-
-      <!-- Donut charts row inside the same card -->
       <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
         <div style="background: #F5F7FB; border-radius: 8px; padding: 12px;">
           <div class="card-title" style="margin-bottom: 8px;">Demand plan Seeds<br><span style="font-size:11px; font-weight:400; color:#999;">Product, MT</span></div>
@@ -2936,7 +2640,7 @@ tr:hover { background: #F9FAFB; }
           <div class="card-title">Product Details and Technical Specifications</div>
           <div class="card-subtitle" style="font-size:12px;color:#666;">Required product specifications and quantities by category</div>
         </div>
-        <button onclick="exportTableToExcel(this, 'Product_Details_P1')" style="display:flex;align-items:center;gap:6px;padding:7px 14px;background:white;border:1px solid #1A648C;color:#1A648C;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;margin-left:auto;" onmouseover="this.style.background='#EEF5FB'" onmouseout="this.style.background='white'">
+        <button onclick="exportTableToExcel(this, 'Product_Details_P3')" style="display:flex;align-items:center;gap:6px;padding:7px 14px;background:white;border:1px solid #1A648C;color:#1A648C;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;margin-left:auto;" onmouseover="this.style.background='#EEF5FB'" onmouseout="this.style.background='white'">
           <i class="fa-solid fa-file-excel"></i> Export to Excel
         </button>
       </div>
@@ -2953,18 +2657,18 @@ tr:hover { background: #F9FAFB; }
             </tr>
           </thead>
           <tbody>
-            <tr><td>Seeds</td><td class="item-name">Rice Seed</td><td>MT</td><td>Certified variety, germination rate ≥95%, moisture ≤13%</td><td>540</td><td>$500</td></tr>
-            <tr><td>Seeds</td><td class="item-name">Wheat Seed</td><td>MT</td><td>High-yield variety, treated against fungal diseases</td><td>420</td><td>$500</td></tr>
-            <tr><td>Seeds</td><td class="item-name">Legume Seed</td><td>MT</td><td>Disease-free, certified for tropical climate</td><td>240</td><td>$500</td></tr>
-            <tr><td>Fertilizer</td><td class="item-name">Urea</td><td>MT</td><td>46-0-0, granular, min 99% purity, 50kg bags</td><td>340</td><td>$450</td></tr>
-            <tr><td>Fertilizer</td><td class="item-name">DAP</td><td>MT</td><td>18-46-0, granular, moisture ≤1%, 50kg bags</td><td>298</td><td>$450</td></tr>
-            <tr><td>Fertilizer</td><td class="item-name">Compound NPK</td><td>MT</td><td>15-15-15 formulation, soluble, 50kg bags</td><td>212</td><td>$450</td></tr>
-            <tr><td>Machinery</td><td class="item-name">Tractors</td><td>Units</td><td>≥75HP, 4WD, with loader and PTO, certified for field use</td><td>5</td><td>$5,000</td></tr>
-            <tr><td>Machinery</td><td class="item-name">Water Pumps</td><td>Units</td><td>5HP diesel, flow rate ≥500L/min, max head 30m</td><td>4</td><td>$5,000</td></tr>
-            <tr><td>Machinery</td><td class="item-name">Threshers</td><td>Units</td><td>Motorised, capacity ≥500kg/h, multi-crop compatible</td><td>3</td><td>$5,000</td></tr>
-            <tr><td>Vaccines</td><td class="item-name">FMD Vaccine</td><td>Doses</td><td>Polyvalent O/A/SAT, cold chain 2–8°C, 20ml vials</td><td>18,000</td><td>$2.50</td></tr>
-            <tr><td>Vaccines</td><td class="item-name">CBPP Vaccine</td><td>Doses</td><td>Live attenuated T1/44 strain, lyophilised, 50-dose vials</td><td>15,750</td><td>$2.50</td></tr>
-            <tr><td>Vaccines</td><td class="item-name">Newcastle</td><td>Doses</td><td>La Sota strain, thermostable, eye-drop application</td><td>11,250</td><td>$2.50</td></tr>
+            <tr><td>Seeds</td><td class="item-name">Rice Seed</td><td>MT</td><td>Certified variety, germination rate ≥95%, moisture ≤13%</td><td>292</td><td>$500</td></tr>
+            <tr><td>Seeds</td><td class="item-name">Wheat Seed</td><td>MT</td><td>High-yield variety, treated against fungal diseases</td><td>227</td><td>$500</td></tr>
+            <tr><td>Seeds</td><td class="item-name">Legume Seed</td><td>MT</td><td>Disease-free, certified for tropical climate</td><td>130</td><td>$500</td></tr>
+            <tr><td>Fertilizer</td><td class="item-name">Urea</td><td>MT</td><td>46-0-0, granular, min 99% purity, 50kg bags</td><td>192</td><td>$450</td></tr>
+            <tr><td>Fertilizer</td><td class="item-name">DAP</td><td>MT</td><td>18-46-0, granular, moisture ≤1%, 50kg bags</td><td>168</td><td>$450</td></tr>
+            <tr><td>Fertilizer</td><td class="item-name">Compound NPK</td><td>MT</td><td>15-15-15 formulation, soluble, 50kg bags</td><td>120</td><td>$450</td></tr>
+            <tr><td>Machinery</td><td class="item-name">Tractors</td><td>Units</td><td>≥75HP, 4WD, with loader and PTO, certified for field use</td><td>2</td><td>$5,000</td></tr>
+            <tr><td>Machinery</td><td class="item-name">Water Pumps</td><td>Units</td><td>5HP diesel, flow rate ≥500L/min, max head 30m</td><td>2</td><td>$5,000</td></tr>
+            <tr><td>Machinery</td><td class="item-name">Threshers</td><td>Units</td><td>Motorised, capacity ≥500kg/h, multi-crop compatible</td><td>2</td><td>$5,000</td></tr>
+            <tr><td>Vaccines</td><td class="item-name">FMD Vaccine</td><td>Doses</td><td>Polyvalent O/A/SAT, cold chain 2–8°C, 20ml vials</td><td>11,200</td><td>$2.50</td></tr>
+            <tr><td>Vaccines</td><td class="item-name">CBPP Vaccine</td><td>Doses</td><td>Live attenuated T1/44 strain, lyophilised, 50-dose vials</td><td>9,800</td><td>$2.50</td></tr>
+            <tr><td>Vaccines</td><td class="item-name">Newcastle</td><td>Doses</td><td>La Sota strain, thermostable, eye-drop application</td><td>7,000</td><td>$2.50</td></tr>
           </tbody>
         </table>
       </div>
@@ -2972,7 +2676,7 @@ tr:hover { background: #F9FAFB; }
 
   </div>
 
-  <!-- ============== PROCUREMENT TAB ============== -->
+  <!-- PROCUREMENT -->
   <div id="procurement-project-3" class="tab-content">
 
     <!-- Pipeline by Category Chart -->
@@ -2993,91 +2697,41 @@ tr:hover { background: #F9FAFB; }
     </div>
 
     <div class="cards-grid">
-
-      <!-- KPI 1: Lead Times -->
       <div class="card">
         <div class="card-title" style="margin-bottom:14px;"><i class="fa-solid fa-clock" style="color:#1A648C;margin-right:6px;"></i>Lead Times</div>
         <div style="display:flex;flex-direction:column;gap:10px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#F0F4F8;border-radius:6px;">
-            <span style="font-size:12px;color:#5A6A7A;font-weight:600;">Plan → PR</span>
-            <span style="font-size:16px;font-weight:700;color:#1A648C;">5d</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#F0F4F8;border-radius:6px;">
-            <span style="font-size:12px;color:#5A6A7A;font-weight:600;">PR → PO</span>
-            <span style="font-size:16px;font-weight:700;color:#1A648C;">7d</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#E8EEF4;border-radius:6px;border-left:3px solid #1A648C;">
-            <span style="font-size:12px;color:#1A648C;font-weight:700;">PO → Delivery</span>
-            <span style="font-size:18px;font-weight:800;color:#1A648C;">12d</span>
-          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#F0F4F8;border-radius:6px;"><span style="font-size:12px;color:#5A6A7A;font-weight:600;">Plan → PR</span><span style="font-size:16px;font-weight:700;color:#1A648C;">4d</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#F0F4F8;border-radius:6px;"><span style="font-size:12px;color:#5A6A7A;font-weight:600;">PR → PO</span><span style="font-size:16px;font-weight:700;color:#1A648C;">6d</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#E8EEF4;border-radius:6px;border-left:3px solid #1A648C;"><span style="font-size:12px;color:#1A648C;font-weight:700;">PO → Delivery</span><span style="font-size:18px;font-weight:800;color:#1A648C;">10d</span></div>
         </div>
       </div>
-
-      <!-- KPI 2: Plan vs Execution -->
       <div class="card">
         <div class="card-title" style="margin-bottom:14px;"><i class="fa-solid fa-chart-line" style="color:#1A648C;margin-right:6px;"></i>Plan vs Execution</div>
         <div style="display:flex;flex-direction:column;gap:10px;">
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
-              <span style="font-size:12px;color:#5A6A7A;font-weight:600;">Planned</span>
-              <span style="font-size:15px;font-weight:700;color:#1A648C;">$2.40M</span>
-            </div>
-          </div>
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
-              <span style="font-size:12px;color:#508931;font-weight:600;"><i class="fa-solid fa-circle-check"></i> POs Issued</span>
-              <span style="font-size:15px;font-weight:700;color:#508931;">$1.20M</span>
-            </div>
-            <div class="progress-bar"><div class="progress-fill" style="width:50%;background:#508931;"></div></div>
-          </div>
-          <div style="font-size:11px;color:#666;margin-top:2px;">50% of plan executed</div>
+          <div><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;"><span style="font-size:12px;color:#5A6A7A;font-weight:600;">Planned</span><span style="font-size:15px;font-weight:700;color:#1A648C;">$1.50M</span></div></div>
+          <div><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;"><span style="font-size:12px;color:#508931;font-weight:600;"><i class="fa-solid fa-circle-check"></i> POs Issued</span><span style="font-size:15px;font-weight:700;color:#508931;">$0.62M</span></div><div class="progress-bar"><div class="progress-fill" style="width:41%;background:#508931;"></div></div></div>
+          <div style="font-size:11px;color:#666;margin-top:2px;">41% of plan executed</div>
         </div>
       </div>
-
-      <!-- KPI 3: Procurement Origin -->
       <div class="card">
         <div class="card-title" style="margin-bottom:14px;"><i class="fa-solid fa-globe" style="color:#1A648C;margin-right:6px;"></i>Procurement Origin</div>
         <div style="display:flex;flex-direction:column;gap:10px;">
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
-              <span style="font-size:12px;color:#508931;font-weight:600;"><i class="fa-solid fa-location-dot"></i> Local</span>
-              <span style="font-size:15px;font-weight:700;color:#508931;">35%</span>
-            </div>
-            <div class="progress-bar"><div class="progress-fill" style="width:35%;background:#508931;"></div></div>
-          </div>
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
-              <span style="font-size:12px;color:#3498DB;font-weight:600;"><i class="fa-solid fa-plane"></i> International</span>
-              <span style="font-size:15px;font-weight:700;color:#3498DB;">65%</span>
-            </div>
-            <div class="progress-bar"><div class="progress-fill" style="width:65%;background:#3498DB;"></div></div>
-          </div>
+          <div><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;"><span style="font-size:12px;color:#508931;font-weight:600;"><i class="fa-solid fa-location-dot"></i> Local</span><span style="font-size:15px;font-weight:700;color:#508931;">42%</span></div><div class="progress-bar"><div class="progress-fill" style="width:42%;background:#508931;"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;"><span style="font-size:12px;color:#3498DB;font-weight:600;"><i class="fa-solid fa-plane"></i> International</span><span style="font-size:15px;font-weight:700;color:#3498DB;">58%</span></div><div class="progress-bar"><div class="progress-fill" style="width:58%;background:#3498DB;"></div></div></div>
           <div style="font-size:11px;color:#666;margin-top:2px;">Based on PO value</div>
         </div>
       </div>
-
-      <!-- KPI 4: Deliveries at Risk (unchanged) -->
       <div class="card">
         <div class="card-header"><div><div class="card-title">Deliveries at Risk</div><span style="font-size:11px;color:#5A6A7A;font-weight:400;margin-left:auto;">Click an indicator to filter the table below</span></div></div>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px;">
-          <div style="text-align:center;padding:12px;border:1px solid #E0E8F0;border-radius:6px;cursor:pointer;background:#FFF8F6;transition:all 0.2s;" onclick="filterProcurementTable('project-3', 'late')" onmouseover="this.style.background='#FFE8E8';this.style.boxShadow='0 4px 12px rgba(168,30,59,0.15)'" onmouseout="this.style.background='#FFF8F6';this.style.boxShadow='none'">
-            <div style="font-size:24px;font-weight:700;color:#A81E3B;">3</div>
-            <div style="font-size:10px;color:#5A6A7A;margin-top:4px;font-weight:600;">Late Deliveries<br/>(&gt;1 days)</div>
-          </div>
-          <div style="text-align:center;padding:12px;border:1px solid #E0E8F0;border-radius:6px;cursor:pointer;background:#FFF8F6;transition:all 0.2s;" onclick="filterProcurementTable('project-3', 'upcoming')" onmouseover="this.style.background='#FFF3CD';this.style.boxShadow='0 4px 12px rgba(243,156,18,0.15)'" onmouseout="this.style.background='#FFF8F6';this.style.boxShadow='none'">
-            <div style="font-size:24px;font-weight:700;color:#F39C12;">5</div>
-            <div style="font-size:10px;color:#5A6A7A;margin-top:4px;font-weight:600;">Upcoming Deliveries<br/>(within 7 days)</div>
-          </div>
-          <div style="text-align:center;padding:12px;border:1px solid #E0E8F0;border-radius:6px;cursor:pointer;background:#FFF8F6;transition:all 0.2s;" onclick="filterProcurementTable('project-3', 'short-lead')" onmouseover="this.style.background='#E7F3FF';this.style.boxShadow='0 4px 12px rgba(52,152,219,0.15)'" onmouseout="this.style.background='#FFF8F6';this.style.boxShadow='none'">
-            <div style="font-size:24px;font-weight:700;color:#3498DB;">8</div>
-            <div style="font-size:10px;color:#5A6A7A;margin-top:4px;font-weight:600;">Short Lead Time<br/>(within 30 days)</div>
-          </div>
+          <div style="text-align:center;padding:12px;border:1px solid #E0E8F0;border-radius:6px;cursor:pointer;background:#FFF8F6;transition:all 0.2s;" onclick="filterProcurementTable('project-3', 'late')" onmouseover="this.style.background='#FFE8E8';this.style.boxShadow='0 4px 12px rgba(168,30,59,0.15)'" onmouseout="this.style.background='#FFF8F6';this.style.boxShadow='none'"><div style="font-size:24px;font-weight:700;color:#A81E3B;">3</div><div style="font-size:10px;color:#5A6A7A;margin-top:4px;font-weight:600;">Late Deliveries<br/>(&gt;1 days)</div></div>
+          <div style="text-align:center;padding:12px;border:1px solid #E0E8F0;border-radius:6px;cursor:pointer;background:#FFF8F6;transition:all 0.2s;" onclick="filterProcurementTable('project-3', 'upcoming')" onmouseover="this.style.background='#FFF3CD';this.style.boxShadow='0 4px 12px rgba(243,156,18,0.15)'" onmouseout="this.style.background='#FFF8F6';this.style.boxShadow='none'"><div style="font-size:24px;font-weight:700;color:#F39C12;">5</div><div style="font-size:10px;color:#5A6A7A;margin-top:4px;font-weight:600;">Upcoming Deliveries<br/>(within 7 days)</div></div>
+          <div style="text-align:center;padding:12px;border:1px solid #E0E8F0;border-radius:6px;cursor:pointer;background:#FFF8F6;transition:all 0.2s;" onclick="filterProcurementTable('project-3', 'short-lead')" onmouseover="this.style.background='#E7F3FF';this.style.boxShadow='0 4px 12px rgba(52,152,219,0.15)'" onmouseout="this.style.background='#FFF8F6';this.style.boxShadow='none'"><div style="font-size:24px;font-weight:700;color:#3498DB;">8</div><div style="font-size:10px;color:#5A6A7A;margin-top:4px;font-weight:600;">Short Lead Time<br/>(within 30 days)</div></div>
         </div>
         <div style="padding:12px;background:#F0F4F8;border-radius:6px;border:1px solid #E0E8F0;text-align:center;">
           <button onclick="filterProcurementTable('project-3', 'all')" style="background:#5791C8;color:#fff;border:none;padding:8px 16px;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;transition:background 0.2s;" onmouseover="this.style.background='#1A648C'" onmouseout="this.style.background='#5791C8'">Show All Procurement Orders</button>
         </div>
       </div>
-
     </div>
 
     <div class="card" style="margin-bottom:24px;">
@@ -3121,129 +2775,79 @@ tr:hover { background: #F9FAFB; }
         </thead>
         <tbody>
           <tr>
-            <td><strong>PO-2026-001</strong></td>
+            <td><strong>PO-2026-201</strong></td>
             <td>2026</td>
-            <td>05 Apr 2026</td>
+            <td>02 Apr 2026</td>
             <td>AgriSupply Inc.</td>
-            <td>Rice Seed (Premium Grade)</td>
+            <td>Premium Rice Seed</td>
             <td>1</td>
             <td>Agricultural Inputs</td>
             <td>Seeds and Planting Materials</td>
-            <td>500</td>
-            <td>500</td>
+            <td>420</td>
+            <td>420</td>
             <td>0</td>
             <td>MT</td>
-            <td>$850</td>
-            <td>$425,000</td>
+            <td>$900</td>
+            <td>$378,000</td>
             <td>FOB Miami</td>
-            <td>15 Apr 2026</td>
-            <td>12 Apr 2026</td>
+            <td>8 Apr 2026</td>
+            <td>8 Apr 2026</td>
             <td><span class="badge delivered">ON TIME</span></td>
-            <td>Port-au-Prince Hub</td>
+            <td>Les Cayes Hub</td>
             <td>FAO Haiti</td>
-            <td>Procurement Dept</td>
-            <td>Jean Pierre</td>
+            <td>Health Unit</td>
+            <td>Isabelle Toussaint</td>
             <td><span class="badge delivered">DELIVERED</span></td>
           </tr>
           <tr>
-            <td><strong>PO-2026-002</strong></td>
+            <td><strong>PO-2026-202</strong></td>
             <td>2026</td>
-            <td>08 Apr 2026</td>
+            <td>06 Apr 2026</td>
             <td>ChemTrade Ltd.</td>
-            <td>NPK Fertilizer (15-15-15)</td>
+            <td>Complex Fertilizer NPK</td>
             <td>1</td>
             <td>Agricultural Inputs</td>
             <td>Fertilizers and Soil Amendments</td>
-            <td>300</td>
+            <td>250</td>
+            <td>250</td>
             <td>0</td>
-            <td>300</td>
             <td>MT</td>
-            <td>$450</td>
-            <td>$135,000</td>
-            <td>CIF Port-au-Prince</td>
-            <td>18 Apr 2026</td>
-            <td>Not Yet</td>
-            <td><span class="badge overdue">LATE +9 days</span></td>
-            <td>Port-au-Prince Hub</td>
+            <td>$480</td>
+            <td>$120,000</td>
+            <td>CIF Les Cayes</td>
+            <td>19 Apr 2026</td>
+            <td>19 Apr 2026</td>
+            <td><span class="badge delivered">ON TIME</span></td>
+            <td>Les Cayes Hub</td>
             <td>FAO Haiti</td>
-            <td>Procurement Dept</td>
-            <td>Marie Duval</td>
-            <td><span class="badge overdue">OVERDUE</span></td>
+            <td>Health Unit</td>
+            <td>Georges Valentin</td>
+            <td><span class="badge shipped">SHIPPED</span></td>
           </tr>
           <tr>
-            <td><strong>PO-2026-003</strong></td>
+            <td><strong>PO-2026-203</strong></td>
             <td>2026</td>
-            <td>10 Apr 2026</td>
+            <td>11 Apr 2026</td>
             <td>BioHealth Global</td>
-            <td>Veterinary Vaccines (Multi-dose)</td>
+            <td>Measles-Rubella Vaccine</td>
             <td>1</td>
             <td>Health Products</td>
             <td>Vaccines and Immunization</td>
-            <td>45000</td>
+            <td>38000</td>
             <td>0</td>
-            <td>45000</td>
+            <td>38000</td>
             <td>units</td>
-            <td>$2.85</td>
-            <td>$128,250</td>
+            <td>$3.50</td>
+            <td>$133,000</td>
             <td>FOB Singapore</td>
-            <td>25 Apr 2026</td>
-            <td>Pending</td>
-            <td><span class="badge pending">UPCOMING</span></td>
-            <td>Les Cayes Facility</td>
-            <td>FAO Haiti</td>
-            <td>Medical Unit</td>
-            <td>Dr. Antoine</td>
-            <td><span class="badge pending">PENDING</span></td>
-          </tr>
-          <tr>
-            <td><strong>PO-2026-004</strong></td>
-            <td>2026</td>
-            <td>12 Apr 2026</td>
-            <td>Machinery Co.</td>
-            <td>Agricultural Tractor (60HP)</td>
-            <td>1</td>
-            <td>Equipment</td>
-            <td>Heavy Machinery and Equipment</td>
-            <td>25</td>
-            <td>0</td>
-            <td>25</td>
-            <td>units</td>
-            <td>$12,500</td>
-            <td>$312,500</td>
-            <td>CIF Port-au-Prince</td>
-            <td>02 May 2026</td>
-            <td>Expected 02 May</td>
-            <td><span class="badge">SHORT LEAD</span></td>
-            <td>Cap-Haïtien Hub</td>
-            <td>FAO Haiti</td>
-            <td>Equipment Unit</td>
-            <td>Robert Sainvil</td>
+            <td>30 Apr 2026</td>
+            <td>Expected 30 Apr</td>
+            <td><span class="badge">UPCOMING</span></td>
+            <td>Les Cayes Clinic</td>
+            <td>Ministry Health</td>
+            <td>Health Procurement</td>
+            <td>Dr. Sylvain</td>
             <td><span class="badge">CONFIRMED</span></td>
-          </tr>
-          <tr>
-            <td><strong>PO-2026-005</strong></td>
-            <td>2026</td>
-            <td>06 Apr 2026</td>
-            <td>OilTrading Inc.</td>
-            <td>Vegetable Oil (Refined)</td>
-            <td>1</td>
-            <td>Food Products</td>
-            <td>Oils and Fats</td>
-            <td>200</td>
-            <td>200</td>
-            <td>0</td>
-            <td>MT</td>
-            <td>$950</td>
-            <td>$190,000</td>
-            <td>FOB Rotterdam</td>
-            <td>20 Apr 2026</td>
-            <td>20 Apr 2026</td>
-            <td><span class="badge delivered">ON TIME</span></td>
-            <td>Port-au-Prince Hub</td>
-            <td>WFP Haiti</td>
-            <td>Food Security Unit</td>
-            <td>Sophie Blanc</td>
-            <td><span class="badge shipped">SHIPPED</span></td>
           </tr>
         </tbody>
         </table>
@@ -3306,26 +2910,26 @@ tr:hover { background: #F9FAFB; }
 
   </div>
 
-  <!-- ============== INVENTORY TAB ============== -->
+  <!-- INVENTORY -->
   <div id="inventory-project-3" class="tab-content">
 
     <div class="cards-grid">
 
-      <!-- KPI 1: Stock Overview (On-Hand + In-Transit + Total) -->
+      <!-- KPI 1: Stock Overview -->
       <div class="card">
         <div class="card-title" style="margin-bottom:14px;"><i class="fa-solid fa-boxes-stacked" style="color:#1A648C;margin-right:6px;"></i>Stock Overview</div>
         <div style="display:flex; flex-direction:column; gap:10px;">
           <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 10px; background:#F0F4F8; border-radius:6px;">
             <span style="font-size:12px; color:#5A6A7A; font-weight:600;">On-Hand</span>
-            <span style="font-size:16px; font-weight:700; color:#1A648C;">290 MT</span>
+            <span style="font-size:16px; font-weight:700; color:#1A648C;">255 MT</span>
           </div>
           <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 10px; background:#F0F4F8; border-radius:6px;">
             <span style="font-size:12px; color:#5A6A7A; font-weight:600;">In-Transit</span>
-            <span style="font-size:16px; font-weight:700; color:#F39C12;">180 MT</span>
+            <span style="font-size:16px; font-weight:700; color:#F39C12;">165 MT</span>
           </div>
           <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 10px; background:#E8EEF4; border-radius:6px; border-left:3px solid #1A648C;">
             <span style="font-size:12px; color:#1A648C; font-weight:700;">Total</span>
-            <span style="font-size:18px; font-weight:800; color:#1A648C;">470 MT</span>
+            <span style="font-size:18px; font-weight:800; color:#1A648C;">420 MT</span>
           </div>
         </div>
       </div>
@@ -3337,64 +2941,133 @@ tr:hover { background: #F9FAFB; }
           <div>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
               <span style="font-size: 12px; color: #508931; font-weight: 600;"><i class="fa-solid fa-arrow-down"></i> Inbound</span>
-              <span style="font-size: 18px; font-weight: 700; color: #508931;">120 MT</span>
+              <span style="font-size: 18px; font-weight: 700; color: #508931;">80 MT</span>
             </div>
-            <div class="progress-bar"><div class="progress-fill" style="width: 60%; background: #508931;"></div></div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 40%; background: #508931;"></div></div>
           </div>
           <div>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
               <span style="font-size: 12px; color: #A81E3B; font-weight: 600;"><i class="fa-solid fa-arrow-up"></i> Outbound</span>
-              <span style="font-size: 18px; font-weight: 700; color: #A81E3B;">85 MT</span>
+              <span style="font-size: 18px; font-weight: 700; color: #A81E3B;">58 MT</span>
             </div>
-            <div class="progress-bar"><div class="progress-fill" style="width: 43%; background: #A81E3B;"></div></div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 29%; background: #A81E3B;"></div></div>
           </div>
         </div>
-        <div class="card-label" style="margin-top: 10px;">Net: +35 MT this period</div>
+        <div class="card-label" style="margin-top: 10px;">Net: +22 MT this period</div>
       </div>
 
       <!-- KPI 3: Stock Expired -->
       <div class="card" style="border-left: 4px solid #A81E3B;">
         <div class="card-title" style="margin-bottom:14px;"><i class="fa-solid fa-triangle-exclamation" style="color:#A81E3B;margin-right:6px;"></i>Stock Expired</div>
         <div class="card-value" style="color:#A81E3B;">1 batch</div>
-        <div style="margin-top:10px; font-size:12px; color:#666;">Newcastle Vaccine</div>
-        <div style="margin-top:4px; font-size:13px; font-weight:700; color:#A81E3B;">$28,125 total value</div>
-        <div class="card-label" style="margin-top:8px;">Expired: 2025-12-31</div>
+        <div style="margin-top:10px; font-size:12px; color:#666;">DAP Fertilizer</div>
+        <div style="margin-top:4px; font-size:13px; font-weight:700; color:#A81E3B;">$75,600 total value</div>
+        <div class="card-label" style="margin-top:8px;">Expired: 2026-03-31</div>
       </div>
 
       <!-- KPI 4: Under Inspection >3 weeks -->
       <div class="card" style="border-left: 4px solid #F39C12;">
         <div class="card-title" style="margin-bottom:14px;"><i class="fa-solid fa-magnifying-glass" style="color:#F39C12;margin-right:6px;"></i>Under Inspection <span style="font-size:11px; font-weight:400;">&gt;3 weeks</span></div>
         <div class="card-value" style="color:#F39C12;">1 batch</div>
-        <div style="margin-top:10px; font-size:12px; color:#666;">Wheat Seed</div>
-        <div style="margin-top:4px; font-size:13px; font-weight:700; color:#F39C12;">$210,000 total value</div>
-        <div class="card-label" style="margin-top:8px;">In inspection since 32 days</div>
+        <div style="margin-top:10px; font-size:12px; color:#666;">Newcastle Vaccine</div>
+        <div style="margin-top:4px; font-size:13px; font-weight:700; color:#F39C12;">$17,500 total value</div>
+        <div class="card-label" style="margin-top:8px;">In inspection since 22 days</div>
       </div>
 
     </div>
 
     <!-- Expected Arrivals Pipeline chart - full width -->
     <div class="card" style="margin-bottom: 24px;">
-      <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-        <div>
-          <div class="card-title" style="margin-bottom: 4px;">Expected Arrivals Pipeline (USD outstanding, by category)</div>
-          <div style="font-size: 11px; color: #999; margin-bottom: 12px;">Outstanding value of open purchase orders by expected delivery month</div>
-        </div>
+      <div>
+        <div class="card-title" style="margin-bottom: 4px;">Expected Arrivals Pipeline (USD outstanding, by category)</div>
+        <div style="font-size: 11px; color: #999; margin-bottom: 12px;">Outstanding value of open purchase orders by expected delivery month</div>
       </div>
-      <div style="height: 260px;"><canvas id="chart-arrivals-p1"></canvas></div>
+      <div style="height: 260px;"><canvas id="chart-arrivals-p3"></canvas></div>
     </div>
 
+    <!-- Warehouse Capacity Table -->
+    <div class="card" style="margin-bottom: 24px;">
+      <div class="card-title" style="margin-bottom: 16px;"><i class="fa-solid fa-warehouse" style="margin-right:6px; color:#1A648C;"></i>Warehouse Capacity</div>
+      <table class="wh-table">
+        <thead>
+          <tr>
+            <th>Warehouse Name</th>
+            <th>On-Hand (MT)</th>
+            <th>Max. Capacity (MT)</th>
+            <th>Utilization</th>
+            <th>%</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="wh-name">Port-au-Prince Hub</td>
+            <td class="wh-num">100</td>
+            <td>320</td>
+            <td>
+              <div class="wh-capacity-bar-wrap">
+                <div class="wh-cap-now"  style="width:31.3%"></div>
+                <div class="wh-cap-2w"   style="left:31.3%; width:21.8%"></div>
+                <div class="wh-cap-4w wh-cap-over" style="left:53.1%; width:18.9%"></div>
+              </div>
+              <div class="wh-cap-labels">
+                <span><span class="wh-cap-dot" style="background:#508931"></span>Now: 31%</span>
+                <span><span class="wh-cap-dot" style="background:#1A3A6C"></span>+2w: 53%</span>
+                <span><span class="wh-cap-dot" style="background:#85C1E2"></span>+4w: 72%</span>
+              </div>
+            </td>
+            <td class="wh-pct">72%</td>
+          </tr>
+          <tr>
+            <td class="wh-name">Cap-Haïtien Warehouse</td>
+            <td class="wh-num">130</td>
+            <td>250</td>
+            <td>
+              <div class="wh-capacity-bar-wrap">
+                <div class="wh-cap-now"  style="width:52%"></div>
+                <div class="wh-cap-2w"   style="left:52%; width:24%"></div>
+                <div class="wh-cap-4w wh-cap-over" style="left:76%; width:24%"></div>
+              </div>
+              <div class="wh-cap-labels">
+                <span><span class="wh-cap-dot" style="background:#508931"></span>Now: 52%</span>
+                <span><span class="wh-cap-dot" style="background:#1A3A6C"></span>+2w: 76%</span>
+                <span><span class="wh-cap-dot" style="background:#A81E3B"></span>+4w: 100% ⚠</span>
+              </div>
+            </td>
+            <td class="wh-pct over">100%</td>
+          </tr>
+          <tr>
+            <td class="wh-name">Les Cayes Depot</td>
+            <td class="wh-num">40</td>
+            <td>160</td>
+            <td>
+              <div class="wh-capacity-bar-wrap">
+                <div class="wh-cap-now"  style="width:25%"></div>
+                <div class="wh-cap-2w"   style="left:25%; width:18.8%"></div>
+                <div class="wh-cap-4w"   style="left:43.8%; width:18.7%"></div>
+              </div>
+              <div class="wh-cap-labels">
+                <span><span class="wh-cap-dot" style="background:#508931"></span>Now: 25%</span>
+                <span><span class="wh-cap-dot" style="background:#1A3A6C"></span>+2w: 44%</span>
+                <span><span class="wh-cap-dot" style="background:#85C1E2"></span>+4w: 63%</span>
+              </div>
+            </td>
+            <td class="wh-pct">63%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <!-- Charts row -->
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;">
       <div class="card">
         <div class="card-title" style="margin-bottom: 4px;">Value by Location (USD, by project)</div>
         <div style="font-size: 11px; color: #999; margin-bottom: 12px;">Stacked value per warehouse</div>
-        <div style="height: 280px;"><canvas id="chart-value-location-p1"></canvas></div>
+        <div style="height: 280px;"><canvas id="chart-value-location-p3"></canvas></div>
       </div>
       <div class="card">
         <div class="card-title" style="margin-bottom: 4px;">Value by Expiry Date (USD, by item)</div>
         <div style="font-size: 11px; color: #999; margin-bottom: 12px;">Buckets: expired · expires in next 6 months · no expiry</div>
-        <div style="height: 280px;"><canvas id="chart-expiry-p1"></canvas></div>
+        <div style="height: 280px;"><canvas id="chart-expiry-p3"></canvas></div>
       </div>
     </div>
 
@@ -3402,99 +3075,25 @@ tr:hover { background: #F9FAFB; }
     <div class="card" style="margin-top: 8px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
         <div class="card-title"><i class="fa-solid fa-layer-group" style="color:#1A648C; margin-right:6px;"></i>Stock Batch Detail</div>
-        <span style="font-size:12px; color:#999;">8 batches</span>
+        <span style="font-size:12px; color:#999;">7 batches</span>
       </div>
       <div class="table-responsive">
         <table class="stock-table">
           <thead>
             <tr>
-              <th>Warehouse</th>
-              <th>Project</th>
-              <th>Category</th>
-              <th>Item</th>
-              <th>Code</th>
-              <th>Batch</th>
-              <th>QTY</th>
-              <th>UOM</th>
-              <th>Unit Value</th>
-              <th>Total Value</th>
-              <th>Expiry Date</th>
-              <th>Status</th>
+              <th>Warehouse</th><th>Project</th><th>Category</th><th>Item</th>
+              <th>Code</th><th>Batch</th><th>QTY</th><th>UOM</th>
+              <th>Unit Value</th><th>Total Value</th><th>Expiry Date</th><th>Status</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Port-au-Prince Hub</td><td>Project 1</td><td>Seeds</td>
-              <td class="item-name">Rice Seed</td>
-              <td style="color:#666;">SED-RIC-001</td><td style="color:#666;">HTI-SED-2025-01</td>
-              <td>540</td><td>MT</td><td>$500</td>
-              <td class="total-val">$270,000</td>
-              <td>2026-09-30</td>
-              <td><span class="badge-ready">Ready to Use</span></td>
-            </tr>
-            <tr>
-              <td>Port-au-Prince Hub</td><td>Project 1</td><td>Seeds</td>
-              <td class="item-name">Wheat Seed</td>
-              <td style="color:#666;">SED-WHT-002</td><td style="color:#666;">HTI-SED-2025-02</td>
-              <td>420</td><td>MT</td><td>$500</td>
-              <td class="total-val">$210,000</td>
-              <td class="expiry-warn">2026-04-30 (exp.)</td>
-              <td><span class="badge-inspect">Under Inspection</span></td>
-            </tr>
-            <tr>
-              <td>Port-au-Prince Hub</td><td>Project 1</td><td>Fertilizer</td>
-              <td class="item-name">Urea</td>
-              <td style="color:#666;">FRT-URE-003</td><td style="color:#666;">HTI-FRT-2025-01</td>
-              <td>340</td><td>MT</td><td>$450</td>
-              <td class="total-val">$153,000</td>
-              <td>2027-01-01</td>
-              <td><span class="badge-ready">Ready to Use</span></td>
-            </tr>
-            <tr>
-              <td>Cap-Haïtien Warehouse</td><td>Project 1</td><td>Fertilizer</td>
-              <td class="item-name">DAP</td>
-              <td style="color:#666;">FRT-DAP-004</td><td style="color:#666;">HTI-FRT-2025-02</td>
-              <td>298</td><td>MT</td><td>$450</td>
-              <td class="total-val">$134,100</td>
-              <td>2027-03-15</td>
-              <td><span class="badge-reserved">Reserved</span></td>
-            </tr>
-            <tr>
-              <td>Cap-Haïtien Warehouse</td><td>Project 1</td><td>Machinery</td>
-              <td class="item-name">Tractors</td>
-              <td style="color:#666;">MCH-TRC-005</td><td style="color:#666;">HTI-MCH-2025-01</td>
-              <td>5</td><td>UNITS</td><td>$5,000</td>
-              <td class="total-val">$25,000</td>
-              <td>—</td>
-              <td><span class="badge-transport">Transport Requested</span></td>
-            </tr>
-            <tr>
-              <td>Cap-Haïtien Warehouse</td><td>Project 1</td><td>Machinery</td>
-              <td class="item-name">Water Pumps</td>
-              <td style="color:#666;">MCH-WTP-006</td><td style="color:#666;">HTI-MCH-2025-02</td>
-              <td>4</td><td>UNITS</td><td>$5,000</td>
-              <td class="total-val">$20,000</td>
-              <td>—</td>
-              <td><span class="badge-ready">Ready to Use</span></td>
-            </tr>
-            <tr>
-              <td>Les Cayes Depot</td><td>Project 1</td><td>Vaccines</td>
-              <td class="item-name">FMD Vaccine</td>
-              <td style="color:#666;">VAC-FMD-007</td><td style="color:#666;">HTI-VAC-2025-01</td>
-              <td>18,000</td><td>DOSES</td><td>$2.50</td>
-              <td class="total-val">$45,000</td>
-              <td class="expiry-warn">2026-06-30</td>
-              <td><span class="badge-ready">Ready to Use</span></td>
-            </tr>
-            <tr>
-              <td>Les Cayes Depot</td><td>Project 1</td><td>Vaccines</td>
-              <td class="item-name">Newcastle Vaccine</td>
-              <td style="color:#666;">VAC-NEW-008</td><td style="color:#666;">HTI-VAC-2025-02</td>
-              <td>11,250</td><td>DOSES</td><td>$2.50</td>
-              <td class="total-val">$28,125</td>
-              <td class="expiry-warn">2025-12-31 (exp.)</td>
-              <td><span class="badge-damaged">Damaged</span></td>
-            </tr>
+            <tr><td>Port-au-Prince Hub</td><td>Project 3</td><td>Seeds</td><td class="item-name">Rice Seed</td><td style="color:#666;">SED-RIC-001</td><td style="color:#666;">HTI-P3-SED-01</td><td>292</td><td>MT</td><td>$500</td><td class="total-val">$146,000</td><td>2026-11-30</td><td><span class="badge-ready">Ready to Use</span></td></tr>
+            <tr><td>Port-au-Prince Hub</td><td>Project 3</td><td>Seeds</td><td class="item-name">Wheat Seed</td><td style="color:#666;">SED-WHT-002</td><td style="color:#666;">HTI-P3-SED-02</td><td>227</td><td>MT</td><td>$500</td><td class="total-val">$113,500</td><td>2026-09-15</td><td><span class="badge-reserved">Reserved</span></td></tr>
+            <tr><td>Port-au-Prince Hub</td><td>Project 3</td><td>Fertilizer</td><td class="item-name">Urea</td><td style="color:#666;">FRT-URE-003</td><td style="color:#666;">HTI-P3-FRT-01</td><td>192</td><td>MT</td><td>$450</td><td class="total-val">$86,400</td><td>2027-04-01</td><td><span class="badge-ready">Ready to Use</span></td></tr>
+            <tr><td>Cap-Haïtien Warehouse</td><td>Project 3</td><td>Fertilizer</td><td class="item-name">DAP</td><td style="color:#666;">FRT-DAP-004</td><td style="color:#666;">HTI-P3-FRT-02</td><td>168</td><td>MT</td><td>$450</td><td class="total-val">$75,600</td><td class="expiry-warn">2026-03-31 (exp.)</td><td><span class="badge-damaged">Damaged</span></td></tr>
+            <tr><td>Cap-Haïtien Warehouse</td><td>Project 3</td><td>Machinery</td><td class="item-name">Threshers</td><td style="color:#666;">MCH-THR-005</td><td style="color:#666;">HTI-P3-MCH-01</td><td>2</td><td>UNITS</td><td>$5,000</td><td class="total-val">$10,000</td><td>—</td><td><span class="badge-transport">Transport Requested</span></td></tr>
+            <tr><td>Les Cayes Depot</td><td>Project 3</td><td>Vaccines</td><td class="item-name">FMD Vaccine</td><td style="color:#666;">VAC-FMD-006</td><td style="color:#666;">HTI-P3-VAC-01</td><td>11,200</td><td>DOSES</td><td>$2.50</td><td class="total-val">$28,000</td><td class="expiry-warn">2026-06-15</td><td><span class="badge-ready">Ready to Use</span></td></tr>
+            <tr><td>Les Cayes Depot</td><td>Project 3</td><td>Vaccines</td><td class="item-name">Newcastle Vaccine</td><td style="color:#666;">VAC-NEW-007</td><td style="color:#666;">HTI-P3-VAC-02</td><td>7,000</td><td>DOSES</td><td>$2.50</td><td class="total-val">$17,500</td><td>2027-01-15</td><td><span class="badge-inspect">Under Inspection</span></td></tr>
           </tbody>
         </table>
       </div>
@@ -3502,7 +3101,7 @@ tr:hover { background: #F9FAFB; }
 
   </div>
 
-  <!-- ============== DISTRIBUTION TAB ============== -->
+  <!-- DISTRIBUTION -->
   <div id="distribution-project-3" class="tab-content">
     <div class="distribution-section" style="margin-top:24px;margin-bottom:24px;">
       <!-- 1) Beneficiaries Target vs. Reached Chart -->
@@ -3573,220 +3172,14 @@ tr:hover { background: #F9FAFB; }
       </div>
     </div>
   </div>
-  </div>
 
 
+</div>
 
-<!-- ============================================================================== -->
+</div> <!-- END CONTAINER -->
+</div> <!-- END MAIN WRAPPER -->
 
 <script>
-// HOME PAGE — Alerts data by project
-const homeAlertsData = {
-  'project-1': {
-    late: 3, upcoming: 5, short: 8,
-    expired: '$28,125', expDetail: '1 batch — Newcastle Vaccine (2025-12-31)',
-    expiring: '$255,000', exp6Detail: '2 batches — FMD Vaccine + Wheat Seed',
-    overdue: 3, value: '$187,500', delay: 'Avg delay: 6 days · Oldest: ORD-002 (+9 days)'
-  },
-  'project-2': {
-    late: 3, upcoming: 5, short: 8,
-    expired: '$41,500', expDetail: '2 batches — FMD Vaccine + Legume Seed',
-    expiring: '$80,000', exp6Detail: '1 batch — FMD Vaccine (2026-05-31)',
-    overdue: 5, value: '$243,000', delay: 'Avg delay: 8 days · Oldest: ORD-P2-001 (+12 days)'
-  },
-  'project-3': {
-    late: 3, upcoming: 5, short: 8,
-    expired: '$75,600', expDetail: '1 batch — DAP Fertilizer (2026-03-31)',
-    expiring: '$28,000', exp6Detail: '1 batch — FMD Vaccine (2026-06-15)',
-    overdue: 2, value: '$98,000', delay: 'Avg delay: 4 days · Oldest: ORD-P3-003 (+7 days)'
-  }
-};
-
-function aggregateAlerts(projects) {
-  const agg = { late:0, upcoming:0, short:0, expiredVal:0, expiringVal:0, overdue:0, totalValue:0 };
-  const expiredBatches = [], expiringBatches = [];
-  projects.forEach(p => {
-    const d = homeAlertsData[p];
-    if (!d) return;
-    agg.late += d.late; agg.upcoming += d.upcoming; agg.short += d.short;
-    agg.overdue += d.overdue;
-    const ev = parseFloat(d.expired.replace(/[$,]/g,'')) || 0;
-    const xv = parseFloat(d.expiring.replace(/[$,]/g,'')) || 0;
-    const tv = parseFloat(d.value.replace(/[$,]/g,'')) || 0;
-    agg.expiredVal += ev; agg.expiringVal += xv; agg.totalValue += tv;
-    expiredBatches.push(d.expDetail);
-    expiringBatches.push(d.exp6Detail);
-  });
-  const fmt = n => '$' + n.toLocaleString('en-US');
-  return { ...agg,
-    expiredFmt: fmt(agg.expiredVal), expiredDetail: expiredBatches.join(' · '),
-    expiringFmt: fmt(agg.expiringVal), expiringDetail: expiringBatches.join(' · '),
-    valueFmt: fmt(agg.totalValue)
-  };
-}
-
-function renderHomeAlerts(d, proj) {
-  const targetProj = proj === 'all' ? 'project-1' : proj;
-  return `
-    <div class="card">
-      <div class="card-title" style="margin-bottom:14px;"><i class="fa-solid fa-triangle-exclamation" style="color:#A81E3B;margin-right:8px;"></i>Deliveries at Risk</div>
-      <div style="font-size:11px;color:#5A6A7A;margin-bottom:12px;">Click an indicator to go to Procurement</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
-        <div style="text-align:center;padding:12px;border:1px solid #E0E8F0;border-radius:6px;cursor:pointer;background:#FFF8F6;" onclick="navigateTo('${targetProj}','procurement');setTimeout(()=>filterProcurementTable('${targetProj}','late'),400)">
-          <div style="font-size:24px;font-weight:700;color:#A81E3B;">${d.late}</div>
-          <div style="font-size:10px;color:#5A6A7A;margin-top:4px;font-weight:600;">Late<br/>(&gt;1 days)</div>
-        </div>
-        <div style="text-align:center;padding:12px;border:1px solid #E0E8F0;border-radius:6px;cursor:pointer;background:#FFF8F6;" onclick="navigateTo('${targetProj}','procurement');setTimeout(()=>filterProcurementTable('${targetProj}','upcoming'),400)">
-          <div style="font-size:24px;font-weight:700;color:#F39C12;">${d.upcoming}</div>
-          <div style="font-size:10px;color:#5A6A7A;margin-top:4px;font-weight:600;">Upcoming<br/>(7 days)</div>
-        </div>
-        <div style="text-align:center;padding:12px;border:1px solid #E0E8F0;border-radius:6px;cursor:pointer;background:#FFF8F6;" onclick="navigateTo('${targetProj}','procurement');setTimeout(()=>filterProcurementTable('${targetProj}','short-lead'),400)">
-          <div style="font-size:24px;font-weight:700;color:#3498DB;">${d.short}</div>
-          <div style="font-size:10px;color:#5A6A7A;margin-top:4px;font-weight:600;">Short Lead<br/>(30 days)</div>
-        </div>
-      </div>
-    </div>
-    <div class="card" style="border-left:4px solid #A81E3B;">
-      <div class="card-title" style="margin-bottom:14px;"><i class="fa-solid fa-clock" style="color:#A81E3B;margin-right:8px;"></i>Aged Stock</div>
-      <div style="display:flex;flex-direction:column;gap:10px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#FFEBEE;border-radius:6px;">
-          <span style="font-size:12px;color:#A81E3B;font-weight:600;"><i class="fa-solid fa-circle-xmark"></i> Expired</span>
-          <span style="font-size:15px;font-weight:700;color:#A81E3B;">${d.expiredFmt}</span>
-        </div>
-        <div style="font-size:11px;color:#666;padding-left:4px;">${d.expiredDetail}</div>
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#FFF3E0;border-radius:6px;">
-          <span style="font-size:12px;color:#F39C12;font-weight:600;"><i class="fa-solid fa-clock-rotate-left"></i> Expiring &lt;6 months</span>
-          <span style="font-size:15px;font-weight:700;color:#F39C12;">${d.expiringFmt}</span>
-        </div>
-        <div style="font-size:11px;color:#666;padding-left:4px;">${d.expiringDetail}</div>
-      </div>
-    </div>
-    <div class="card" style="border-left:4px solid #F39C12;">
-      <div class="card-title" style="margin-bottom:14px;"><i class="fa-solid fa-truck" style="color:#F39C12;margin-right:8px;"></i>Late Distributions</div>
-      <div style="display:flex;flex-direction:column;gap:10px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#FFF3E0;border-radius:6px;">
-          <span style="font-size:12px;color:#F39C12;font-weight:600;">Orders Overdue</span>
-          <span style="font-size:22px;font-weight:800;color:#F39C12;">${d.overdue}</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#F0F4F8;border-radius:6px;">
-          <span style="font-size:12px;color:#5A6A7A;font-weight:600;">Total Value at Risk</span>
-          <span style="font-size:15px;font-weight:700;color:#A81E3B;">${d.valueFmt}</span>
-        </div>
-        <div style="font-size:11px;color:#666;margin-top:2px;">${d.delay || ''}</div>
-      </div>
-    </div>`;
-}
-
-// Home portfolio data (with country)
-const homePortfolioData = [
-  { country: 'Haiti', id: 'project-1', name: 'Project 1', status: 'PROJECT IDENTIFICATION', statusColor: '#9C27B0', budgetSpent: 1200000, budgetTotal: 2400000, benReached: 45000, benTarget: 80000, duration: 6,
-    planningDocs: [{ plan: 'Demand Plan', status: 'Approved' }, { plan: 'Procurement Plan', status: 'Pending Approval' }, { plan: 'Distribution Plan', status: 'Draft' }] },
-  { country: 'Haiti', id: 'project-2', name: 'Project 2', status: 'PROJECT FORMULATION',   statusColor: '#FF9800', budgetSpent:  850000, budgetTotal: 1800000, benReached: 38000, benTarget: 70000, duration: 12,
-    planningDocs: [{ plan: 'Demand Plan', status: 'Approved' }, { plan: 'Procurement Plan', status: 'Approved' }, { plan: 'Distribution Plan', status: 'In Progress' }] },
-  { country: 'Haiti', id: 'project-3', name: 'Project 3', status: 'PROJECT APPROVAL',       statusColor: '#2196F3', budgetSpent:  620000, budgetTotal: 1500000, benReached: 42000, benTarget: 75000, duration: 18,
-    planningDocs: [{ plan: 'Demand Plan', status: 'Approved' }, { plan: 'Procurement Plan', status: 'Approved' }, { plan: 'Distribution Plan', status: 'Approved' }] },
-];
-
-function renderHomePortfolio(filteredData) {
-  const tbody = document.getElementById('home-portfolio-table');
-  if (!tbody) return;
-  if (!filteredData.length) {
-    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#999;padding:24px;">No projects match the selected filters.</td></tr>';
-    return;
-  }
-  tbody.innerHTML = filteredData.map(p => {
-    const bPct = Math.round((p.budgetSpent / p.budgetTotal) * 100);
-    const benPct = Math.round((p.benReached / p.benTarget) * 100);
-    const docColors = {
-      'Approved':         { bg: '#E8F5E9', color: '#2E7D32' },
-      'Pending Approval': { bg: '#FFF3E0', color: '#E65100' },
-      'In Progress':      { bg: '#FFF8E1', color: '#F57F17' },
-      'Draft':            { bg: '#FCE4EC', color: '#C2185B' },
-    };
-    const docsHtml = (p.planningDocs || []).map(doc => {
-      const c = docColors[doc.status] || { bg: '#F5F5F5', color: '#666' };
-      return `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
-        <span style="font-size:11px;color:#5A6A7A;">${doc.plan}</span>
-        <span style="font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;background:${c.bg};color:${c.color};white-space:nowrap;">${doc.status}</span>
-      </div>`;
-    }).join('');
-
-    return `
-      <tr style="cursor:pointer;" onclick="navigateTo('${p.id}','alerts')" title="Click to open ${p.name}">
-        <td><strong>${p.country}</strong></td>
-        <td><strong style="color:#1A648C;">${p.name}</strong></td>
-        <td style="color:#999;font-style:italic;">TBD</td>
-        <td><span class="badge" style="background:${p.statusColor}20;color:${p.statusColor};border:1px solid ${p.statusColor};white-space:nowrap;">${p.status}</span></td>
-        <td style="min-width:200px;">${docsHtml}</td>
-        <td>
-          <div style="margin-bottom:6px;"><strong>$${(p.budgetSpent/1000000).toFixed(2)}M</strong> / $${(p.budgetTotal/1000000).toFixed(2)}M</div>
-          <div class="progress-bar"><div class="progress-fill" style="width:${bPct}%;"></div></div>
-          <div style="font-size:11px;color:#666;margin-top:3px;">${bPct}% utilized</div>
-        </td>
-        <td>
-          <div style="margin-bottom:6px;"><strong>${p.benReached.toLocaleString()}</strong> / ${p.benTarget.toLocaleString()}</div>
-          <div class="progress-bar"><div class="progress-fill" style="width:${benPct}%;background:#508931;"></div></div>
-          <div style="font-size:11px;color:#666;margin-top:3px;">${benPct}% reached</div>
-        </td>
-        <td style="text-align:center;"><strong>${p.duration}</strong></td>
-      </tr>`;
-  }).join('');
-}
-
-function applyHomeFilters() {
-  const country = document.getElementById('home-filter-country')?.value || 'all';
-  const project = document.getElementById('home-filter-project')?.value || 'all';
-  const grid = document.getElementById('home-alerts-grid');
-  const tag = document.getElementById('home-filter-tag');
-  if (!grid) return;
-
-  let projectIds = ['project-1','project-2','project-3'];
-  let label = 'All Countries · All Projects';
-
-  if (project !== 'all') {
-    projectIds = [project];
-    label = (country !== 'all' ? country.charAt(0).toUpperCase()+country.slice(1) + ' · ' : '') + project.replace('-',' ').replace(/\b\w/g,c=>c.toUpperCase());
-  } else if (country !== 'all') {
-    label = country.charAt(0).toUpperCase()+country.slice(1) + ' · All Projects';
-  }
-
-  if (tag) { tag.style.display = 'inline-block'; tag.textContent = label; }
-
-  // Alerts
-  const d = aggregateAlerts(projectIds);
-  d.delay = projectIds.length === 1 ? homeAlertsData[projectIds[0]].delay : '';
-  grid.innerHTML = renderHomeAlerts(d, project);
-
-}
-
-function applyHomePortfolioFilters() {
-  const country = document.getElementById('home-portfolio-filter-country')?.value || 'all';
-  const project = document.getElementById('home-portfolio-filter-project')?.value || 'all';
-
-  const filtered = homePortfolioData.filter(p => {
-    const countryMatch = country === 'all' || p.country.toLowerCase() === country.toLowerCase();
-    const projectMatch = project === 'all' || p.id === project;
-    return countryMatch && projectMatch;
-  });
-  renderHomePortfolio(filtered);
-}
-
-function checkPassword() {
-  const input = document.getElementById('gate-input');
-  const error = document.getElementById('gate-error');
-  if (input.value.toUpperCase() === 'SCAPCONTROLTOWER') {
-    sessionStorage.setItem('scap_auth', '1');
-    document.getElementById('password-gate').classList.add('hidden');
-    input.value = '';
-    if (error) error.textContent = '';
-  } else {
-    if (error) error.textContent = 'Incorrect password. Please try again.';
-    input.classList.add('error');
-    input.value = '';
-    setTimeout(() => input.classList.remove('error'), 400);
-  }
-}
-
 // SIDEBAR NAVIGATION FUNCTIONS
 function navigateTo(page, tab) {
   // Hide all pages
@@ -3913,12 +3306,6 @@ function showPage(pageId) {
 
   if (pageId === 'global') {
     buildGlobalDashboard();
-    setTimeout(buildGlobalArrivalsChart, 100);
-    setTimeout(() => { updateDemandProductFilter(); buildDemandOverviewChart(); }, 100);
-  }
-  if (pageId === 'home') {
-    applyHomeFilters();
-    applyHomePortfolioFilters();
   }
 }
 
@@ -3986,42 +3373,42 @@ function buildGlobalDashboard() {
     </div>
   `;
 
-  // global-summary removed — KPIs no longer shown
-  // document.getElementById('global-summary').innerHTML = summaryHtml;
+  document.getElementById('global-summary').innerHTML = summaryHtml;
 
-  // Build Project Portfolio Table (same format as Home page)
-  const docColors = { 'Approved': { bg:'#E8F5E9',color:'#2E7D32' }, 'Pending Approval': { bg:'#FFF3E0',color:'#E65100' }, 'In Progress': { bg:'#FFF8E1',color:'#F57F17' }, 'Draft': { bg:'#FCE4EC',color:'#C2185B' } };
+  // Build Project Portfolio Table
+  const statuses = ['PROJECT IDENTIFICATION', 'PROJECT FORMULATION', 'PROJECT APPROVAL'];
+  const statusColors = {
+    'PROJECT IDENTIFICATION': '#9C27B0',
+    'PROJECT FORMULATION': '#FF9800',
+    'PROJECT APPROVAL': '#2196F3'
+  };
+  const durations = [6, 12, 18];
 
-  const portfolioHtml = homePortfolioData.map(p => {
-    const bPct = Math.round((p.budgetSpent / p.budgetTotal) * 100);
-    const benPct = Math.round((p.benReached / p.benTarget) * 100);
-    const docsHtml = (p.planningDocs || []).map(doc => {
-      const c = docColors[doc.status] || { bg:'#F5F5F5', color:'#666' };
-      return `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
-        <span style="font-size:11px;color:#5A6A7A;">${doc.plan}</span>
-        <span style="font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;background:${c.bg};color:${c.color};white-space:nowrap;">${doc.status}</span>
-      </div>`;
-    }).join('');
+  const portfolioHtml = projects.map((p, idx) => {
+    const budgetPercent = Math.round((p.budget.spent / p.budget.total) * 100);
+    const beneficiariesPercent = Math.round((p.beneficiaries.reached / p.beneficiaries.target) * 100);
+    const status = statuses[idx % statuses.length];
+    const statusColor = statusColors[status];
+    const duration = durations[idx];
 
     return `
-      <tr style="cursor:pointer;" onclick="navigateTo('${p.id}','alerts')" title="Click to open ${p.name}">
-        <td><strong>${p.country}</strong></td>
-        <td><strong style="color:#1A648C;">${p.name}</strong></td>
-        <td style="color:#999;font-style:italic;">TBD</td>
-        <td><span class="badge" style="background:${p.statusColor}20;color:${p.statusColor};border:1px solid ${p.statusColor};white-space:nowrap;">${p.status}</span></td>
-        <td style="min-width:200px;">${docsHtml}</td>
+      <tr>
+        <td><strong>${p.name}</strong></td>
+        <td>TBD</td>
+        <td><span class="badge" style="background: ${statusColor}20; color: ${statusColor}; border: 1px solid ${statusColor};">${status}</span></td>
         <td>
-          <div style="margin-bottom:6px;"><strong>$${(p.budgetSpent/1000000).toFixed(2)}M</strong> / $${(p.budgetTotal/1000000).toFixed(2)}M</div>
-          <div class="progress-bar"><div class="progress-fill" style="width:${bPct}%;"></div></div>
-          <div style="font-size:11px;color:#666;margin-top:3px;">${bPct}% utilized</div>
+          <div style="margin-bottom: 8px;"><strong>$${(p.budget.spent/1000000).toFixed(2)}M</strong> / $${(p.budget.total/1000000).toFixed(2)}M</div>
+          <div style="margin-bottom: 4px; font-size: 11px; color: #666;">${budgetPercent}% utilizado</div>
+          <div class="progress-bar"><div class="progress-fill" style="width: ${budgetPercent}%;"></div></div>
         </td>
         <td>
-          <div style="margin-bottom:6px;"><strong>${p.benReached.toLocaleString()}</strong> / ${p.benTarget.toLocaleString()}</div>
-          <div class="progress-bar"><div class="progress-fill" style="width:${benPct}%;background:#508931;"></div></div>
-          <div style="font-size:11px;color:#666;margin-top:3px;">${benPct}% reached</div>
+          <div style="margin-bottom: 8px;"><strong>${p.beneficiaries.reached.toLocaleString()}</strong></div>
+          <div style="margin-bottom: 4px; font-size: 11px; color: #666;">${beneficiariesPercent}% reached (${p.beneficiaries.target.toLocaleString()})</div>
+          <div class="progress-bar"><div class="progress-fill" style="width: ${beneficiariesPercent}%;"></div></div>
         </td>
-        <td style="text-align:center;"><strong>${p.duration}</strong></td>
-      </tr>`;
+        <td style="text-align: center;"><strong>${duration}</strong></td>
+      </tr>
+    `;
   }).join('');
 
   document.getElementById('portfolio-table').innerHTML = portfolioHtml;
@@ -4094,7 +3481,6 @@ function buildGlobalDashboard() {
     subheaderHtml += '<td></td></tr>';
 
     headerHtml += subheaderHtml;
-    if (!document.getElementById('demand-table-header')) return;
     document.getElementById('demand-table-header').innerHTML = headerHtml;
 
     // Build body
@@ -4124,9 +3510,7 @@ function buildGlobalDashboard() {
       bodyHtml += rowHtml;
     });
 
-    if (document.getElementById('demand-table-body')) {
-      document.getElementById('demand-table-body').innerHTML = bodyHtml;
-    }
+    document.getElementById('demand-table-body').innerHTML = bodyHtml;
 
     // Add click handlers
     document.querySelectorAll('.demand-cat-header').forEach(el => {
@@ -5104,13 +4488,11 @@ function exportTableToExcel(btn, filename) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  if (sessionStorage.getItem('scap_auth') === '1') { document.getElementById('password-gate').classList.add('hidden'); }
   showPage('global');
   setTimeout(createDemandCharts, 500);
   setTimeout(createPipelineCharts, 500);
   setTimeout(createDistributionCharts, 500);
   setTimeout(createOverviewKPIs, 500);
-  setTimeout(() => { applyHomeFilters(); applyHomePortfolioFilters(); }, 100);
 });
 
 // Update charts when navigating to tabs
@@ -5153,209 +4535,6 @@ const inventoryLocationData = {
 };
 
 window.inventoryChartInstances = window.inventoryChartInstances || {};
-
-// Warehouse weight distribution for arrivals (dummy — splits each project's data across warehouses)
-const arrivalsWarehouseWeights = {
-  'port-au-prince': 0.50,
-  'cap-haitien':    0.30,
-  'les-cayes':      0.20,
-  'all':            1.00
-};
-
-window.globalArrivalsChartInstance = null;
-
-// Demand data by category → product → project
-const demandProductData = {
-  'Seeds': {
-    'Rice Seed':   { 'project-1': 270000, 'project-2': 180000, 'project-3': 146250 },
-    'Wheat Seed':  { 'project-1': 210000, 'project-2': 140000, 'project-3': 113750 },
-    'Legume Seed': { 'project-1': 120000, 'project-2':  80000, 'project-3':  65000 }
-  },
-  'Fertilizer': {
-    'Urea':         { 'project-1': 153000, 'project-2': 108000, 'project-3':  86400 },
-    'DAP':          { 'project-1': 134100, 'project-2':  94500, 'project-3':  75600 },
-    'Compound NPK': { 'project-1':  95400, 'project-2':  67500, 'project-3':  54000 }
-  },
-  'Machinery': {
-    'Tractors':    { 'project-1': 25000, 'project-2': 16000, 'project-3': 12000 },
-    'Water Pumps': { 'project-1': 21000, 'project-2': 14000, 'project-3': 10500 },
-    'Threshers':   { 'project-1': 14000, 'project-2': 10000, 'project-3':  7500 }
-  },
-  'Vaccines': {
-    'FMD Vaccine':  { 'project-1': 45000, 'project-2': 32000, 'project-3': 28000 },
-    'CBPP Vaccine': { 'project-1': 39375, 'project-2': 28000, 'project-3': 24500 },
-    'Newcastle':    { 'project-1': 28125, 'project-2': 20000, 'project-3': 17500 }
-  }
-};
-
-const demandAllProjects = [
-  { id: 'project-1', label: 'Project 1', color: '#1A648C' },
-  { id: 'project-2', label: 'Project 2', color: '#F39C12' },
-  { id: 'project-3', label: 'Project 3', color: '#508931' }
-];
-
-function updateDemandProductFilter() {
-  const catFilter = document.getElementById('demand-filter-category')?.value || 'all';
-  const sel = document.getElementById('demand-filter-product');
-  if (!sel) return;
-
-  sel.innerHTML = '<option value="all">All Products</option>';
-  const cats = catFilter === 'all' ? Object.keys(demandProductData) : [catFilter];
-  cats.forEach(cat => {
-    Object.keys(demandProductData[cat]).forEach(prod => {
-      const opt = document.createElement('option');
-      opt.value = prod; opt.textContent = prod;
-      sel.appendChild(opt);
-    });
-  });
-}
-
-function toggleDemandDetail(cat) {
-  const rows = document.querySelectorAll('.detail-' + cat);
-  const arrow = document.getElementById('arrow-' + cat);
-  const isOpen = rows[0]?.style.display !== 'none';
-  rows.forEach(r => r.style.display = isOpen ? 'none' : 'table-row');
-  if (arrow) arrow.style.transform = isOpen ? '' : 'rotate(90deg)';
-}
-
-function buildDemandOverviewChart() {
-  const canvas = document.getElementById('chart-demand-overview-global');
-  if (!canvas) return;
-  if (window._demandOverviewChart) { window._demandOverviewChart.destroy(); }
-
-  const projFilter = document.getElementById('demand-filter-project')?.value  || 'all';
-  const catFilter  = document.getElementById('demand-filter-category')?.value  || 'all';
-  const prodFilter = document.getElementById('demand-filter-product')?.value   || 'all';
-
-  const projects = projFilter === 'all' ? demandAllProjects : demandAllProjects.filter(p => p.id === projFilter);
-
-  // Build labels (products or categories depending on filter)
-  let labels = [];
-  let dataMap = {}; // label → { projectId → value }
-
-  const cats = catFilter === 'all' ? Object.keys(demandProductData) : [catFilter];
-  cats.forEach(cat => {
-    Object.entries(demandProductData[cat]).forEach(([prod, vals]) => {
-      if (prodFilter !== 'all' && prod !== prodFilter) return;
-      labels.push(prod);
-      dataMap[prod] = vals;
-    });
-  });
-
-  // If no product filter and all categories: group by category instead
-  if (prodFilter === 'all' && catFilter === 'all') {
-    labels = [];
-    dataMap = {};
-    cats.forEach(cat => {
-      labels.push(cat);
-      dataMap[cat] = {};
-      demandAllProjects.forEach(p => {
-        dataMap[cat][p.id] = Object.values(demandProductData[cat]).reduce((s, v) => s + (v[p.id] || 0), 0);
-      });
-    });
-  }
-
-  let datasets;
-  if (projFilter === 'all') {
-    // Single aggregated bar
-    datasets = [{
-      label: 'All Projects',
-      backgroundColor: '#1A648C',
-      data: labels.map(lbl => demandAllProjects.reduce((s, p) => s + (dataMap[lbl]?.[p.id] || 0), 0)),
-      borderRadius: 4, borderSkipped: false
-    }];
-  } else {
-    datasets = projects.map(p => ({
-      label: p.label,
-      backgroundColor: p.color,
-      data: labels.map(lbl => dataMap[lbl]?.[p.id] || 0),
-      borderRadius: 4, borderSkipped: false
-    }));
-  }
-
-  // Dynamic height based on number of labels
-  canvas.parentElement.style.height = Math.max(200, labels.length * (projects.length === 1 ? 40 : 30) + 80) + 'px';
-
-  window._demandOverviewChart = new Chart(canvas.getContext('2d'), {
-    type: 'bar',
-    data: { labels, datasets },
-    options: {
-      indexAxis: 'y',
-      responsive: true, maintainAspectRatio: false,
-      plugins: {
-        legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 16, boxWidth: 14 } },
-        tooltip: {
-          callbacks: {
-            label: ctx => ` ${ctx.dataset.label}: $${ctx.raw.toLocaleString('en-US')}`,
-            footer: items => `Total: $${items.reduce((s,i)=>s+i.raw,0).toLocaleString('en-US')}`
-          }
-        }
-      },
-      scales: {
-        x: { ticks: { font:{size:11}, callback: v => '$'+(v>=1000000?(v/1000000).toFixed(1)+'M':(v/1000).toFixed(0)+'K') }, grid: { color:'#F0F4F8' } },
-        y: { grid: { display: false }, ticks: { font: { size: 12 } } }
-      }
-    }
-  });
-}
-
-function buildGlobalArrivalsChart() {
-  const projFilter  = document.getElementById('arrivals-filter-project')?.value  || 'all';
-  const whFilter    = document.getElementById('arrivals-filter-warehouse')?.value || 'all';
-  const catFilter   = document.getElementById('arrivals-filter-category')?.value  || 'all';
-  const canvas      = document.getElementById('chart-arrivals-global');
-  if (!canvas) return;
-
-  if (window.globalArrivalsChartInstance) {
-    window.globalArrivalsChartInstance.destroy();
-    window.globalArrivalsChartInstance = null;
-  }
-
-  const months = ['Apr 2026', 'May 2026', 'Jun 2026', 'Jul 2026', 'Aug 2026', 'Sep 2026'];
-  const allCategories = [
-    { label: 'Seeds',      color: '#508931' },
-    { label: 'Fertilizer', color: '#F39C12' },
-    { label: 'Machinery',  color: '#3498DB' },
-    { label: 'Vaccines',   color: '#E91E8C' }
-  ];
-
-  const projects = projFilter === 'all' ? ['project-1','project-2','project-3'] : [projFilter];
-  const whWeight = arrivalsWarehouseWeights[whFilter] || 1.0;
-  const categories = catFilter === 'all' ? allCategories : allCategories.filter(c => c.label === catFilter);
-
-  const datasets = categories.map(cat => {
-    const aggregated = months.map((_, mIdx) => {
-      return projects.reduce((sum, pId) => {
-        const pData = arrivalsData[pId];
-        const catData = pData.categories.find(c => c.label === cat.label);
-        return sum + (catData ? catData.data[mIdx] * whWeight : 0);
-      }, 0);
-    });
-    return { label: cat.label, data: aggregated, backgroundColor: cat.color, borderSkipped: false };
-  });
-
-  window.globalArrivalsChartInstance = new Chart(canvas.getContext('2d'), {
-    type: 'bar',
-    data: { labels: months, datasets },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: {
-        legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 16, boxWidth: 14 } },
-        tooltip: {
-          callbacks: {
-            label: ctx => ctx.raw === 0 ? null : ` ${ctx.dataset.label}: $${ctx.raw.toLocaleString('en-US')}`,
-            footer: items => { const t = items.filter(i=>i.raw>0).reduce((s,i)=>s+i.raw,0); return t ? `Total: $${t.toLocaleString('en-US')}` : ''; }
-          },
-          filter: item => item.raw > 0
-        }
-      },
-      scales: {
-        x: { stacked: true, grid: { display: false }, ticks: { font: { size: 12 } } },
-        y: { stacked: true, ticks: { font: { size: 11 }, callback: v => '$' + (v>=1000000?(v/1000000).toFixed(1)+'M':(v/1000).toFixed(0)+'K') }, grid: { color: '#F0F4F8' } }
-      }
-    }
-  });
-}
 
 const arrivalsData = {
   'project-1': {
