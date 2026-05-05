@@ -362,7 +362,7 @@ tr:hover { background: #F9FAFB; }
   text-align: center; box-shadow: 0 24px 64px rgba(0,0,0,0.3);
 }
 .gate-logo {
-  width: 120px; height: 80px; background: #5791C8;
+  width: 160px; height: 160px; background: #5791C8;
   border-radius: 20px; display: flex; align-items: center;
   justify-content: center; margin: 0 auto 24px; padding: 16px;
 }
@@ -433,61 +433,61 @@ tr:hover { background: #F9FAFB; }
     <div class="sidebar-section">
       <div class="sidebar-section-title">Operations</div>
 
-      <!-- Global Dashboard -->
-      <div class="sidebar-item" onclick="navigateTo('global', null)">
-        <span class="sidebar-icon"><i class="fa-solid fa-globe"></i></span>
-        <span>Global Dashboard</span>
-      </div>
-
-      <!-- Project 1 Toggle -->
-      <div class="sidebar-item project-toggle" onclick="toggleProject('project-1')">
+      <!-- Haiti Toggle -->
+      <div class="sidebar-item project-toggle" onclick="toggleProject('haiti')">
         <div style="display: flex; align-items: center; gap: 12px;">
-          <span class="sidebar-icon"><i class="fa-solid fa-box"></i></span>
-          <span>Project 1</span>
+          <span class="sidebar-icon"><i class="fa-solid fa-flag"></i></span>
+          <span>Haiti</span>
         </div>
         <span class="arrow"><i class="fa-solid fa-chevron-right"></i></span>
       </div>
-      <div class="sidebar-submenu" id="submenu-project-1">
-        <div class="sidebar-submenu-item" onclick="navigateTo('project-1', 'alerts')"><i class="fa-solid fa-triangle-exclamation"></i> Alerts</div>
-        <div class="sidebar-submenu-item" onclick="navigateTo('project-1', 'overview')"><i class="fa-solid fa-chart-line"></i> Overview</div>
-        <div class="sidebar-submenu-item" onclick="navigateTo('project-1', 'demand')"><i class="fa-solid fa-chart-bar"></i> Demand</div>
-        <div class="sidebar-submenu-item" onclick="navigateTo('project-1', 'procurement')"><i class="fa-solid fa-cart-shopping"></i> Procurement</div>
-        <div class="sidebar-submenu-item" onclick="navigateTo('project-1', 'inventory')"><i class="fa-solid fa-boxes-stacked"></i> Inventory</div>
-        <div class="sidebar-submenu-item" onclick="navigateTo('project-1', 'distribution')"><i class="fa-solid fa-truck"></i> Distribution</div>
-      </div>
+      <div class="sidebar-submenu" id="submenu-haiti">
 
-      <!-- Project 2 Toggle -->
-      <div class="sidebar-item project-toggle" onclick="toggleProject('project-2')">
-        <div style="display: flex; align-items: center; gap: 12px;">
-          <span class="sidebar-icon"><i class="fa-solid fa-wheat-awn"></i></span>
-          <span>Project 2</span>
-        </div>
-        <span class="arrow"><i class="fa-solid fa-chevron-right"></i></span>
-      </div>
-      <div class="sidebar-submenu" id="submenu-project-2">
-        <div class="sidebar-submenu-item" onclick="navigateTo('project-2', 'alerts')"><i class="fa-solid fa-triangle-exclamation"></i> Alerts</div>
-        <div class="sidebar-submenu-item" onclick="navigateTo('project-2', 'overview')"><i class="fa-solid fa-chart-line"></i> Overview</div>
-        <div class="sidebar-submenu-item" onclick="navigateTo('project-2', 'demand')"><i class="fa-solid fa-chart-bar"></i> Demand</div>
-        <div class="sidebar-submenu-item" onclick="navigateTo('project-2', 'procurement')"><i class="fa-solid fa-cart-shopping"></i> Procurement</div>
-        <div class="sidebar-submenu-item" onclick="navigateTo('project-2', 'inventory')"><i class="fa-solid fa-boxes-stacked"></i> Inventory</div>
-        <div class="sidebar-submenu-item" onclick="navigateTo('project-2', 'distribution')"><i class="fa-solid fa-truck"></i> Distribution</div>
-      </div>
+        <!-- Country Dashboard -->
+        <div class="sidebar-submenu-item" onclick="navigateTo('global', null)"><i class="fa-solid fa-globe"></i> Country Dashboard</div>
 
-      <!-- Project 3 Toggle -->
-      <div class="sidebar-item project-toggle" onclick="toggleProject('project-3')">
-        <div style="display: flex; align-items: center; gap: 12px;">
-          <span class="sidebar-icon"><i class="fa-solid fa-hospital"></i></span>
-          <span>Project 3</span>
+        <!-- Project 1 Toggle -->
+        <div class="sidebar-submenu-item project-toggle" onclick="toggleProject('project-1')" style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;">
+          <span><i class="fa-solid fa-box"></i> Project 1</span>
+          <i class="fa-solid fa-chevron-right" id="arrow-proj-project-1" style="font-size:10px;transition:transform 0.2s;"></i>
         </div>
-        <span class="arrow"><i class="fa-solid fa-chevron-right"></i></span>
-      </div>
-      <div class="sidebar-submenu" id="submenu-project-3">
-        <div class="sidebar-submenu-item" onclick="navigateTo('project-3', 'alerts')"><i class="fa-solid fa-triangle-exclamation"></i> Alerts</div>
-        <div class="sidebar-submenu-item" onclick="navigateTo('project-3', 'overview')"><i class="fa-solid fa-chart-line"></i> Overview</div>
-        <div class="sidebar-submenu-item" onclick="navigateTo('project-3', 'demand')"><i class="fa-solid fa-chart-bar"></i> Demand</div>
-        <div class="sidebar-submenu-item" onclick="navigateTo('project-3', 'procurement')"><i class="fa-solid fa-cart-shopping"></i> Procurement</div>
-        <div class="sidebar-submenu-item" onclick="navigateTo('project-3', 'inventory')"><i class="fa-solid fa-boxes-stacked"></i> Inventory</div>
-        <div class="sidebar-submenu-item" onclick="navigateTo('project-3', 'distribution')"><i class="fa-solid fa-truck"></i> Distribution</div>
+        <div class="sidebar-submenu" id="submenu-project-1" style="padding-left:12px;">
+          <div class="sidebar-submenu-item" onclick="navigateTo('project-1', 'alerts')"><i class="fa-solid fa-triangle-exclamation"></i> Alerts</div>
+          <div class="sidebar-submenu-item" onclick="navigateTo('project-1', 'overview')"><i class="fa-solid fa-chart-line"></i> Overview</div>
+          <div class="sidebar-submenu-item" onclick="navigateTo('project-1', 'demand')"><i class="fa-solid fa-chart-bar"></i> Demand</div>
+          <div class="sidebar-submenu-item" onclick="navigateTo('project-1', 'procurement')"><i class="fa-solid fa-cart-shopping"></i> Procurement</div>
+          <div class="sidebar-submenu-item" onclick="navigateTo('project-1', 'inventory')"><i class="fa-solid fa-boxes-stacked"></i> Inventory</div>
+          <div class="sidebar-submenu-item" onclick="navigateTo('project-1', 'distribution')"><i class="fa-solid fa-truck"></i> Distribution</div>
+        </div>
+
+        <!-- Project 2 Toggle -->
+        <div class="sidebar-submenu-item project-toggle" onclick="toggleProject('project-2')" style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;">
+          <span><i class="fa-solid fa-wheat-awn"></i> Project 2</span>
+          <i class="fa-solid fa-chevron-right" id="arrow-proj-project-2" style="font-size:10px;transition:transform 0.2s;"></i>
+        </div>
+        <div class="sidebar-submenu" id="submenu-project-2" style="padding-left:12px;">
+          <div class="sidebar-submenu-item" onclick="navigateTo('project-2', 'alerts')"><i class="fa-solid fa-triangle-exclamation"></i> Alerts</div>
+          <div class="sidebar-submenu-item" onclick="navigateTo('project-2', 'overview')"><i class="fa-solid fa-chart-line"></i> Overview</div>
+          <div class="sidebar-submenu-item" onclick="navigateTo('project-2', 'demand')"><i class="fa-solid fa-chart-bar"></i> Demand</div>
+          <div class="sidebar-submenu-item" onclick="navigateTo('project-2', 'procurement')"><i class="fa-solid fa-cart-shopping"></i> Procurement</div>
+          <div class="sidebar-submenu-item" onclick="navigateTo('project-2', 'inventory')"><i class="fa-solid fa-boxes-stacked"></i> Inventory</div>
+          <div class="sidebar-submenu-item" onclick="navigateTo('project-2', 'distribution')"><i class="fa-solid fa-truck"></i> Distribution</div>
+        </div>
+
+        <!-- Project 3 Toggle -->
+        <div class="sidebar-submenu-item project-toggle" onclick="toggleProject('project-3')" style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;">
+          <span><i class="fa-solid fa-hospital"></i> Project 3</span>
+          <i class="fa-solid fa-chevron-right" id="arrow-proj-project-3" style="font-size:10px;transition:transform 0.2s;"></i>
+        </div>
+        <div class="sidebar-submenu" id="submenu-project-3" style="padding-left:12px;">
+          <div class="sidebar-submenu-item" onclick="navigateTo('project-3', 'alerts')"><i class="fa-solid fa-triangle-exclamation"></i> Alerts</div>
+          <div class="sidebar-submenu-item" onclick="navigateTo('project-3', 'overview')"><i class="fa-solid fa-chart-line"></i> Overview</div>
+          <div class="sidebar-submenu-item" onclick="navigateTo('project-3', 'demand')"><i class="fa-solid fa-chart-bar"></i> Demand</div>
+          <div class="sidebar-submenu-item" onclick="navigateTo('project-3', 'procurement')"><i class="fa-solid fa-cart-shopping"></i> Procurement</div>
+          <div class="sidebar-submenu-item" onclick="navigateTo('project-3', 'inventory')"><i class="fa-solid fa-boxes-stacked"></i> Inventory</div>
+          <div class="sidebar-submenu-item" onclick="navigateTo('project-3', 'distribution')"><i class="fa-solid fa-truck"></i> Distribution</div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -503,7 +503,7 @@ tr:hover { background: #F9FAFB; }
       <i class="fa-solid fa-tower-broadcast" style="color:white; font-size:20px;"></i>
     </div>
     <div>
-      <h1>Supply Chain Control Tower | Haiti</h1>
+      <h1>Supply Chain Control Tower</h1>
     </div>
   </div>
   <div style="display:flex; align-items:center; gap:16px;">
@@ -516,7 +516,7 @@ tr:hover { background: #F9FAFB; }
 <!-- ============================================================================== -->
 <!-- HOME PAGE -->
 <!-- ============================================================================== -->
-<div id="home" class="page">
+<div id="home" class="page active">
 
   <div class="hero">
     <h1>Global Portfolio Overview</h1>
@@ -629,7 +629,7 @@ tr:hover { background: #F9FAFB; }
 <!-- ============================================================================== -->
 <!-- GLOBAL DASHBOARD PAGE -->
 <!-- ============================================================================== -->
-<div id="global" class="page active">
+<div id="global" class="page">
 
   <div class="hero">
     <h1>Global Dashboard</h1>
@@ -3925,12 +3925,17 @@ function updateSidebarActive(page, tab) {
 
 function toggleProject(projectId) {
   const submenu = document.getElementById(`submenu-${projectId}`);
-  const toggle = document.querySelector(`[onclick="toggleProject('${projectId}')"]`);
+  if (!submenu) return;
+  const isOpen = submenu.classList.contains('open');
+  submenu.classList.toggle('open');
 
-  if (submenu && toggle) {
-    submenu.classList.toggle('open');
-    toggle.classList.toggle('open');
-  }
+  // Update arrow for project-level items inside Haiti
+  const arrow = document.getElementById(`arrow-proj-${projectId}`);
+  if (arrow) arrow.style.transform = isOpen ? '' : 'rotate(90deg)';
+
+  // Update arrow for top-level toggles (Haiti itself)
+  const toggleEl = document.querySelector(`[onclick="toggleProject('${projectId}')"]`);
+  if (toggleEl) toggleEl.classList.toggle('open');
 }
 
 const projects = [
@@ -5210,7 +5215,7 @@ function exportTableToExcel(btn, filename) {
 
 document.addEventListener('DOMContentLoaded', () => {
   if (sessionStorage.getItem('scap_auth') === '1') { document.getElementById('password-gate').classList.add('hidden'); }
-  showPage('global');
+  showPage('home');
   setTimeout(createDemandCharts, 500);
   setTimeout(createPipelineCharts, 500);
   setTimeout(createDistributionCharts, 500);
